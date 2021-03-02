@@ -10,7 +10,7 @@ export const login_details=(state=intialLoginDetails,action)=>{
                 ...state,
                 login_details:action.data
             }
-        break;
+        
         default:return state
     }
 } 
