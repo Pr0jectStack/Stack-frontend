@@ -1,11 +1,18 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SignUpContainer from './containers/SignUpContainer';
+import SignInContainer from './containers/SignInContainer';
 
 function App() {
   return (
-    <div className="App">
-      <SignUpContainer/>
-    </div>
+    <>
+      <Router>
+        <Switch>
+          <Route exact path="/signup" exact component={SignUpContainer} />
+          <Route exact path="/signin" exact component={SignInContainer} />
+        </Switch>
+      </Router>
+    </>
   );
 }
 
