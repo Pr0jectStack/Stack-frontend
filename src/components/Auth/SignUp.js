@@ -4,14 +4,18 @@ import "./Validation";
 const SignUp = (props) => {
   // console.warn(props.data.login_details);
 
-  const { setLoginDetailsHandler } = props;
+  // const { setLoginDetailsHandler } = props;
 
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
+    termsAndConditions: false,
+    passwordVisibility: false,
+    confirmPasswordVisibility: false,
   });
 
   const [error, setError] = useState({
@@ -20,10 +24,15 @@ const SignUp = (props) => {
     email: "",
     password: "",
     confirmPassword: "",
+    termsAndConditions: "",
+    username: "",
   });
 
   const handleChange = (name) => (event) => {
     setError({ ...error, [name]: "" });
+    if (name === "termsAndConditions") {
+      setValues({ ...values, [name]: ![name] });
+    }
     setValues({ ...values, [name]: event.target.value });
   };
 
@@ -37,17 +46,34 @@ const SignUp = (props) => {
 
   const validate = () => {
     let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!re.test(email)) {
-      setError({ ...error, email: "Enter valid email" });
-      return false;
-    }
     if (password.length >= 8) {
       if (firstName.length >= 3) {
-        if (confirmPassword === password) {
-          return true;
-        } else {
-          setError({ ...error, confirmPassword: "Passwords do not match." });
+        if (!re.test(email)) {
+          setError({ ...error, email: "Enter valid email" });
           return false;
+        } else {
+          if (confirmPassword === password) {
+            if (termsAndConditions) {
+              if (username.length >= 3) {
+                return true;
+              } else {
+                setError({
+                  ...error,
+                  username: "Username must be atlease 3 characters long",
+                });
+                return false;
+              }
+            } else {
+              setError({
+                ...error,
+                termsAndConditions: "Accept terms and conditions",
+              });
+              return false;
+            }
+          } else {
+            setError({ ...error, confirmPassword: "Passwords do not match." });
+            return false;
+          }
         }
       } else {
         setError({
@@ -59,62 +85,121 @@ const SignUp = (props) => {
     } else {
       setError({
         ...error,
-        password: "Password must be at-least of 8 characters.",
+        password: "Password must be atleast of 8 characters.",
       });
       return false;
     }
   };
 
-  const { firstName, lastName, email, password, confirmPassword } = values;
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    confirmPassword,
+    termsAndConditions,
+    passwordVisibility,
+    confirmPasswordVisibility,
+    username,
+  } = values;
 
   return (
     <div>
       <MDBContainer>
         <MDBRow>
-          <MDBCol md="6" className="mx-auto border mt-5 shadow">
+          <MDBCol
+            md="6"
+            className="mx-auto border mt-5 shadow"
+            style={{ borderRadius: "20px", width: "90%",padding:"40px 100px" }}
+          >
             <form
-              className="my-5 needs-validation"
+              className="needs-validation"
               onSubmit={handleSubmit}
               noValidate
             >
-              <h1 className="text-center mb-4">Sign up</h1>
+              <h1 className="text-center mb-4" style={{ fontSize: "6vh" }}>
+                Sign up
+              </h1>
               <div className="grey-text">
-                <MDBInput
-                  label="First name"
-                  icon="user"
-                  group
+                <MDBRow>
+                  <MDBCol md="6" className="mb-3">
+                    <label
+                      htmlFor="defaultFormRegisterNameEx"
+                      className="grey-text"
+                    >
+                      First name
+                    </label>
+                    <input
+                      value={firstName}
+                      name="fname"
+                      onChange={handleChange("firstName")}
+                      type="text"
+                      id="defaultFormRegisterNameEx"
+                      className="form-control"
+                      placeholder="First name"
+                      required
+                      className={
+                        error.firstName
+                          ? "form-control is-invalid p-4"
+                          : "form-control p-4"
+                      }
+                    />
+                    <div className="invalid-feedback">{error.firstName}</div>
+                  </MDBCol>
+
+                  <MDBCol md="6" className="mb-3">
+                    <label
+                      htmlFor="defaultFormRegisterNameEx"
+                      className="grey-text"
+                    >
+                      Last name
+                    </label>
+                    <input
+                      value={lastName}
+                      name="fname"
+                      onChange={handleChange("lastName")}
+                      type="text"
+                      id="defaultFormRegisterNameEx"
+                      className="form-control"
+                      placeholder="Last name"
+                      className={
+                        error.lastName
+                          ? "form-control is-invalid p-4"
+                          : "form-control p-4"
+                      }
+                    />
+                    <div className="invalid-feedback">{error.lastName}</div>
+                  </MDBCol>
+                </MDBRow>
+                <label
+                  htmlFor="defaultFormRegisterNameEx"
+                  className="grey-text mt-2"
+                >
+                  Your Username
+                </label>
+                <input
                   type="text"
+                  name="username"
+                  onChange={handleChange("username")}
                   error="wrong"
-                  name="firstName"
-                  value={firstName}
-                  onChange={handleChange("firstName")}
+                  value={username}
                   success="right"
                   required
-                  className={error.firstName ? "is-invalid" : ""}
+                  placeholder="Username"
+                  className={
+                    error.username
+                      ? "form-control is-invalid p-4"
+                      : "form-control p-4"
+                  }
+                />
+                <div className="invalid-feedback">{error.username}</div>
+                <label
+                  htmlFor="defaultFormRegisterNameEx"
+                  className="grey-text mt-2"
                 >
-                  <div className="invalid-feedback">{error.firstName}</div>
-                  {/* <div className="valid-feedback">Looks good!</div> */}
-                </MDBInput>
-                <MDBInput
-                  label="Last name"
-                  icon="user"
-                  group
-                  type="text"
-                  error="wrong"
-                  name="lastName"
-                  value={lastName}
-                  onChange={handleChange("lastName")}
-                  success="right"
-                  required
-                  className={error.lastName ? "is-invalid" : ""}
-                >
-                  <div className="invalid-feedback">{error.lastName}</div>
-                  {/* <div className="valid-feedback">Looks good!</div> */}
-                </MDBInput>
-                <MDBInput
-                  label="Your email"
-                  icon="envelope"
-                  group
+                  Your Email
+                </label>
+                <input
                   type="email"
                   name="email"
                   onChange={handleChange("email")}
@@ -122,46 +207,125 @@ const SignUp = (props) => {
                   value={email}
                   success="right"
                   required
-                  className={error.email ? "is-invalid" : ""}
+                  placeholder="Email"
+                  className={
+                    error.email
+                      ? "form-control is-invalid p-4"
+                      : "form-control p-4"
+                  }
+                />
+                <div className="invalid-feedback">{error.email}</div>
+
+                <label
+                  htmlFor="defaultFormRegisterNameEx"
+                  className="grey-text mt-2"
                 >
-                  <div className="invalid-feedback">{error.email}</div>
-                  {/* <div className="valid-feedback">Looks good!</div> */}
-                </MDBInput>
-                <MDBInput
-                  label="Your password"
-                  icon="lock"
-                  group
-                  type="password"
-                  name="password"
-                  onChange={handleChange("password")}
-                  value={password}
-                  required
-                  className={error.password ? "is-invalid" : ""}
-                >
+                  Your Password
+                </label>
+                <div className="d-flex my-auto">
+                  <input
+                    type={!passwordVisibility ? "password" : "text"}
+                    name="password"
+                    onChange={handleChange("password")}
+                    value={password}
+                    required
+                    placeholder="Password"
+                    className={
+                      error.password
+                        ? "form-control is-invalid p-4"
+                        : "form-control p-4"
+                    }
+                  />
+                  <i
+                    style={{ fontSize: "20px" }}
+                    className={
+                      passwordVisibility
+                        ? "fa fa-eye-slash my-auto mx-2"
+                        : "fa fa-eye my-auto mx-2"
+                    }
+                    aria-hidden="true"
+                    onClick={() =>
+                      setValues({
+                        ...values,
+                        passwordVisibility: !passwordVisibility,
+                      })
+                    }
+                  ></i>
                   <div className="invalid-feedback">{error.password}</div>
-                  <div className="valid-feedback">Looks good!</div>
-                </MDBInput>
-                <MDBInput
-                  label="Confirm password"
-                  icon="lock"
-                  group
-                  type="password"
-                  name="confirmPassword"
-                  onChange={handleChange("confirmPassword")}
-                  value={confirmPassword}
-                  required
-                  className={error.confirmPassword ? "is-invalid" : ""}
+                </div>
+
+                <label
+                  htmlFor="defaultFormRegisterNameEx"
+                  className="grey-text mt-2"
                 >
+                  Confirm Password
+                </label>
+                <div className="d-flex ">
+                  <input
+                    label="Confirm password"
+                    icon="lock"
+                    group
+                    type={!confirmPasswordVisibility ? "password" : "text"}
+                    name="confirmPassword"
+                    onChange={handleChange("confirmPassword")}
+                    value={confirmPassword}
+                    required
+                    placeholder="Confirm Password"
+                    className={
+                      error.confirmPassword
+                        ? "form-control is-invalid p-4"
+                        : "form-control p-4"
+                    }
+                  />
+                  <i
+                    style={{ fontSize: "20px" }}
+                    className={
+                      confirmPasswordVisibility
+                        ? "fa fa-eye-slash my-auto mx-2"
+                        : "fa fa-eye my-auto mx-2"
+                    }
+                    aria-hidden="true"
+                    onClick={() =>
+                      setValues({
+                        ...values,
+                        confirmPasswordVisibility: !confirmPasswordVisibility,
+                      })
+                    }
+                  ></i>
                   <div className="invalid-feedback">
                     {error.confirmPassword}
                   </div>
-                  <div className="valid-feedback">Looks good!</div>
-                </MDBInput>
+                </div>
+              </div>
+              <div className="mt-3">
+                <input
+                  type="checkbox"
+                  id="defaultUnchecked"
+                  required
+                  className={error.termsAndConditions ? "is-invalid" : ""}
+                  onChange={handleChange("termsAndConditions")}
+                />
+                <label className="pl-2" for="defaultUnchecked">
+                  Accept the&nbsp;
+                  <a href="#!" className=" font-weight-bold">
+                    Terms and Conditions.
+                  </a>
+                  
+                </label>
+                <div className="invalid-feedback">
+                  {error.termsAndConditions}
+                </div>
               </div>
               <div className="text-center">
-                <MDBBtn color="primary" type="submit">
-                  Register
-                </MDBBtn>
+                <button
+                  className="btn btn-block btn-primary mt-3 mb-2"
+                  type="submit"
+                  style={{fontSize:"19px"}}
+                >
+                  
+                  Sign up
+                  <i style={{float:"right"}} className="fa fa-arrow-right my-2 " aria-hidden="true"></i>
+                </button>
               </div>
             </form>
           </MDBCol>
