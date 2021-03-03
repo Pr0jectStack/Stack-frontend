@@ -1,338 +1,216 @@
-import React, { useState } from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from "mdbreact";
-import "./Validation";
-const SignUp = (props) => {
-  // console.warn(props.data.login_details);
+import React, { useState, useRef } from "react";
+import { useForm } from "react-hook-form";
+import "./Auth.css";
 
-  // const { setLoginDetailsHandler } = props;
+const SignUp = () => {
+  const { register, handleSubmit, errors, watch } = useForm({});
 
-  const [values, setValues] = useState({
-    firstName: "",
-    lastName: "",
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    termsAndConditions: false,
-    passwordVisibility: false,
-    confirmPasswordVisibility: false,
+  const [visibility, setVisibilty] = useState({
+    password: false,
+    confirmPassword: false,
   });
 
-  const [error, setError] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    termsAndConditions: "",
-    username: "",
-  });
+  const password = useRef({});
+  password.current = watch("password", "");
 
-  const handleChange = (name) => (event) => {
-    setError({ ...error, [name]: "" });
-    if (name === "termsAndConditions") {
-      setValues({ ...values, [name]: ![name] });
-    }
-    setValues({ ...values, [name]: event.target.value });
+  const onSubmit = (data) => {
+    //TODO: validation submit logic
+    console.log(data);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (validate()) {
-      event.target.className += " was-validated";
-    }
-    // setLoginDetailsHandler(values);
+  const validateUserName = async (value) => {
+    //TODO: validation username logic
+    return value !== "rival";
   };
-
-  const validate = () => {
-    let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (password.length >= 8) {
-      if (firstName.length >= 3) {
-        if (!re.test(email)) {
-          setError({ ...error, email: "Enter valid email" });
-          return false;
-        } else {
-          if (confirmPassword === password) {
-            if (termsAndConditions) {
-              if (username.length >= 3) {
-                return true;
-              } else {
-                setError({
-                  ...error,
-                  username: "Username must be atlease 3 characters long",
-                });
-                return false;
-              }
-            } else {
-              setError({
-                ...error,
-                termsAndConditions: "Accept terms and conditions",
-              });
-              return false;
-            }
-          } else {
-            setError({ ...error, confirmPassword: "Passwords do not match." });
-            return false;
-          }
-        }
-      } else {
-        setError({
-          ...error,
-          firstName: "Firstname must be of atleast 3 characters",
-        });
-        return false;
-      }
-    } else {
-      setError({
-        ...error,
-        password: "Password must be atleast of 8 characters.",
-      });
-      return false;
-    }
-  };
-
-  const {
-    firstName,
-    lastName,
-    email,
-    password,
-    confirmPassword,
-    termsAndConditions,
-    passwordVisibility,
-    confirmPasswordVisibility,
-    username,
-  } = values;
 
   return (
-    <div>
-      <MDBContainer>
-        <MDBRow>
-          <MDBCol
-            md="6"
-            className="mx-auto border mt-5 shadow"
-            style={{ borderRadius: "20px", width: "90%",padding:"40px 100px" }}
-          >
-            <form
-              className="needs-validation"
-              onSubmit={handleSubmit}
-              noValidate
-            >
-              <h1 className="text-center mb-4" style={{ fontSize: "6vh" }}>
-                Sign up
-              </h1>
-              <div className="grey-text">
-                <MDBRow>
-                  <MDBCol md="6" className="mb-3">
-                    <label
-                      htmlFor="defaultFormRegisterNameEx"
-                      className="grey-text"
-                    >
-                      First name
-                    </label>
-                    <input
-                      value={firstName}
-                      name="fname"
-                      onChange={handleChange("firstName")}
-                      type="text"
-                      id="defaultFormRegisterNameEx"
-                      className="form-control"
-                      placeholder="First name"
-                      required
-                      className={
-                        error.firstName
-                          ? "form-control is-invalid p-4"
-                          : "form-control p-4"
-                      }
-                    />
-                    <div className="invalid-feedback">{error.firstName}</div>
-                  </MDBCol>
+    <>
+      <form onSubmit={handleSubmit(onSubmit)} style={{ width: "90%" }}>
+        <h1 className="mt-3">Create Account</h1>
+        <h6 className="text-white mb-5 text-center">
+          Already have an account?{" "}
+          <a href="/signin" className="text-info">
+            Sign in
+          </a>
+        </h6>
 
-                  <MDBCol md="6" className="mb-3">
-                    <label
-                      htmlFor="defaultFormRegisterNameEx"
-                      className="grey-text"
-                    >
-                      Last name
-                    </label>
-                    <input
-                      value={lastName}
-                      name="fname"
-                      onChange={handleChange("lastName")}
-                      type="text"
-                      id="defaultFormRegisterNameEx"
-                      className="form-control"
-                      placeholder="Last name"
-                      className={
-                        error.lastName
-                          ? "form-control is-invalid p-4"
-                          : "form-control p-4"
-                      }
-                    />
-                    <div className="invalid-feedback">{error.lastName}</div>
-                  </MDBCol>
-                </MDBRow>
-                <label
-                  htmlFor="defaultFormRegisterNameEx"
-                  className="grey-text mt-2"
-                >
-                  Your Username
-                </label>
-                <input
-                  type="text"
-                  name="username"
-                  onChange={handleChange("username")}
-                  error="wrong"
-                  value={username}
-                  success="right"
-                  required
-                  placeholder="Username"
-                  className={
-                    error.username
-                      ? "form-control is-invalid p-4"
-                      : "form-control p-4"
-                  }
-                />
-                <div className="invalid-feedback">{error.username}</div>
-                <label
-                  htmlFor="defaultFormRegisterNameEx"
-                  className="grey-text mt-2"
-                >
-                  Your Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  onChange={handleChange("email")}
-                  error="wrong"
-                  value={email}
-                  success="right"
-                  required
-                  placeholder="Email"
-                  className={
-                    error.email
-                      ? "form-control is-invalid p-4"
-                      : "form-control p-4"
-                  }
-                />
-                <div className="invalid-feedback">{error.email}</div>
+        <div className="d-flex">
+          {/* FirstName */}
+          <input
+            id="First Name"
+            type="text"
+            placeholder="First name"
+            name="firstName"
+            ref={register({
+              required: true,
+              minLength: 3,
+              maxLength: 25,
+              pattern: /^[ A-Za-z]*$/,
+            })}
+            style={{ marginRight: "10px" }}
+          />
 
-                <label
-                  htmlFor="defaultFormRegisterNameEx"
-                  className="grey-text mt-2"
-                >
-                  Your Password
-                </label>
-                <div className="d-flex my-auto">
-                  <input
-                    type={!passwordVisibility ? "password" : "text"}
-                    name="password"
-                    onChange={handleChange("password")}
-                    value={password}
-                    required
-                    placeholder="Password"
-                    className={
-                      error.password
-                        ? "form-control is-invalid p-4"
-                        : "form-control p-4"
-                    }
-                  />
-                  <i
-                    style={{ fontSize: "20px" }}
-                    className={
-                      passwordVisibility
-                        ? "fa fa-eye-slash my-auto mx-2"
-                        : "fa fa-eye my-auto mx-2"
-                    }
-                    aria-hidden="true"
-                    onClick={() =>
-                      setValues({
-                        ...values,
-                        passwordVisibility: !passwordVisibility,
-                      })
-                    }
-                  ></i>
-                  <div className="invalid-feedback">{error.password}</div>
-                </div>
+          {/* LastName */}
+          <input
+            type="text"
+            placeholder="Last name"
+            name="lastName"
+            ref={register({ pattern: /^[ A-Za-z]*$/ })}
+          />
+        </div>
 
-                <label
-                  htmlFor="defaultFormRegisterNameEx"
-                  className="grey-text mt-2"
-                >
-                  Confirm Password
-                </label>
-                <div className="d-flex ">
-                  <input
-                    label="Confirm password"
-                    icon="lock"
-                    group
-                    type={!confirmPasswordVisibility ? "password" : "text"}
-                    name="confirmPassword"
-                    onChange={handleChange("confirmPassword")}
-                    value={confirmPassword}
-                    required
-                    placeholder="Confirm Password"
-                    className={
-                      error.confirmPassword
-                        ? "form-control is-invalid p-4"
-                        : "form-control p-4"
-                    }
-                  />
-                  <i
-                    style={{ fontSize: "20px" }}
-                    className={
-                      confirmPasswordVisibility
-                        ? "fa fa-eye-slash my-auto mx-2"
-                        : "fa fa-eye my-auto mx-2"
-                    }
-                    aria-hidden="true"
-                    onClick={() =>
-                      setValues({
-                        ...values,
-                        confirmPasswordVisibility: !confirmPasswordVisibility,
-                      })
-                    }
-                  ></i>
-                  <div className="invalid-feedback">
-                    {error.confirmPassword}
-                  </div>
-                </div>
-              </div>
-              <div className="mt-3">
-                <input
-                  type="checkbox"
-                  id="defaultUnchecked"
-                  required
-                  className={error.termsAndConditions ? "is-invalid" : ""}
-                  onChange={handleChange("termsAndConditions")}
-                />
-                <label className="pl-2" for="defaultUnchecked">
-                  Accept the&nbsp;
-                  <a href="#!" className=" font-weight-bold">
-                    Terms and Conditions.
-                  </a>
-                  
-                </label>
-                <div className="invalid-feedback">
-                  {error.termsAndConditions}
-                </div>
-              </div>
-              <div className="text-center">
-                <button
-                  className="btn btn-block btn-primary mt-3 mb-2"
-                  type="submit"
-                  style={{fontSize:"19px"}}
-                >
-                  
-                  Sign up
-                  <i style={{float:"right"}} className="fa fa-arrow-right my-2 " aria-hidden="true"></i>
-                </button>
-              </div>
-            </form>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
-    </div>
+        {errors.firstName && errors.firstName.type === "required" && (
+          <p>This is required</p>
+        )}
+        {errors.firstName && errors.firstName.type === "minLength" && (
+          <p>Must have atleast 3 characters.</p>
+        )}
+        {((errors.firstName && errors.firstName.type === "pattern") ||
+          (errors.lastName && errors.lastName.type === "pattern")) && (
+          <p>Name must only contains alphabets.</p>
+        )}
+
+        {/* Username */}
+        <input
+          type="text"
+          placeholder="Username"
+          name="username"
+          ref={register({
+            required: true,
+            minLength: 5,
+            maxLength: 15,
+            validate: validateUserName,
+            pattern: /^[ A-Za-z0-9]*$/,
+          })}
+        />
+        {errors.username && errors.username.type === "required" && (
+          <p>This is required</p>
+        )}
+        {errors.username && errors.username.type === "minLength" && (
+          <p>Must have atleast 5 characters.</p>
+        )}
+        {errors.username && errors.username.type === "maxLength" && (
+          <p>Must have atmost 12 characters.</p>
+        )}
+        {errors.username && errors.username.type === "validate" && (
+          <p>Username not available.</p>
+        )}
+        {errors.username && errors.username.type === "pattern" && (
+          <p>Username must only contains numbers and alphabets.</p>
+        )}
+
+        {/* Email */}
+        <input
+          type="text"
+          placeholder="Email"
+          name="email"
+          ref={register({ required: true, pattern: /^\S+@\S+$/i })}
+        />
+        {errors.email && errors.email.type === "required" && (
+          <p>This is required</p>
+        )}
+        {errors.email && errors.email.type === "pattern" && (
+          <p>Enter a valid email.</p>
+        )}
+
+        {/* Password */}
+        <div
+          className="d-flex bg-white"
+          style={{
+            borderRadius: "4px",
+            height: "45px",
+            marginBottom: "10px",
+            height: "50px",
+          }}
+        >
+          <input
+            type={visibility.password ? "text" : "password"}
+            placeholder="Password"
+            name="password"
+            ref={register({ required: true, minLength: 8 })}
+            style={{ outline: "none", paddingTop: "4%" }}
+          />
+          <i
+            style={{ fontSize: "20px", color: "black" }}
+            className={
+              !visibility.password
+                ? "fa fa-eye-slash my-auto mx-2"
+                : "fa fa-eye my-auto mx-2"
+            }
+            aria-hidden="true"
+            onClick={() =>
+              setVisibilty({
+                ...visibility,
+                password: !visibility.password,
+              })
+            }
+          ></i>
+        </div>
+        {errors.password && errors.password.type === "required" && (
+          <p>This is required</p>
+        )}
+        {errors.password && errors.password.type === "minLength" && (
+          <p>Must have atleast 8 characters.</p>
+        )}
+
+        {/* Confirm Password */}
+        <div
+          className="d-flex bg-white"
+          style={{ borderRadius: "4px", height: "45px", height: "50px" }}
+        >
+          <input
+            type={visibility.confirmPassword ? "text" : "password"}
+            placeholder="Confirm Password"
+            name="confirmPassword"
+            ref={register({
+              required: true,
+              minLength: 8,
+              validate: (value) =>
+                value === password.current || "The passwords do not match",
+            })}
+            style={{ outline: "none", paddingTop: "4%" }}
+          />
+          <i
+            style={{ fontSize: "20px", color: "black" }}
+            className={
+              !visibility.confirmPassword
+                ? "fa fa-eye-slash my-auto mx-2"
+                : "fa fa-eye my-auto mx-2"
+            }
+            aria-hidden="true"
+            onClick={() =>
+              setVisibilty({
+                ...visibility,
+                confirmPassword: !visibility.confirmPassword,
+              })
+            }
+          ></i>
+        </div>
+        {errors.confirmPassword &&
+          errors.confirmPassword.type === "required" && <p>This is required</p>}
+        {errors.confirmPassword &&
+          errors.confirmPassword.type === "minLength" && (
+            <p>Must have atleast 8 characters.</p>
+          )}
+        {errors.confirmPassword &&
+          errors.confirmPassword.type === "validate" && (
+            <p>{errors.confirmPassword.message}</p>
+          )}
+
+        {/* Button */}
+        <input type="submit" style={{ marginTop: "20px" }} />
+
+        {/* Terms and Conditions */}
+        <h6 className="text-light mt-1">
+          By creating an account, you agree to our{" "}
+          <a herf="#" className="text-info">
+            Terms and Conditions
+          </a>{" "}
+          and cookie usage.
+        </h6>
+      </form>
+    </>
   );
-};
+}
 
 export default SignUp;
