@@ -7,7 +7,7 @@ const mapStateToProps = state =>({
 })
 
 const mapDispatchToProps = dispatch => ({
-    setLoginDetailsHandler: data => dispatch(setUserLoginDetails(data))
+    setUserProfile: data => dispatch(setUserLoginDetails(data))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(SignIn);
