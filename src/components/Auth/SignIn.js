@@ -18,7 +18,8 @@ const SignIn = (props) => {
   const onSubmit = (data) => {
     //TODO: validation submit logic
     const login = data;
-    login.userName = isUserName(data.username_email);
+    login.userName = isUserName(data.username_email)?1:0;
+    console.log(login)
     signInUser(login)
     .then(data=>{
       if(data.error){
