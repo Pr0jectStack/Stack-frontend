@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import "./Auth.css";
+import { signUpUser } from "./helper";
 
 const SignUp = () => {
   const { register, handleSubmit, errors, watch } = useForm({});
@@ -14,8 +15,18 @@ const SignUp = () => {
   password.current = watch("password", "");
 
   const onSubmit = (data) => {
-    //TODO: validation submit logic
-    console.log(data);
+    const login =data;
+    delete login.confirmPassword;
+    signUpUser(login)
+    .then(data=>{
+      if(data.error){
+        console.log(data.error);
+      }
+      else{
+        console.log(data);
+      }
+    })
+    
   };
 
   const validateUserName = async (value) => {

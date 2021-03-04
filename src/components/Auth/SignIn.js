@@ -1,31 +1,58 @@
 import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
+import { Redirect } from "react-router-dom";
 import "./Auth.css";
+import { signInUser,authenticate } from "./helper";
 
 const SignIn = (props) => {
-  // console.warn(props.data.login_details);
+  console.warn(props.data.login_details);
   const { register, handleSubmit, errors } = useForm({});
-
+  
+  const [redirect, setRedirect] =useState(false);
   const [visibility, setVisibilty] = useState({
     password: false,
   });
 
-  const { setLoginDetailsHandler } = props;
+  const { setUserProfile } = props;
 
   const onSubmit = (data) => {
     //TODO: validation submit logic
-    console.log(data);
+    const login = data;
+    login.userName = isUserName(data.username_email);
+    signInUser(login)
+    .then(data=>{
+      if(data.error){
+        console.log(data.error);
+      }
+      else{
+        const {user,token,_id} = data;
+        setUserProfile(user);
+        authenticate({token},()=>{
+          setRedirect(true);
+        });
+      }
+    })
   };
 
+  const redirectToDashboard =()=>{
+    if(redirect){
+      return <Redirect to="/dashboard"/>
+    }
+  }
+
   const validateUserNameOrEmail = (value) => {
-    const username_regex = /^[ A-Za-z0-9]*$/;
     const email_regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    return username_regex.test(value) || email_regex.test(value.toLowerCase());
+    return isUserName(value) || email_regex.test(value.toLowerCase());
+  };
+  const isUserName = (value) => {
+    const username_regex = /^[ A-Za-z0-9]*$/;
+    return username_regex.test(value);
   };
 
   return (
     <div>
+      {redirectToDashboard()}
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "90%" }}>
         <h1 className="mt-3">Sign In</h1>
         <h6 className="text-white mb-5 text-center">
