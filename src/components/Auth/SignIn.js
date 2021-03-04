@@ -1,11 +1,8 @@
 import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
-import "./Validation";
 import "./Auth.css";
 
-
 const SignIn = (props) => {
-  
   // console.warn(props.data.login_details);
   const { register, handleSubmit, errors } = useForm({});
 
@@ -18,6 +15,13 @@ const SignIn = (props) => {
   const onSubmit = (data) => {
     //TODO: validation submit logic
     console.log(data);
+  };
+
+  const validateUserNameOrEmail = (value) => {
+    const username_regex = /^[ A-Za-z0-9]*$/;
+    const email_regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    return username_regex.test(value) || email_regex.test(value.toLowerCase());
   };
 
   return (
@@ -34,42 +38,18 @@ const SignIn = (props) => {
         {/* Username */}
         <input
           type="text"
-          placeholder="Username"
-          name="username"
+          placeholder="username or email"
+          name="username_email"
           ref={register({
             required: true,
-            minLength: 5,
-            maxLength: 15,
-            pattern: /^[ A-Za-z0-9]*$/,
+            validate: validateUserNameOrEmail,
           })}
         />
-        {errors.username && errors.username.type === "required" && (
+        {errors.username_email && errors.username_email.type === "required" && (
           <p>This is required</p>
         )}
-        {errors.username && errors.username.type === "minLength" && (
-          <p>Must have atleast 5 characters.</p>
-        )}
-        {errors.username && errors.username.type === "maxLength" && (
-          <p>Must have atmost 12 characters.</p>
-        )}
-        {errors.username && errors.username.type === "pattern" && (
-          <p>Username must only contains numbers and alphabets.</p>
-        )}
-
-        <h6 className="text-center text-white">OR</h6>
-
-        {/* Email */}
-        <input
-          type="text"
-          placeholder="Email"
-          name="email"
-          ref={register({ required: true, pattern: /^\S+@\S+$/i })}
-        />
-        {errors.email && errors.email.type === "required" && (
-          <p>This is required</p>
-        )}
-        {errors.email && errors.email.type === "pattern" && (
-          <p>Enter a valid email.</p>
+        {errors.username_email && errors.username_email.type === "validate" && (
+          <p>Not a valid username or email.</p>
         )}
 
         {/* Password */}
@@ -84,7 +64,7 @@ const SignIn = (props) => {
         >
           <input
             type={visibility.password ? "text" : "password"}
-            placeholder="Password"
+            placeholder="password"
             name="password"
             ref={register({ required: true, minLength: 8 })}
             style={{ outline: "none", paddingTop: "4%" }}

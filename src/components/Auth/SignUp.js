@@ -22,6 +22,10 @@ const SignUp = () => {
     //TODO: validation username logic
     return value !== "rival";
   };
+  const validateEmail = (value) => {
+    const email_regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return email_regex.test(value.toLowerCase());
+  };
 
   return (
     <>
@@ -104,12 +108,12 @@ const SignUp = () => {
           type="text"
           placeholder="Email"
           name="email"
-          ref={register({ required: true, pattern: /^\S+@\S+$/i })}
+          ref={register({ required: true, validate: validateEmail })}
         />
         {errors.email && errors.email.type === "required" && (
           <p>This is required</p>
         )}
-        {errors.email && errors.email.type === "pattern" && (
+        {errors.email && errors.email.type === "validate" && (
           <p>Enter a valid email.</p>
         )}
 
@@ -211,6 +215,6 @@ const SignUp = () => {
       </form>
     </>
   );
-}
+};
 
 export default SignUp;
