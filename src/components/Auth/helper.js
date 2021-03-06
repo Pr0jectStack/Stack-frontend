@@ -51,3 +51,20 @@ export const isAuthenticated = () => {
     return false;
   }
 };
+
+export const checkUserExists = (data) =>{
+  return fetch(`${API}/auth/checkUserNameAvailability`,{
+    method:"POST",
+    headers:{
+      Accept:"application/json",
+      "Content-Type":"application/json",
+    },
+    body:JSON.stringify({username:data})
+  })
+  .then((res)=>{
+    return res.json();
+  })
+  .catch(err=>{
+
+  })
+}

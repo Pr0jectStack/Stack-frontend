@@ -18,7 +18,6 @@ const SignIn = (props) => {
   const onSubmit = (data) => {
     //TODO: validation submit logic
     const login = data;
-    login.userName = isUserName(data.username_email);
     signInUser(login)
     .then(data=>{
       if(data.error){
@@ -40,15 +39,9 @@ const SignIn = (props) => {
     }
   }
 
-  const validateUserNameOrEmail = (value) => {
-    const email_regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-    return isUserName(value) || email_regex.test(value.toLowerCase());
-  };
-  const isUserName = (value) => {
-    const username_regex = /^[ A-Za-z0-9]*$/;
-    return username_regex.test(value);
-  };
+  const username_regex = new RegExp(/^[ A-Za-z0-9]*$/)  ;
+  const email_regex = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+  const regex = new RegExp(username_regex.source + "|" + email_regex.source);  
 
   return (
     <div>
@@ -69,16 +62,16 @@ const SignIn = (props) => {
           name="username_email"
           ref={register({
             required: true,
-            validate: validateUserNameOrEmail,
+            pattern:regex,
           })}
         />
         {errors.username_email && errors.username_email.type === "required" && (
           <p>This is required</p>
         )}
-        {errors.username_email && errors.username_email.type === "validate" && (
+        {errors.username_email && errors.username_email.type === "pattern" && (
           <p>Not a valid username or email.</p>
         )}
-
+    
         {/* Password */}
         <div
           className="d-flex bg-white"
