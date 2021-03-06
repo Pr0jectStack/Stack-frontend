@@ -1,9 +1,15 @@
 import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import "./Auth.css";
+import { signUpUser, checkUserExists } from "./helper";
 
 const SignUp = () => {
-  const { register, handleSubmit, errors, watch } = useForm({});
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  const { register, handleSubmit, errors, watch } = useForm({
+    mode: "onBlur",
+  });
 
   const [visibility, setVisibilty] = useState({
     password: false,
@@ -14,15 +20,36 @@ const SignUp = () => {
   password.current = watch("password", "");
 
   const onSubmit = (data) => {
-    //TODO: validation submit logic
-    console.log(data);
+    const login = data;
+    delete login.confirmPassword;
+    console.log("USername is: " + data.username);
+    signUpUser(login).then((data) => {
+      if (data.error) {
+        setError(data.error);
+      } else {
+        setSuccess(true);
+      }
+    });
   };
 
-  const validateUserName = async (value) => {
-    //TODO: validation username logic
-    return value !== "rival";
+  const checkIfUserExists = (value) => {
+    checkUserExists(value).then((data) => {
+      if (!data || data.error) {
+        console.log("False must be returned");
+        return false;
+      } else {
+        return true;
+      }
+    });
+  };
+  const sleep = (milliseconds) => {
+    return new Promise((resolve) => setTimeout(resolve, milliseconds));
   };
 
+  const validateEmail = (value) => {
+    const email_regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return email_regex.test(value.toLowerCase());
+  };
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "90%" }}>
@@ -79,8 +106,11 @@ const SignUp = () => {
             required: true,
             minLength: 5,
             maxLength: 15,
-            validate: validateUserName,
             pattern: /^[ A-Za-z0-9]*$/,
+            validate: async (value) => {
+              await sleep(1000);
+              return checkIfUserExists(value);
+            },
           })}
         />
         {errors.username && errors.username.type === "required" && (
@@ -92,11 +122,11 @@ const SignUp = () => {
         {errors.username && errors.username.type === "maxLength" && (
           <p>Must have atmost 12 characters.</p>
         )}
-        {errors.username && errors.username.type === "validate" && (
-          <p>Username not available.</p>
-        )}
         {errors.username && errors.username.type === "pattern" && (
           <p>Username must only contains numbers and alphabets.</p>
+        )}
+        {errors.username && errors.username.type === "validate" && (
+          <p>Username or email already exists in our datatbase.</p>
         )}
 
         {/* Email */}
@@ -104,12 +134,12 @@ const SignUp = () => {
           type="text"
           placeholder="Email"
           name="email"
-          ref={register({ required: true, pattern: /^\S+@\S+$/i })}
+          ref={register({ required: true, validate: validateEmail })}
         />
         {errors.email && errors.email.type === "required" && (
           <p>This is required</p>
         )}
-        {errors.email && errors.email.type === "pattern" && (
+        {errors.email && errors.email.type === "validate" && (
           <p>Enter a valid email.</p>
         )}
 
@@ -211,6 +241,6 @@ const SignUp = () => {
       </form>
     </>
   );
-}
+};
 
 export default SignUp;
