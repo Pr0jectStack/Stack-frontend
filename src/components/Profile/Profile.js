@@ -1,13 +1,56 @@
-import React from "react";
-import { Container, Row, Col, Image, Button, Card } from "react-bootstrap";
+import React, { useState } from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Image,
+  Button,
+  Card,
+  Form,
+  InputGroup,
+} from "react-bootstrap";
 import CalendarHeatmap from "react-calendar-heatmap";
 import TeamCard from "./components/TeamCard";
 import default_image from "./default_image.jpg";
 import "./Profile.css";
 
 const Profile = () => {
-  const { setUserDetailsHandler } = props;
+  const [isEdit, setIsEdit] = useState(false);
+  const [smallProfileData, setSmallProfileData] = useState({
+    bio: "I got so much procrastinating done today.",
+    email: "elizab@gmail.com",
+    github: "",
+    twitter: "",
+    instagram: "",
+    website: "",
+  });
+  const [tempData, setTempData] = useState({
+    bio: "I got so much procrastinating done today.",
+    email: "elizab@gmail.com",
+    github: "",
+    twitter: "",
+    instagram: "",
+    website: "",
+  });
 
+  const onSave = () => {
+    setIsEdit(false);
+    setSmallProfileData({ ...tempData });
+  };
+
+  const onCancel = () => {
+    setIsEdit(false);
+  };
+
+  const handleChange = (event) => {
+    setTempData({
+      ...tempData,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  // ! TODO: Add Links for social account ids.
+  /** Display Social media icons with their respective logo. */
   const SocialMediaIcon = ({ icon, text }) => {
     return (
       <h6 style={{ color: "lightgrey" }}>
@@ -17,6 +60,50 @@ const Profile = () => {
     );
   };
 
+  /** Display Socials */
+  const Socials = () => {
+    return (
+      <>
+        {smallProfileData.email.length > 0 && (
+          <SocialMediaIcon icon={"fa fa-at"} text={smallProfileData.email} />
+        )}
+        {smallProfileData.github !== null &&
+          smallProfileData.github.length > 0 &&
+          smallProfileData.github !== undefined && (
+            <SocialMediaIcon
+              icon={"fa fa-github"}
+              text={smallProfileData.github}
+            />
+          )}
+        {smallProfileData.twitter !== null &&
+          smallProfileData.twitter.length > 0 &&
+          smallProfileData.twitter !== undefined && (
+            <SocialMediaIcon
+              icon={"fa fa-twitter"}
+              text={smallProfileData.twitter}
+            />
+          )}
+        {smallProfileData.instagram !== null &&
+          smallProfileData.instagram.length > 0 &&
+          smallProfileData.instagram !== undefined && (
+            <SocialMediaIcon
+              icon={"fa fa-instagram"}
+              text={smallProfileData.instagram}
+            />
+          )}
+        {smallProfileData.website !== null &&
+          smallProfileData.website.length > 1 &&
+          smallProfileData.website !== undefined && (
+            <SocialMediaIcon
+              icon={"fa fa-link"}
+              text={smallProfileData.website}
+            />
+          )}
+      </>
+    );
+  };
+
+  /** Horizontal Ruler */
   const HR = () => {
     return (
       <div
@@ -100,27 +187,210 @@ const Profile = () => {
           >
             elizab
           </h4>
-          <h6 style={{ color: "lightgrey" }}>
-            I got so much procrastinating done today.
-          </h6>
-          <Button
-            size="sm"
-            className="mt-4"
-            style={{
-              textTransform: "capitalize",
-              width: "250px",
-              backgroundColor: "#222130",
-            }}
-            block
-          >
-            Edit Profile
-          </Button>
-
-          <SocialMediaIcon icon={"fa fa-at"} text={"elizab@gmail.com"} />
-          <SocialMediaIcon icon={"fa fa-github"} text={"elizab"} />
-          <SocialMediaIcon icon={"fa fa-twitter"} text={"elizab"} />
-          <SocialMediaIcon icon={"fa fa-instagram"} text={"elizab"} />
-          <SocialMediaIcon icon={"fa fa-link"} text={"elizab.com"} />
+          {smallProfileData.bio && (
+            <h6 style={{ color: "lightgrey" }}>{smallProfileData.bio}</h6>
+          )}
+          {isEdit ? (
+            ""
+          ) : (
+            <Button
+              onClick={() => setIsEdit(true)}
+              size="sm"
+              className="mt-4"
+              style={{
+                textTransform: "capitalize",
+                width: "250px",
+                backgroundColor: "#222130",
+              }}
+              block
+            >
+              Edit Profile
+            </Button>
+          )}
+          {isEdit ? (
+            <Row>
+              <Col>
+                <Form className="mt-3 mb-3" style={{ width: "250px" }}>
+                  <Form.Group>
+                    <Form.Control
+                      style={{
+                        backgroundColor: "inherit",
+                        color: "lightgrey",
+                        borderColor: "#222128",
+                        borderWidth: "2px",
+                        height: "100px",
+                      }}
+                      as="textarea"
+                      name="bio"
+                      id="bio"
+                      value={tempData.bio}
+                      placeholder={"Bio"}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <InputGroup>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text
+                          className="fa fa-github"
+                          style={{
+                            color: "lightgrey",
+                            backgroundColor: "inherit",
+                            border: "0px",
+                          }}
+                        />
+                      </InputGroup.Prepend>
+                      <Form.Control
+                        style={{
+                          backgroundColor: "inherit",
+                          color: "lightgrey",
+                          borderColor: "#222128",
+                          width: "100px",
+                        }}
+                        type="text"
+                        name="github"
+                        id="github"
+                        size="sm"
+                        value={tempData.github}
+                        placeholder={"Github Username"}
+                        onChange={handleChange}
+                      />
+                    </InputGroup>
+                  </Form.Group>
+                  <Form.Group>
+                    <InputGroup>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text
+                          className="fa fa-twitter"
+                          style={{
+                            color: "lightgrey",
+                            backgroundColor: "inherit",
+                            border: "0px",
+                          }}
+                        />
+                      </InputGroup.Prepend>
+                      <Form.Control
+                        style={{
+                          backgroundColor: "inherit",
+                          color: "lightgrey",
+                          borderColor: "#222128",
+                          width: "100px",
+                        }}
+                        type="text"
+                        name="twitter"
+                        id="twitter"
+                        size="sm"
+                        value={tempData.twitter}
+                        placeholder={"Twitter Username"}
+                        onChange={handleChange}
+                      />
+                    </InputGroup>
+                  </Form.Group>
+                  <Form.Group>
+                    <InputGroup>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text
+                          className="fa fa-instagram"
+                          style={{
+                            color: "lightgrey",
+                            backgroundColor: "inherit",
+                            border: "0px",
+                          }}
+                        />
+                      </InputGroup.Prepend>
+                      <Form.Control
+                        style={{
+                          backgroundColor: "inherit",
+                          color: "lightgrey",
+                          borderColor: "#222128",
+                          width: "100px",
+                        }}
+                        type="text"
+                        name="instagram"
+                        id="instagram"
+                        size="sm"
+                        value={tempData.instagram}
+                        placeholder={"Instagram Username"}
+                        onChange={handleChange}
+                      />
+                    </InputGroup>
+                  </Form.Group>
+                  <Form.Group>
+                    <InputGroup>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text
+                          className="fa fa-link"
+                          style={{
+                            color: "lightgrey",
+                            backgroundColor: "inherit",
+                            border: "0px",
+                          }}
+                        />
+                      </InputGroup.Prepend>
+                      <Form.Control
+                        style={{
+                          backgroundColor: "inherit",
+                          color: "lightgrey",
+                          borderColor: "#222128",
+                          width: "100px",
+                        }}
+                        type="text"
+                        name="website"
+                        id="website"
+                        size="sm"
+                        value={tempData.website}
+                        placeholder={"Wesbite URL"}
+                        onChange={handleChange}
+                      />
+                    </InputGroup>
+                  </Form.Group>
+                  <Col>
+                    <Row>
+                      <span
+                        type="button"
+                        onClick={onSave}
+                        className="mt-1 text-center"
+                        size="sm"
+                        style={{
+                          width: "50px",
+                          height: "30px",
+                          padding: "2px",
+                          textTransform: "capitalize",
+                          color: "lightgrey",
+                          backgroundColor: "#1e6823",
+                          borderRadius: "5px",
+                        }}
+                      >
+                        Save
+                      </span>
+                      <div className="mr-3"></div>
+                      <span
+                        type="button"
+                        onClick={onCancel}
+                        className="mt-1 text-center"
+                        size="sm"
+                        style={{
+                          width: "58px",
+                          height: "33px",
+                          padding: "2px",
+                          paddingRight: "6px",
+                          paddingLeft: "6px",
+                          textTransform: "capitalize",
+                          color: "lightgrey",
+                          backgroundColor: "#222130",
+                          borderRadius: "5px",
+                        }}
+                      >
+                        Cancel
+                      </span>
+                    </Row>
+                  </Col>
+                </Form>
+              </Col>
+            </Row>
+          ) : (
+            <Socials />
+          )}
           <HR />
           <Workspace />
         </Col>
@@ -200,7 +470,7 @@ const Profile = () => {
                     if (!value) {
                       return "color-empty";
                     }
-                    return `color-scale-${(value.count % 4) + 1}`;
+                    return `color-scale-${value.count > 4 ? 4 : value.count}`;
                   }}
                 />
               </Card.Body>

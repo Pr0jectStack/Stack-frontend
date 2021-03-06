@@ -15,7 +15,7 @@ function App() {
           {/* Public Routes */}
           <GuestRoute exact path="/signup" exact component={SignUpContainer} />
           <GuestRoute exact path="/signin" exact component={SignInContainer} />
-          <GuestRoute
+          <PrivateRoute
             exact
             path="/profile"
             exact
