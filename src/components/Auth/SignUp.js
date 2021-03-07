@@ -8,7 +8,7 @@ const SignUp = () => {
   const [success, setSuccess] = useState(false);
 
   const { register, handleSubmit, errors, watch } = useForm({
-    mode: "onBlur",
+    // mode: "onChange",
   });
 
   const [visibility, setVisibilty] = useState({
@@ -51,9 +51,13 @@ const SignUp = () => {
     return email_regex.test(value.toLowerCase());
   };
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)} style={{ width: "90%" }}>
-        <h1 className="mt-3">Create Account</h1>
+    <div style={{marginTop:"100px"}}>
+      <form
+        className="auth-form"
+        onSubmit={handleSubmit(onSubmit)}
+        style={{ width: "90%" }}
+      >
+        <h1 className="auth-h1">Create Account</h1>
         <h6 className="text-white mb-5 text-center">
           Already have an account?{" "}
           <a href="/signin" className="text-info">
@@ -64,6 +68,7 @@ const SignUp = () => {
         <div className="d-flex">
           {/* FirstName */}
           <input
+          className="auth-input"
             id="First Name"
             type="text"
             placeholder="First name"
@@ -79,6 +84,7 @@ const SignUp = () => {
 
           {/* LastName */}
           <input
+          className="auth-input"
             type="text"
             placeholder="Last name"
             name="lastName"
@@ -87,18 +93,19 @@ const SignUp = () => {
         </div>
 
         {errors.firstName && errors.firstName.type === "required" && (
-          <p>This is required</p>
+          <p className="warning">This is required</p>
         )}
         {errors.firstName && errors.firstName.type === "minLength" && (
-          <p>Must have atleast 3 characters.</p>
+          <p className="warning">Must have atleast 3 characters.</p>
         )}
         {((errors.firstName && errors.firstName.type === "pattern") ||
           (errors.lastName && errors.lastName.type === "pattern")) && (
-          <p>Name must only contains alphabets.</p>
+          <p className="warning">Name must only contains alphabets.</p>
         )}
 
         {/* Username */}
         <input
+        className="auth-input"
           type="text"
           placeholder="Username"
           name="username"
@@ -114,33 +121,34 @@ const SignUp = () => {
           })}
         />
         {errors.username && errors.username.type === "required" && (
-          <p>This is required</p>
+          <p className="warning">This is required</p>
         )}
         {errors.username && errors.username.type === "minLength" && (
-          <p>Must have atleast 5 characters.</p>
+          <p className="warning">Must have atleast 5 characters.</p>
         )}
         {errors.username && errors.username.type === "maxLength" && (
-          <p>Must have atmost 12 characters.</p>
+          <p className="warning">Must have atmost 12 characters.</p>
         )}
         {errors.username && errors.username.type === "pattern" && (
-          <p>Username must only contains numbers and alphabets.</p>
+          <p className="warning">Username must only contains numbers and alphabets.</p>
         )}
         {errors.username && errors.username.type === "validate" && (
-          <p>Username or email already exists in our datatbase.</p>
+          <p className="warning">Username or email already exists in our datatbase.</p>
         )}
 
         {/* Email */}
         <input
+        className="auth-input"
           type="text"
           placeholder="Email"
           name="email"
           ref={register({ required: true, validate: validateEmail })}
         />
         {errors.email && errors.email.type === "required" && (
-          <p>This is required</p>
+          <p className="warning">This is required</p>
         )}
         {errors.email && errors.email.type === "validate" && (
-          <p>Enter a valid email.</p>
+          <p className="warning">Enter a valid email.</p>
         )}
 
         {/* Password */}
@@ -154,6 +162,7 @@ const SignUp = () => {
           }}
         >
           <input
+          className="auth-input"
             type={visibility.password ? "text" : "password"}
             placeholder="Password"
             name="password"
@@ -177,10 +186,10 @@ const SignUp = () => {
           ></i>
         </div>
         {errors.password && errors.password.type === "required" && (
-          <p>This is required</p>
+          <p className="warning">This is required</p>
         )}
         {errors.password && errors.password.type === "minLength" && (
-          <p>Must have atleast 8 characters.</p>
+          <p className="warning">Must have atleast 8 characters.</p>
         )}
 
         {/* Confirm Password */}
@@ -189,6 +198,7 @@ const SignUp = () => {
           style={{ borderRadius: "4px", height: "45px", height: "50px" }}
         >
           <input
+          className="auth-input"
             type={visibility.confirmPassword ? "text" : "password"}
             placeholder="Confirm Password"
             name="confirmPassword"
@@ -217,18 +227,18 @@ const SignUp = () => {
           ></i>
         </div>
         {errors.confirmPassword &&
-          errors.confirmPassword.type === "required" && <p>This is required</p>}
+          errors.confirmPassword.type === "required" && <p className="warning" >This is required</p>}
         {errors.confirmPassword &&
           errors.confirmPassword.type === "minLength" && (
-            <p>Must have atleast 8 characters.</p>
+            <p className="warning">Must have atleast 8 characters.</p>
           )}
         {errors.confirmPassword &&
           errors.confirmPassword.type === "validate" && (
-            <p>{errors.confirmPassword.message}</p>
+            <p className="warning">{errors.confirmPassword.message}</p>
           )}
 
         {/* Button */}
-        <input type="submit" style={{ marginTop: "20px" }} />
+        <input className="auth-input" type="submit" style={{ marginTop: "20px" }} />
 
         {/* Terms and Conditions */}
         <h6 className="text-light mt-1">
@@ -239,7 +249,7 @@ const SignUp = () => {
           and cookie usage.
         </h6>
       </form>
-    </>
+    </div>
   );
 };
 

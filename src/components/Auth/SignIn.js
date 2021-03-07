@@ -2,13 +2,13 @@ import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Redirect } from "react-router-dom";
 import "./Auth.css";
-import { signInUser,authenticate } from "./helper";
+import { signInUser, authenticate } from "./helper";
 
 const SignIn = (props) => {
   console.warn(props.data.login_details);
   const { register, handleSubmit, errors } = useForm({});
-  
-  const [redirect, setRedirect] =useState(false);
+
+  const [redirect, setRedirect] = useState(false);
   const [visibility, setVisibilty] = useState({
     password: false,
   });
@@ -18,36 +18,40 @@ const SignIn = (props) => {
   const onSubmit = (data) => {
     //TODO: validation submit logic
     const login = data;
-    signInUser(login)
-    .then(data=>{
-      if(data.error){
+    signInUser(login).then((data) => {
+      if (data.error) {
         console.log(data.error);
-      }
-      else{
-        const {user,token,_id} = data;
+      } else {
+        const { user, token, _id } = data;
         setUserProfile(user);
-        authenticate({token},()=>{
+        authenticate({ token }, () => {
           setRedirect(true);
         });
       }
-    })
+    });
   };
 
-  const redirectToDashboard =()=>{
-    if(redirect){
-      return <Redirect to="/dashboard"/>
+  const redirectToDashboard = () => {
+    if (redirect) {
+      return <Redirect to="/dashboard" />;
     }
-  }
+  };
 
-  const username_regex = new RegExp(/^[ A-Za-z0-9]*$/)  ;
-  const email_regex = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-  const regex = new RegExp(username_regex.source + "|" + email_regex.source);  
+  const username_regex = new RegExp(/^[ A-Za-z0-9]*$/);
+  const email_regex = new RegExp(
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  );
+  const regex = new RegExp(username_regex.source + "|" + email_regex.source);
 
   return (
-    <div>
+    <div style={{marginTop:"100px"}}>  
       {redirectToDashboard()}
-      <form onSubmit={handleSubmit(onSubmit)} style={{ width: "90%" }}>
-        <h1 className="mt-3">Sign In</h1>
+      <form
+        className="auth-form"
+        onSubmit={handleSubmit(onSubmit)}
+        style={{ width: "90%" }}
+      >
+        <h1 className="auth-h1">Sign In</h1>
         <h6 className="text-white mb-5 text-center">
           Do not have an account?{" "}
           <a href="/signup" className="text-info">
@@ -57,21 +61,22 @@ const SignIn = (props) => {
 
         {/* Username */}
         <input
+          className="auth-input"
           type="text"
           placeholder="username or email"
           name="username_email"
           ref={register({
             required: true,
-            pattern:regex,
+            pattern: regex,
           })}
         />
         {errors.username_email && errors.username_email.type === "required" && (
-          <p>This is required</p>
+          <p className="warning">This is required</p>
         )}
         {errors.username_email && errors.username_email.type === "pattern" && (
-          <p>Not a valid username or email.</p>
+          <p className="warning">Not a valid username or email.</p>
         )}
-    
+
         {/* Password */}
         <div
           className="d-flex bg-white"
@@ -83,6 +88,7 @@ const SignIn = (props) => {
           }}
         >
           <input
+            className="auth-input"
             type={visibility.password ? "text" : "password"}
             placeholder="password"
             name="password"
@@ -106,14 +112,18 @@ const SignIn = (props) => {
           ></i>
         </div>
         {errors.password && errors.password.type === "required" && (
-          <p>This is required</p>
+          <p className="warning">This is required</p>
         )}
         {errors.password && errors.password.type === "minLength" && (
-          <p>Must have atleast 8 characters.</p>
+          <p className="warning">Must have atleast 8 characters.</p>
         )}
 
         {/* Button */}
-        <input type="submit" style={{ marginTop: "20px" }} />
+        <input
+          className="auth-input"
+          type="submit"
+          style={{ marginTop: "20px" }}
+        />
 
         {/* Terms and Conditions */}
         <h6 className="text-light mt-1">
