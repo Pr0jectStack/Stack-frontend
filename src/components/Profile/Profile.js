@@ -158,35 +158,91 @@ const Profile = () => {
     );
   };
 
+  /**
+   * Makes the Image and name,username inline with with each other.
+   * Scales the image and the font size down.
+   * @returns Component
+   */
+  const NarrowLayoutTop = () => {
+    return (
+      <Col className="d-small-block d-md-none">
+        <Row>
+          <Image
+            src={default_image}
+            style={{ height: "100px", width: "100px", marginBottom: "30px" }}
+            roundedCircle
+          />
+          <Col>
+            <h3
+              style={{
+                fontSize: "138%",
+                color: "lightgrey",
+                marginTop: "12%",
+                marginBottom: "0px",
+                fontWeight: "600",
+              }}
+            >
+              Elizabeth Burnham
+            </h3>
+            <h4
+              style={{
+                fontSize: "155%",
+                color: "grey",
+                fontWeight: "300",
+                marginBottom: "40px",
+              }}
+            >
+              elizab
+            </h4>
+          </Col>
+        </Row>
+      </Col>
+    );
+  };
+
+  /**
+   * Makes the image, name and username appear in a column.
+   * Makes the image scale to 250px.
+   * @returns Component
+   */
+  const WideLayoutTop = () => {
+    return (
+      <div className="d-none d-md-block">
+        <Image
+          src={default_image}
+          style={{ height: "250px", width: "250px", marginBottom: "30px" }}
+          roundedCircle
+        />
+        <h3
+          style={{
+            fontSize: "160%",
+            color: "lightgrey",
+            marginBottom: "0px",
+            fontWeight: "600",
+          }}
+        >
+          Elizabeth Burnham
+        </h3>
+        <h4
+          style={{
+            color: "grey",
+            fontWeight: "300",
+            marginBottom: "40px",
+          }}
+        >
+          elizab
+        </h4>
+      </div>
+    );
+  };
+
   return (
     <Container style={{ marginTop: "5%" }} fluid>
       <Row>
-        <Col lg={1} />
-        <Col xs={12} lg={2}>
-          <Image
-            src={default_image}
-            style={{ height: "250px", width: "250px", marginBottom: "30px" }}
-            roundedCircle
-          />
-          <h3
-            style={{
-              fontSize: "160%",
-              color: "lightgrey",
-              marginBottom: "0px",
-              fontWeight: "600",
-            }}
-          >
-            Elizabeth Burnham
-          </h3>
-          <h4
-            style={{
-              color: "grey",
-              fontWeight: "300",
-              marginBottom: "40px",
-            }}
-          >
-            elizab
-          </h4>
+        <Col md={1} lg={1} />
+        <Col xs={12} md={4} lg={2}>
+          <NarrowLayoutTop />
+          <WideLayoutTop />
           {smallProfileData.bio && (
             <h6 style={{ color: "lightgrey" }}>{smallProfileData.bio}</h6>
           )}
@@ -199,7 +255,7 @@ const Profile = () => {
               className="mt-4"
               style={{
                 textTransform: "capitalize",
-                width: "250px",
+                width: "100%",
                 backgroundColor: "#222130",
               }}
               block
@@ -394,8 +450,8 @@ const Profile = () => {
           <HR />
           <Workspace />
         </Col>
-        <Col xs={12} lg={1} />
-        <Col xs={12} lg={7}>
+        <Col className="d-none d-lg-block" lg={1} />
+        <Col xs={12} md={7} lg={7}>
           <h3 className="mb-3" style={{ color: "lightgrey" }}>
             Teams
           </h3>
@@ -426,7 +482,7 @@ const Profile = () => {
             />
           </Row>
           <div className="mt-4">
-            <h6 style={{ color: "lightgrey" }}>Task heatmap</h6>
+            <h6 style={{ color: "lightgrey" }}>23 tasks completed so far</h6>
             <Card
               style={{
                 borderWidth: "2px",
@@ -453,7 +509,7 @@ const Profile = () => {
                   }}
                   showWeekdayLabels={true}
                   startDate={new Date("2020-12-20")}
-                  endDate={new Date("2021-12-31")}
+                  endDate={new Date("2021-12-25")}
                   values={[
                     { date: "2021-01-01", count: 20 },
                     { date: "2021-02-01", count: 2 },
