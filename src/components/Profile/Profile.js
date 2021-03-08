@@ -252,11 +252,13 @@ const Profile = () => {
             <Button
               onClick={() => setIsEdit(true)}
               size="sm"
-              className="mt-4"
+              className="mt-4 mb-4 p-2"
               style={{
                 textTransform: "capitalize",
                 width: "100%",
                 backgroundColor: "#222130",
+                borderColor: "none",
+                border: "0",
               }}
               block
             >
@@ -428,9 +430,9 @@ const Profile = () => {
                         style={{
                           width: "58px",
                           height: "33px",
-                          padding: "2px",
-                          paddingRight: "6px",
-                          paddingLeft: "6px",
+                          paddingTop: "2px",
+                          paddingRight: "8px",
+                          paddingLeft: "7px",
                           textTransform: "capitalize",
                           color: "lightgrey",
                           backgroundColor: "#222130",
