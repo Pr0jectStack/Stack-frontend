@@ -1,9 +1,10 @@
 import React from 'react'
+import Landing from '../../utils/Landing'
 
 const Dashboard = () => {
     return (
-        <div>
-            <h1>Dashboard Page</h1>
+        <div className="mx-auto">
+           <Landing heading="Workspaces" type="workspace"/>
         </div>
     )
 }
