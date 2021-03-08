@@ -5,7 +5,7 @@ body {
       sans-serif;
   }
   
-  form {
+ .auth-form {
     max-width: 500px;
     margin: 15vh auto;
      background: #0e101c;
@@ -14,7 +14,7 @@ body {
       sans-serif;
   }
   
-  h1 {
+  .auth-h1 {
     font-weight: 100;
     color: white;
     text-align: center;
@@ -23,23 +23,23 @@ body {
     /* border-bottom: 1px solid rgb(79, 98, 148); */
   }
   
-  .form {
+  .auth-form {
     background: #0e101c;
     max-width: 400px;
     margin: 0 auto;
   }
   
-  p {
+  .warning {
     color: #bf1650;
   }
   
-  p::before {
+  .warning::before {
     display: inline;
     content: "⚠ ";
   }
   
   textarea,
-  input {
+  .auth-input {
     display: block;
     box-sizing: border-box;
     width: 100%;
@@ -50,7 +50,7 @@ body {
     font-size: 14px;
   }
   
-  label {
+  .auth-label {
     line-height: 2;
     text-align: left;
     display: block;
@@ -61,8 +61,8 @@ body {
     font-weight: 200;
   }
   
-  button[type="submit"],
-  input[type="submit"] {
+  auth-button[type="submit"],
+  .auth-input[type="submit"] {
     background: #ec5990;
     color: white;
     text-transform: uppercase;
@@ -75,39 +75,39 @@ body {
   }
   
   button[type="submit"]:hover,
-  input[type="submit"]:hover {
+  .auth-input[type="submit"]:hover {
     background: #bf1650;
   }
   
   button[type="submit"]:active,
-  input[type="button"]:active,
-  input[type="submit"]:active {
+  .auth-input[type="button"]:active,
+  .auth-input[type="submit"]:active {
     transition: 0.3s all;
     transform: translateY(3px);
     border: 1px solid transparent;
     opacity: 0.8;
   }
   
-  input:disabled {
+  .auth-input:disabled {
     opacity: 0.4;
   }
   
-  input[type="button"]:hover {
+  .auth-input[type="button"]:hover {
     transition: 0.3s all;
   }
   
   button[type="submit"],
-  input[type="button"],
-  input[type="submit"] {
+  .auth-input[type="button"],
+  .auth-input[type="submit"] {
     -webkit-appearance: none;
   }
   
-  .App {
+  /* .App {
     max-width: 600px;
     margin: 0 auto;
   }
-  
-  button[type="button"] {
+   */
+  auth-button[type="button"] {
     display: block;
     appearance: none;
     background: #333;
@@ -122,7 +122,7 @@ body {
     margin-top: 30px;
   }
   
-  button {
+  auth-button {
     display: block;
     appearance: none;
     margin-top: 40px;
@@ -133,7 +133,7 @@ body {
     border-radius: 4px;
   }
 
-  i{
+  auth-i{
     
         padding: 15px;
         color:white;
