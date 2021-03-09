@@ -15,27 +15,13 @@ const NavBar = () => {
   return (
     <Navbar className="navbar" collapseOnSelect expand="md" variant="dark">
       <Navbar.Brand href="#">
-        <h3 className="logo-small d-sm-block d-md-none">Collab</h3>
-        <h3 className="logo d-none d-sm-none d-md-block">Collab</h3>
+        <h3 style={{ paddingLeft: "40px", fontSize: "160%" }}>Collab</h3>
       </Navbar.Brand>
       <Navbar.Toggle
         aria-controls="responsive-navbar-nav"
-        className="navbar-toggle pull-left"
+        className="navbar-toggle d-none"
       />
-      <Navbar.Collapse>
-        <Nav className="d-sm-block d-md-none">
-          <Nav.Link>Workspaces</Nav.Link>
-        </Nav>
-        <Nav className="d-sm-block d-md-none">
-          <Nav.Link>Account</Nav.Link>
-        </Nav>
-        <Nav className="d-sm-block d-md-none">
-          <Nav.Link>Settings</Nav.Link>
-        </Nav>
-        <Nav className="d-sm-block d-md-none">
-          <Nav.Link>Log Out</Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
+      <Navbar.Collapse className="d-none"></Navbar.Collapse>
       <Row className="justify-content-end">
         <Button
           style={{
@@ -44,13 +30,13 @@ const NavBar = () => {
             border: "none",
           }}
         >
-          <i className="fa fa-bell" />
+          <i className="fa fa-bell" style={{ fontSize: "18px" }} />
         </Button>
         <NavDropdown
           className="d-none d-lg-block d-md-block"
           title={
             <Image
-              style={{ width: "25px", height: "25px" }}
+              style={{ width: "30px", height: "30px" }}
               className="user-avatar"
               src={image}
               roundedCircle

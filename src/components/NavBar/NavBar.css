@@ -2,19 +2,6 @@
   background-color: #151829;
 }
 
-.logo-small {
-  color: lightgrey;
-  position: relative;
-  padding-top: 8%;
-  left: 180%;
-  /* padding-top: 8px; */
-  /* margin-left: 150%; */
-}
-
-.logo {
-  color: lightgrey;
-}
-
 .notification-icon {
   color: lightgrey;
   background-color: none;
