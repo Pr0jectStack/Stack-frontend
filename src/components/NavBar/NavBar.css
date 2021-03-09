@@ -1,0 +1,44 @@
+.navbar {
+  background-color: #151829;
+}
+
+.logo-small {
+  color: lightgrey;
+  position: relative;
+  padding-top: 8%;
+  left: 180%;
+  /* padding-top: 8px; */
+  /* margin-left: 150%; */
+}
+
+.logo {
+  color: lightgrey;
+}
+
+.notification-icon {
+  color: lightgrey;
+  background-color: none;
+}
+
+.nav-link {
+  color: lightgrey;
+}
+
+.dropdown-menu {
+  background-color: #2a3050;
+}
+
+.dropdown-divider {
+  border: 1px solid rgb(160, 160, 160);
+  border-width: thin;
+}
+
+.dropdown-item {
+  color: lightgrey;
+}
+
+.navbar-toggler {
+  position: absolute;
+  left: 5%;
+  right: "90%";
+}
