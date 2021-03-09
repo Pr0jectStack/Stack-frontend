@@ -12,22 +12,15 @@ import NavBar from "./components/NavBar/NavBar";
 function App() {
   return (
     <>
-    <NavBar />
       <Router>
         <Switch>
           {/* Public Routes */}
           <GuestRoute exact path="/signup" exact component={SignUpContainer} />
           <GuestRoute exact path="/signin" exact component={SignInContainer} />
           <GuestRoute exact path="/" exact component={SignInContainer} />
-         
 
           {/* Private Routes */}
-          <PrivateRoute
-            exact
-            path="/"
-            exact
-            component={DashboardContainer}
-          />
+          <PrivateRoute exact path="/" exact component={DashboardContainer} />
 
           <PrivateRoute
             exact
@@ -43,7 +36,7 @@ function App() {
             component={DashboardContainer}
           />
 
-           <PrivateRoute
+          <PrivateRoute
             exact
             path="/createWorkspace"
             exact
