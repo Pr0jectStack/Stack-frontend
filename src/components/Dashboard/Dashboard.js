@@ -2,7 +2,6 @@ import React from "react";
 import Landing from "../../utils/Landing";
 import NavBar from "../NavBar/NavBar";
 import SideBar from "../SideBar/SideBar";
-import { Row } from "react-bootstrap";
 
 const Dashboard = () => {
   return (
