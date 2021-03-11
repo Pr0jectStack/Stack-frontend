@@ -1,7 +1,8 @@
 import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
-import "./Auth.css";
 import { signUpUser, checkUserExists } from "./helper";
+import GuestNavBar from "../NavBar/GuestNavBar";
+import "./Auth.css";
 
 const SignUp = () => {
   const [error, setError] = useState("");
@@ -51,11 +52,12 @@ const SignUp = () => {
     return email_regex.test(value.toLowerCase());
   };
   return (
-    <div style={{marginTop:"100px"}}>
+    <div>
+      <GuestNavBar />
       <form
         className="auth-form"
         onSubmit={handleSubmit(onSubmit)}
-        style={{ width: "90%" }}
+        style={{ width: "90%", marginTop: "100px" }}
       >
         <h1 className="auth-h1">Create Account</h1>
         <h6 className="text-white mb-5 text-center">
@@ -68,7 +70,7 @@ const SignUp = () => {
         <div className="d-flex">
           {/* FirstName */}
           <input
-          className="auth-input"
+            className="auth-input"
             id="First Name"
             type="text"
             placeholder="First name"
@@ -84,7 +86,7 @@ const SignUp = () => {
 
           {/* LastName */}
           <input
-          className="auth-input"
+            className="auth-input"
             type="text"
             placeholder="Last name"
             name="lastName"
@@ -105,7 +107,7 @@ const SignUp = () => {
 
         {/* Username */}
         <input
-        className="auth-input"
+          className="auth-input"
           type="text"
           placeholder="Username"
           name="username"
@@ -130,15 +132,19 @@ const SignUp = () => {
           <p className="warning">Must have atmost 12 characters.</p>
         )}
         {errors.username && errors.username.type === "pattern" && (
-          <p className="warning">Username must only contains numbers and alphabets.</p>
+          <p className="warning">
+            Username must only contains numbers and alphabets.
+          </p>
         )}
         {errors.username && errors.username.type === "validate" && (
-          <p className="warning">Username or email already exists in our datatbase.</p>
+          <p className="warning">
+            Username or email already exists in our datatbase.
+          </p>
         )}
 
         {/* Email */}
         <input
-        className="auth-input"
+          className="auth-input"
           type="text"
           placeholder="Email"
           name="email"
@@ -162,7 +168,7 @@ const SignUp = () => {
           }}
         >
           <input
-          className="auth-input"
+            className="auth-input"
             type={visibility.password ? "text" : "password"}
             placeholder="Password"
             name="password"
@@ -198,7 +204,7 @@ const SignUp = () => {
           style={{ borderRadius: "4px", height: "45px", height: "50px" }}
         >
           <input
-          className="auth-input"
+            className="auth-input"
             type={visibility.confirmPassword ? "text" : "password"}
             placeholder="Confirm Password"
             name="confirmPassword"
@@ -227,7 +233,9 @@ const SignUp = () => {
           ></i>
         </div>
         {errors.confirmPassword &&
-          errors.confirmPassword.type === "required" && <p className="warning" >This is required</p>}
+          errors.confirmPassword.type === "required" && (
+            <p className="warning">This is required</p>
+          )}
         {errors.confirmPassword &&
           errors.confirmPassword.type === "minLength" && (
             <p className="warning">Must have atleast 8 characters.</p>
@@ -238,7 +246,11 @@ const SignUp = () => {
           )}
 
         {/* Button */}
-        <input className="auth-input" type="submit" style={{ marginTop: "20px" }} />
+        <input
+          className="auth-input"
+          type="submit"
+          style={{ marginTop: "20px" }}
+        />
 
         {/* Terms and Conditions */}
         <h6 className="text-light mt-1">

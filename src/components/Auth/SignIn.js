@@ -1,8 +1,9 @@
 import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Redirect } from "react-router-dom";
-import "./Auth.css";
 import { signInUser, authenticate } from "./helper";
+import GuestNavBar from "../NavBar/GuestNavBar";
+import "./Auth.css";
 
 const SignIn = (props) => {
   console.warn(props.data.login_details);
@@ -44,12 +45,13 @@ const SignIn = (props) => {
   const regex = new RegExp(username_regex.source + "|" + email_regex.source);
 
   return (
-    <div style={{marginTop:"100px"}}>  
+    <div>
       {redirectToDashboard()}
+      <GuestNavBar />
       <form
         className="auth-form"
         onSubmit={handleSubmit(onSubmit)}
-        style={{ width: "90%" }}
+        style={{ width: "90%", marginTop: "100px" }}
       >
         <h1 className="auth-h1">Sign In</h1>
         <h6 className="text-white mb-5 text-center">
