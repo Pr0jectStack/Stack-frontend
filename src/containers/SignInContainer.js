@@ -1,6 +1,6 @@
 import SignIn from '../components/Auth/SignIn';
 import {connect} from 'react-redux';
-import { setUserLoginDetails } from '../Services/Actions/actions';
+import { setUserLoginDetails } from '../redux/auth/signinActions';
 
 const mapStateToProps = state =>({
     data:state

@@ -1,7 +1,7 @@
 import React from "react";
-import Landing from "../../utils/Landing";
 import NavBar from "../NavBar/NavBar";
 import SideBar from "../SideBar/SideBar";
+import Workspace from "../Workspace/Workspace";
 
 const Dashboard = () => {
   return (
@@ -9,7 +9,7 @@ const Dashboard = () => {
       <SideBar />
       <main id="page-wrap">
         <NavBar />
-        <Landing heading="Workspaces" type="workspace" />
+        <Workspace/>
       </main>
     </div>
   );
