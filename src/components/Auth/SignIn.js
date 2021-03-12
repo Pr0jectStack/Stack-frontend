@@ -6,7 +6,7 @@ import GuestNavBar from "../NavBar/GuestNavBar";
 import "./Auth.css";
 
 const SignIn = (props) => {
-  console.warn(props.data.login_details);
+  console.warn(props.data);
   const { register, handleSubmit, errors } = useForm({});
 
   const [redirect, setRedirect] = useState(false);

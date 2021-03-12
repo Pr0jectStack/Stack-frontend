@@ -8,6 +8,8 @@ import PrivateRoute from "./components/Auth/PrivateRoute";
 import GuestRoute from "./components/Auth/GuestRoute";
 import CreateWorkspace from "./components/Workspace/CreateWorkspace";
 import NavBar from "./components/NavBar/NavBar";
+import Test from "./components/Test";
+import TestContainer from "./containers/TestContainer";
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
 
           {/* Private Routes */}
           <PrivateRoute exact path="/" exact component={DashboardContainer} />
+          <PrivateRoute exact path="/test" exact component={TestContainer} />
 
           <PrivateRoute
             exact
