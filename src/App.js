@@ -7,18 +7,8 @@ import DashboardContainer from "./containers/DashboardContainer";
 import PrivateRoute from "./components/Auth/PrivateRoute";
 import GuestRoute from "./components/Auth/GuestRoute";
 import CreateWorkspace from "./components/Workspace/CreateWorkspace";
-<<<<<<< HEAD
-import Test from "./components/Test";
 import NavBar from "./components/NavBar/NavBar";
-import GuestNavBar from "./components/NavBar/GuestNavBar";
-import TestContainer from "./containers/TestContainer";
-import NavigationContainer from "./containers/NavigationContainer";
-import { authenticate, isAuthenticated } from "./components/Auth/helper";
-// import Navigation from "./components/Navigation/Navigation";
-=======
-import NavBar from "./components/NavBar/NavBar";
->>>>>>> b6d432c9cfb42adb80d0f790c183904ad7281c91
-
+import NavigationContainer from './containers/NavigationContainer';
 const App = () => {
   return (
     <>

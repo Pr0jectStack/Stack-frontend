@@ -19,7 +19,16 @@ const CreateWorkspace = () => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
   };
 
+  // if (props.data.loading) {
+  //   return <h2> Loading...</h2>;
+  // } else if (props.data.error) {
+  //   return <h2>{props.data.error}</h2>;
+  // } else if (props.data && props.data.userData === null) {
+  //   return <Redirect to="/" />;
+  // } else
   return (
+    <div className="mx-auto mb-5" id="outer-container">
+        <main id="page-wrap">
     <div style={{ marginTop: "100px" }}>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -100,6 +109,8 @@ const CreateWorkspace = () => {
           and cookie usage.
         </h6>
       </form>
+    </div>
+    </main>
     </div>
   );
 };

@@ -1,11 +1,11 @@
 import Navigation from "../components/Navigation/Navigation";
 import { connect } from "react-redux";
-import { setUserLoginDetails } from "../Services/Actions/actions";
+import { signOutUser } from "../redux/auth/signoutActions";
 
-const mapStateToProps = (state) => ({ data: state });
+const mapStateToProps = (state) => ({ data: state.profile });
 
 const mapDispatchToProps = (dispatch) => ({
-    setUserProfile: data => dispatch(setUserLoginDetails(data))
+    signOutUser: ()=> dispatch(signOutUser()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

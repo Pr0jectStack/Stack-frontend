@@ -18,17 +18,9 @@ import { Redirect } from "react-router-dom";
 const NavBar = ({ logOutUser }) => {
   const signout = () => {
     logOutUser();
-    signOut().then((data) => {
-      if (data.error) {
-      } else {
-        // alert("Redirecting....");
-        // <Test/>
-      }
-    });
   };
   return (
     <>
-      {/* {redirectToLandingPage()} */}
       <SideBar />
       <Navbar className="navbar" collapseOnSelect expand="md" variant="dark">
         <Navbar.Brand href="/dashboard">

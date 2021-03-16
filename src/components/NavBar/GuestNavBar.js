@@ -15,7 +15,7 @@ const GuestNavBar = () => {
       />
       <Navbar.Collapse className="d-none"></Navbar.Collapse>
       <Row className="justify-content-end">
-        <Button
+      <Button
           href="/signup"
           style={{
             backgroundColor: "inherit",

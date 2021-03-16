@@ -1,9 +1,9 @@
 import SignIn from "../components/Auth/SignIn";
 import { connect } from "react-redux";
-import { signInUser } from "../redux/auth/signInActions";
+import { signInUser } from "../redux/auth/signinActions";
 
 const mapStateToProps = (state) => ({
-  data: state.signIn,
+  data: state.profile,
 });
 
 const mapDispatchToProps = (dispatch) => ({

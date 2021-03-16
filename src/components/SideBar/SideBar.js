@@ -10,9 +10,9 @@ const SideBar = () => {
         <i className="fa fa-folder-o" aria-hidden={true} />
         <span>Workspaces</span>
       </Link>
-      <a className="menu-item d-sm-block d-md-none" href="/profile">
-        <i className="fa fa-user" aria-hidden={true} /> <span>Account</span>
-      </a>
+      <Link className="menu-item d-sm-block d-md-none" to="/profile">
+        <i className="fa fa-user" aria-hidden={true} /> <span>Profile</span>
+      </Link>
       <a className="menu-item d-sm-block d-md-none">
         <i className="fa fa-cog" aria-hidden={true} /> <span>Settings</span>
       </a>

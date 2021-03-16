@@ -4,15 +4,19 @@ import GuestNavBar from '../NavBar/GuestNavBar';
 import _ from 'lodash';
 import { Redirect } from 'react-router-dom';
 const Navigation = (props) => {
-    console.log(props);
-    const setUserProfile =props.setUserProfile;
+
+    const {data, signOutUser} = props;
+    console.log(data);
     const logOutUser = () =>{
-        setUserProfile({});
-        // return <Redirect to="/"/>
+    signOutUser();
+      setTimeout(() => {
+        window.location.reload();
+      }, 20);
+    //   
     }
     return (
         <div>
-            {_.isEmpty(props.data.login_details.login_details)?<GuestNavBar/>:<NavBar logOutUser={logOutUser}/>}
+            {data.userData === null?<GuestNavBar/>:<NavBar logOutUser={logOutUser}/>}
         </div>
     )
 }
