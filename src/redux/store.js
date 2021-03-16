@@ -1,29 +1,18 @@
 // * { REDUX } */
 import { createStore, applyMiddleware, compose } from "redux";
-import RootReducer from "./RootReducer";
-import { loadState, saveState } from "./localStorage";
+import rootReducer from "./rootReducer";
 import thunk from "redux-thunk";
-import { throttle } from "lodash/throttle";
-const persistedState = loadState();
 
-function configureStore() {
-  return createStore(
-    RootReducer,
-    persistedState,
-    compose(
-      applyMiddleware(thunk),
-      window.devToolsExtension ? window.devToolsExtension() : (f) => f
-    )
-  );
-}
+import { persistStore } from "redux-persist";
 
-const store = configureStore({});
+const store = createStore(
+  rootReducer,
+  compose(
+    applyMiddleware(thunk),
+    window.devToolsExtension ? window.devToolsExtension() : (f) => f
+  )
+);
 
-//TODO: INCLUDE THROTTLE TO AVOID CONTINIOUS LISTENING
-store.subscribe(() => {
-  saveState({
-    login_details: store.getState().login_details,
-  });
-});
+const persistor = persistStore(store); // Persisted store
 
-export default store;
+export default { store, persistor };
