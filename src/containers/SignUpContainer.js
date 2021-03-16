@@ -1,13 +1,13 @@
-import SignUp from '../components/Auth/SignUp';
-import {connect} from 'react-redux';
-import { setUserLoginDetails } from '../Services/Actions/actions';
+import SignUp from "../components/Auth/SignUp";
+import { connect } from "react-redux";
+import { signUpUser } from "../redux/auth/signUpActions";
 
-const mapStateToProps = state =>({
-    data:state
-})
+const mapStateToProps = (state) => ({
+  userData: state.signUp,
+});
 
-const mapDispatchToProps = dispatch => ({
-    // setUserProfile: data => dispatch(setUserLoginDetails(data))
-})
+const mapDispatchToProps = (dispatch) => ({
+  signUpUser: (data) => dispatch(signUpUser(data)),
+});
 
-export default connect(mapStateToProps,mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
