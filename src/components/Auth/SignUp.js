@@ -1,16 +1,18 @@
 import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
-import { signUpUser, checkUserExists } from "./helper";
 import GuestNavBar from "../NavBar/GuestNavBar";
 import "./Auth.css";
+import { checkUserExists } from "./helper";
 
-const SignUp = () => {
+const SignUp = (props) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
   const { register, handleSubmit, errors, watch } = useForm({
     // mode: "onChange",
   });
+
+  // ! TODO: COMPLETE IMPLEMENTATION OF REDUX !!
 
   const [visibility, setVisibilty] = useState({
     password: false,
@@ -20,17 +22,9 @@ const SignUp = () => {
   const password = useRef({});
   password.current = watch("password", "");
 
-  const onSubmit = (data) => {
-    const login = data;
-    delete login.confirmPassword;
-    console.log("USername is: " + data.username);
-    signUpUser(login).then((data) => {
-      if (data.error) {
-        setError(data.error);
-      } else {
-        setSuccess(true);
-      }
-    });
+  const onSubmit = (signUpData) => {
+    delete signUpData.confirmPassword;
+    props.signUpUser(signUpData);
   };
 
   const checkIfUserExists = (value) => {
@@ -43,6 +37,7 @@ const SignUp = () => {
       }
     });
   };
+
   const sleep = (milliseconds) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
   };

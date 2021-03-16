@@ -1,11 +1,13 @@
 import Profile from "../components/Profile/Profile";
 import { connect } from "react-redux";
-import { setUserDetails } from "../Services/Actions/actions";
+import { editUserProfile } from "../redux/profile/profileActions";
 
-const mapStateToProps = (state) => ({ data: state });
+const mapStateToProps = (state) => ({
+  data: state.profile,
+});
 
 const mapDispatchToProps = (dispatch) => ({
-  setUserDetailsHandler: (data) => dispatch(setUserDetails(data)),
+  editUserProfile: (data) => dispatch(editUserProfile(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
