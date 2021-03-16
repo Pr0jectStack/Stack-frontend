@@ -7,14 +7,19 @@ import DashboardContainer from "./containers/DashboardContainer";
 import PrivateRoute from "./components/Auth/PrivateRoute";
 import GuestRoute from "./components/Auth/GuestRoute";
 import CreateWorkspace from "./components/Workspace/CreateWorkspace";
-import NavBar from "./components/NavBar/NavBar";
 import Test from "./components/Test";
+import NavBar from "./components/NavBar/NavBar";
+import GuestNavBar from "./components/NavBar/GuestNavBar";
 import TestContainer from "./containers/TestContainer";
+import NavigationContainer from "./containers/NavigationContainer";
+import { authenticate, isAuthenticated } from "./components/Auth/helper";
+// import Navigation from "./components/Navigation/Navigation";
 
 function App() {
   return (
     <>
       <Router>
+        <NavigationContainer />
         <Switch>
           {/* Public Routes */}
           <GuestRoute exact path="/signup" exact component={SignUpContainer} />

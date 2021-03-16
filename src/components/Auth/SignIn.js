@@ -6,7 +6,8 @@ import GuestNavBar from "../NavBar/GuestNavBar";
 import "./Auth.css";
 
 const SignIn = (props) => {
-  console.warn(props.data);
+  // console.warn(_.isEmpty(props.data.login_details.login_details));
+  // console.log(props);
   const { register, handleSubmit, errors } = useForm({});
 
   const [redirect, setRedirect] = useState(false);
@@ -47,11 +48,11 @@ const SignIn = (props) => {
   return (
     <div>
       {redirectToDashboard()}
-      <GuestNavBar />
       <form
         className="auth-form"
         onSubmit={handleSubmit(onSubmit)}
-        style={{ width: "90%", marginTop: "100px" }}
+        // style={{ width: "90%", marginTop: "100px" }}
+        style={{ maxWidth: "90%", width: "480px", margin: "auto",marginTop: "100px" }}
       >
         <h1 className="auth-h1">Sign In</h1>
         <h6 className="text-white mb-5 text-center">

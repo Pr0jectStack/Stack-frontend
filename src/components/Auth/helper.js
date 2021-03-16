@@ -68,3 +68,22 @@ export const checkUserExists = (data) =>{
 
   })
 }
+
+export const signOut = (next) => {
+  if (typeof window !== "undefined") {
+    localStorage.removeItem("jwt");
+    // localStorage.removeItem("state");
+
+    // next();
+
+    return fetch(`${API}/auth/signout`, {
+      method: "GET",
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .catch((err) => {
+        // console.log(err);
+      });
+  }
+};

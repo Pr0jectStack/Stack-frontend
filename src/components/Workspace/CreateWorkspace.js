@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 const CreateWorkspace = () => {
   const [error, setError] = useState("");
@@ -26,9 +27,9 @@ const CreateWorkspace = () => {
       >
         <h1 className="auth-h1 mb-5">Create Workspace</h1>
 
-        <a
+        <Link
+          to="/dashboard"
           className="btn btn-info mb-3"
-          href="/dashboard"
           style={{ backgroundColor: "#151829", borderColor: "#ec5990" }}
         >
           {" "}
@@ -38,7 +39,7 @@ const CreateWorkspace = () => {
             aria-hidden="true"
           ></i>
           {"  "}Back
-        </a>
+        </Link>
         {/* Description */}
         <input
           className="auth-input"
