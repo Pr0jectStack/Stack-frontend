@@ -2,7 +2,7 @@ import Dashboard from '../components/Dashboard/Dashboard';
 import {connect} from 'react-redux';
 
 const mapStateToProps = state =>({
-    data:state
+    data:state.profile
 })
 
 const mapDispatchToProps = dispatch => ({

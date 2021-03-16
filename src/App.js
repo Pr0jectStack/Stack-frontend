@@ -8,11 +8,12 @@ import PrivateRoute from "./components/Auth/PrivateRoute";
 import GuestRoute from "./components/Auth/GuestRoute";
 import CreateWorkspace from "./components/Workspace/CreateWorkspace";
 import NavBar from "./components/NavBar/NavBar";
-
+import NavigationContainer from './containers/NavigationContainer';
 const App = () => {
   return (
     <>
       <Router>
+        <NavigationContainer />
         <Switch>
           {/* Public Routes */}
           <GuestRoute exact path="/signup" exact component={SignUpContainer} />

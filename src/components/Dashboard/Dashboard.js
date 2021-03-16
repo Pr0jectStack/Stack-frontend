@@ -1,14 +1,18 @@
 import React from "react";
-import NavBar from "../NavBar/NavBar";
-import SideBar from "../SideBar/SideBar";
 import Workspace from "../Workspace/Workspace";
-
-const Dashboard = () => {
-  return (
+import {Redirect} from 'react-router-dom';
+const Dashboard = (props) => {
+  
+  if (props.data.loading) {
+    return <h2> Loading...</h2>;
+  } else if (props.data.error) {
+    return <h2>{props.data.error}</h2>;
+  } else if (props.data && props.data.userData === null) {
+    return <Redirect to="/" />;
+  } else
+    return (
     <div className="mx-auto" id="outer-container">
-      <SideBar />
       <main id="page-wrap">
-        <NavBar />
         <Workspace/>
       </main>
     </div>

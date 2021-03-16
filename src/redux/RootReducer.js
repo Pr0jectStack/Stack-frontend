@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import signInReducer from "./auth/signInReducer";
+import signInReducer from "./auth/signinReducer";
 import signUpReducer from "./auth/signUpReducer";
 import profileReducer from "./profile/profileReducer";
 

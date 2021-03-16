@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
-import GuestNavBar from "../NavBar/GuestNavBar";
+import {Link} from 'react-router-dom';
 import "./Auth.css";
 import { checkUserExists } from "./helper";
 
@@ -48,18 +48,18 @@ const SignUp = (props) => {
   };
   return (
     <div>
-      <GuestNavBar />
       <form
         className="auth-form"
         onSubmit={handleSubmit(onSubmit)}
-        style={{ width: "90%", marginTop: "100px" }}
+        // style={{ width: "90%", marginTop: "100px" }}
+        style={{ maxWidth: "90%", width: "480px", margin: "auto",marginTop: "100px" }}
       >
         <h1 className="auth-h1">Create Account</h1>
         <h6 className="text-white mb-5 text-center">
           Already have an account?{" "}
-          <a href="/signin" className="text-info">
+          <Link to="/signin" className="text-info">
             Sign in
-          </a>
+          </Link>
         </h6>
 
         <div className="d-flex">

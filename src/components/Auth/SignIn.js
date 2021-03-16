@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Redirect } from "react-router-dom";
-import GuestNavBar from "../NavBar/GuestNavBar";
+import { Redirect,Link } from "react-router-dom";
 import "./Auth.css";
 
 const SignIn = (props) => {
@@ -30,7 +29,6 @@ const SignIn = (props) => {
   } else
     return (
       <div>
-        <GuestNavBar />
         <form
           className="auth-form"
           onSubmit={handleSubmit(onSubmit)}
@@ -39,9 +37,9 @@ const SignIn = (props) => {
           <h1 className="auth-h1">Sign In</h1>
           <h6 className="text-white mb-5 text-center">
             Do not have an account?{" "}
-            <a href="/signup" className="text-info">
+            <Link to="/signup" className="text-info">
               Sign Up
-            </a>
+            </Link>
           </h6>
 
           {/* Username */}

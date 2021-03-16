@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 const CreateWorkspace = () => {
   const [error, setError] = useState("");
@@ -18,7 +19,16 @@ const CreateWorkspace = () => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
   };
 
+  // if (props.data.loading) {
+  //   return <h2> Loading...</h2>;
+  // } else if (props.data.error) {
+  //   return <h2>{props.data.error}</h2>;
+  // } else if (props.data && props.data.userData === null) {
+  //   return <Redirect to="/" />;
+  // } else
   return (
+    <div className="mx-auto mb-5" id="outer-container">
+        <main id="page-wrap">
     <div style={{ marginTop: "100px" }}>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -26,9 +36,9 @@ const CreateWorkspace = () => {
       >
         <h1 className="auth-h1 mb-5">Create Workspace</h1>
 
-        <a
+        <Link
+          to="/dashboard"
           className="btn btn-info mb-3"
-          href="/dashboard"
           style={{ backgroundColor: "#151829", borderColor: "#ec5990" }}
         >
           {" "}
@@ -38,7 +48,7 @@ const CreateWorkspace = () => {
             aria-hidden="true"
           ></i>
           {"  "}Back
-        </a>
+        </Link>
         {/* Description */}
         <input
           className="auth-input"
@@ -99,6 +109,8 @@ const CreateWorkspace = () => {
           and cookie usage.
         </h6>
       </form>
+    </div>
+    </main>
     </div>
   );
 };
