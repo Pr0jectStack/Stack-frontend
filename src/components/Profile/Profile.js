@@ -14,19 +14,19 @@ import TeamCard from "./components/TeamCard";
 import default_image from "./default_image.jpg";
 import "./Profile.css";
 
-const Profile = () => {
+const Profile = (props) => {
   const [isEdit, setIsEdit] = useState(false);
   const [smallProfileData, setSmallProfileData] = useState({
-    bio: "I got so much procrastinating done today.",
-    email: "elizab@gmail.com",
+    bio: props.data.userData.bio,
+    email: props.data.userData.email,
     github: "",
     twitter: "",
     instagram: "",
     website: "",
   });
   const [tempData, setTempData] = useState({
-    bio: "I got so much procrastinating done today.",
-    email: "elizab@gmail.com",
+    bio: props.data.userData.bio,
+    email: props.data.userData.email,
     github: "",
     twitter: "",
     instagram: "",
@@ -168,7 +168,7 @@ const Profile = () => {
       <Col className="d-small-block d-md-none">
         <Row>
           <Image
-            src={default_image}
+            src={props.data.userData.image ? props.data.userData.image : default_image}
             style={{ height: "100px", width: "100px", marginBottom: "30px" }}
             roundedCircle
           />
@@ -182,7 +182,7 @@ const Profile = () => {
                 fontWeight: "600",
               }}
             >
-              Elizabeth Burnham
+              {props.data.userData.firstName} {props.data.userData.lastName}
             </h3>
             <h4
               style={{
@@ -192,7 +192,7 @@ const Profile = () => {
                 marginBottom: "40px",
               }}
             >
-              elizab
+              {props.data.userData.username}
             </h4>
           </Col>
         </Row>
@@ -209,7 +209,7 @@ const Profile = () => {
     return (
       <div className="d-none d-md-block">
         <Image
-          src={default_image}
+          src={props.data.userData.image ? props.data.userData.image : default_image}
           style={{ height: "250px", width: "250px", marginBottom: "30px" }}
           roundedCircle
         />
@@ -221,7 +221,7 @@ const Profile = () => {
             fontWeight: "600",
           }}
         >
-          Elizabeth Burnham
+          {props.data.userData.firstName} {props.data.userData.lastName}
         </h3>
         <h4
           style={{
@@ -230,7 +230,7 @@ const Profile = () => {
             marginBottom: "40px",
           }}
         >
-          elizab
+          {props.data.userData.username}
         </h4>
       </div>
     );

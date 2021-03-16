@@ -1,4 +1,8 @@
-import { SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_IN_FAILURE } from "./authTypes";
+import {
+  EDIT_USER_PROFILE_REQUEST,
+  EDIT_USER_PROFILE_SUCCESS,
+  EDIT_USER_PROFILE_FAILURE,
+} from "./profileTypes";
 
 const initialState = {
   loading: false,
@@ -6,23 +10,23 @@ const initialState = {
   error: "",
 };
 
-const signInReducer = (state = initialState, action) => {
+const profileReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SIGN_IN_REQUEST:
+    case EDIT_USER_PROFILE_REQUEST:
       return {
         ...state,
         loading: true,
         userData: null,
         error: "",
       };
-    case SIGN_IN_SUCCESS:
+    case EDIT_USER_PROFILE_SUCCESS:
       return {
         ...state,
         loading: false,
         userData: action.payload,
         error: "",
       };
-    case SIGN_IN_FAILURE:
+    case EDIT_USER_PROFILE_FAILURE:
       return {
         ...state,
         loading: false,
@@ -34,4 +38,4 @@ const signInReducer = (state = initialState, action) => {
   }
 };
 
-export default signInReducer;
+export default profileReducer;
