@@ -6,9 +6,8 @@ import ProfileContainer from "./containers/ProfileContainer";
 import DashboardContainer from "./containers/DashboardContainer";
 import PrivateRoute from "./components/Auth/PrivateRoute";
 import GuestRoute from "./components/Auth/GuestRoute";
-import CreateWorkspace from "./components/Workspace/CreateWorkspace";
-import NavBar from "./components/NavBar/NavBar";
-import NavigationContainer from './containers/NavigationContainer';
+import NavigationContainer from "./containers/NavigationContainer";
+import CreateWorkspaceContainer from "./containers/CreateWorkspaceContainer";
 const App = () => {
   return (
     <>
@@ -16,32 +15,25 @@ const App = () => {
         <NavigationContainer />
         <Switch>
           {/* Public Routes */}
-          <GuestRoute exact path="/signup" exact component={SignUpContainer} />
-          <GuestRoute exact path="/signin" exact component={SignInContainer} />
-          <GuestRoute exact path="/" exact component={SignInContainer} />
+          <GuestRoute path="/signup" exact component={SignUpContainer} />
+          <GuestRoute path="/signin" exact component={SignInContainer} />
+          <GuestRoute path="/" exact component={SignInContainer} />
 
           {/* Private Routes */}
-          <PrivateRoute exact path="/" exact component={DashboardContainer} />
+          <PrivateRoute path="/" exact component={DashboardContainer} />
+
+          <PrivateRoute path="/profile" exact component={ProfileContainer} />
 
           <PrivateRoute
-            exact
-            path="/profile"
-            exact
-            component={ProfileContainer}
-          />
-
-          <PrivateRoute
-            exact
             path="/dashboard"
             exact
             component={DashboardContainer}
           />
 
           <PrivateRoute
-            exact
             path="/createWorkspace"
             exact
-            component={CreateWorkspace}
+            component={CreateWorkspaceContainer}
           />
         </Switch>
       </Router>

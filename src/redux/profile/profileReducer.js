@@ -1,3 +1,4 @@
+import { ADD_WORKSPACE_FAILURE, ADD_WORKSPACE_REQUEST, ADD_WORKSPACE_SUCCESS } from "../workspace/workspaceTypes";
 import {
   EDIT_USER_PROFILE_REQUEST,
   EDIT_USER_PROFILE_SUCCESS,
@@ -33,6 +34,27 @@ const profileReducer = (state = initialState, action) => {
         userData: null,
         error: action.payload,
       };
+    case ADD_WORKSPACE_SUCCESS:
+      const newUserData =state.userData;
+      newUserData.workspaces.push(action.payload);
+      return {
+        ...state,
+        loading:false,
+        userData:newUserData,
+        error:false
+      }
+    case ADD_WORKSPACE_REQUEST:
+      return{
+        ...state,
+        loading:true,
+        error:""
+      }
+    case ADD_WORKSPACE_FAILURE:
+      return{
+        ...state,
+        loading:false,
+        error:action.payload
+      }
     default:
       return state;
   }
