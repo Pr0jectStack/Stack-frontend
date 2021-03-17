@@ -27,17 +27,23 @@ const editUserProfileFailure = (errorMsg) => {
 };
 
 export const editUserProfile = (data) => {
+  console.log("DAta: ", data);
+
   return (dispatch) => {
     dispatch(editUserProfileRequest());
     axios
-      .post(`${API}/user/profile`, JSON.stringify(data), {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .put(
+        `${API}/db/updateUserProfile?userId=${data._id}`,
+        JSON.stringify(data),
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((response) => {
-        const data = response.data;
+        const data = response.data.data;
         dispatch(editUserProfileSuccess(data));
       })
       .catch((error) => {
