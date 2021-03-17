@@ -1,6 +1,7 @@
 import React from "react";
 import Workspace from "../Workspace/Workspace";
 import {Redirect} from 'react-router-dom';
+import WorkspaceContainer from "../../containers/WorkspaceContainer";
 const Dashboard = (props) => {
   
   if (props.data.loading) {
@@ -13,7 +14,7 @@ const Dashboard = (props) => {
     return (
     <div className="mx-auto" id="outer-container">
       <main id="page-wrap">
-        <Workspace/>
+        <WorkspaceContainer/>
       </main>
     </div>
   );
