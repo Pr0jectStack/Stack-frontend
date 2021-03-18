@@ -27,8 +27,6 @@ const editUserProfileFailure = (errorMsg) => {
 };
 
 export const editUserProfile = (data) => {
-  console.log("DAta: ", data);
-
   return (dispatch) => {
     dispatch(editUserProfileRequest());
     axios
