@@ -1,27 +1,15 @@
-import React, { useState } from "react";
-import {
-  Navbar,
-  NavDropdown,
-  Nav,
-  Image,
-  Col,
-  Row,
-  Button,
-} from "react-bootstrap";
+import React from "react";
+import { Navbar, NavDropdown, Image, Col, Row, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import image from "./default_image.jpg";
+import default_image from "./default_image.jpg";
 import "./NavBar.css";
-import SideBar from "../SideBar/SideBar";
-import { signOut } from "../Auth/helper";
-import { Redirect } from "react-router-dom";
-// import Test from '../Test';
-const NavBar = ({ username, logOutUser }) => {
+
+const NavBar = ({ image, username, logOutUser }) => {
   const signout = () => {
     logOutUser();
   };
   return (
     <>
-      <SideBar />
       <Navbar className="navbar" collapseOnSelect expand="md" variant="dark">
         <Navbar.Brand href="/dashboard">
           <h3 style={{ paddingLeft: "40px", fontSize: "160%" }}>Collab</h3>
@@ -47,7 +35,7 @@ const NavBar = ({ username, logOutUser }) => {
               <Image
                 style={{ width: "30px", height: "30px" }}
                 className="user-avatar"
-                src={image}
+                src={image ? image : default_image}
                 roundedCircle
               />
             }
