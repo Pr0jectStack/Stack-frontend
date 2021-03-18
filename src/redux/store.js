@@ -1,12 +1,12 @@
 // * { REDUX } */
 import { createStore, applyMiddleware, compose } from "redux";
-import rootReducer from "./rootReducer";
 import thunk from "redux-thunk";
+import persistReducer from "./rootReducer";
 
 import { persistStore } from "redux-persist";
 
 const store = createStore(
-  rootReducer,
+  persistReducer,
   compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : (f) => f

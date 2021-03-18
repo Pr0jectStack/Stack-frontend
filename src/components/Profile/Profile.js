@@ -13,55 +13,72 @@ import CalendarHeatmap from "react-calendar-heatmap";
 import TeamCard from "./components/TeamCard";
 import default_image from "./default_image.jpg";
 import "./Profile.css";
-import {Redirect} from "react-router-dom"
+import { Redirect } from "react-router-dom";
 
 const Profile = (props) => {
+  const {
+    bio,
+    email,
+    username,
+    firstName,
+    lastName,
+    workspaces,
+    teams,
+    image,
+    contribution,
+    socialMediaHandles,
+  } = (props.data && props.data.userData) || {};
 
-   
-  // if (props.data.loading) {
-  //   return <h2> Loading...</h2>;
-  // } else if (props.data.error) {
-  //   return <h2>{props.data.error}</h2>;
-  // } else if (props.data && props.data.userData === null) {
-  //   return <Redirect to="/" />;
-  // } 
-
+  const { github, twitter, instagram, website } = socialMediaHandles || {};
 
   const [isEdit, setIsEdit] = useState(false);
-  const [smallProfileData, setSmallProfileData] = useState({
-    bio: props.data.userData ?props.data.userData.bio:"",
-    email: props.data.userData? props.data.userData.email:"",
-    github: "",
-    twitter: "",
-    instagram: "",
-    website: "",
-  });
-  const [tempData, setTempData] = useState({
-    bio: props.data.userData? props.data.userData.bio:"",
-    email:  props.data.userData?props.data.userData.email:"",
-    github: "",
-    twitter: "",
-    instagram: "",
-    website: "",
+  const [profileData, setProfileData] = useState({
+    bio: bio,
+    email: email,
+    github: github,
+    twitter: twitter,
+    instagram: instagram,
+    website: website,
   });
 
   const onSave = () => {
     setIsEdit(false);
-    setSmallProfileData({ ...tempData });
+
+    const changedUserData = {
+      ...props.data.userData,
+      email: profileData.email,
+      bio: profileData.bio,
+      socialMediaHandles: {
+        github: profileData.github,
+        twitter: profileData.twitter,
+        instagram: profileData.instagram,
+        website: profileData.website,
+      },
+    };
+    props.editUserProfile(changedUserData);
   };
 
   const onCancel = () => {
     setIsEdit(false);
+    setProfileData({
+      ...profileData,
+      bio: bio,
+      github: github,
+      twitter: twitter,
+      instagram: instagram,
+      website: website,
+    });
   };
 
   const handleChange = (event) => {
-    setTempData({
-      ...tempData,
+    setProfileData({
+      ...profileData,
       [event.target.name]: event.target.value,
     });
   };
 
   // ! TODO: Add Links for social account ids.
+
   /** Display Social media icons with their respective logo. */
   const SocialMediaIcon = ({ icon, text }) => {
     return (
@@ -76,40 +93,32 @@ const Profile = (props) => {
   const Socials = () => {
     return (
       <>
-        {smallProfileData.email.length > 0 && (
-          <SocialMediaIcon icon={"fa fa-at"} text={smallProfileData.email} />
+        {props.data.userData && email.length > 0 && (
+          <SocialMediaIcon icon={"fa fa-at"} text={email} />
         )}
-        {smallProfileData.github !== null &&
-          smallProfileData.github.length > 0 &&
-          smallProfileData.github !== undefined && (
-            <SocialMediaIcon
-              icon={"fa fa-github"}
-              text={smallProfileData.github}
-            />
+        {props.data.userData &&
+          github !== null &&
+          github.length > 0 &&
+          github !== undefined && (
+            <SocialMediaIcon icon={"fa fa-github"} text={github} />
           )}
-        {smallProfileData.twitter !== null &&
-          smallProfileData.twitter.length > 0 &&
-          smallProfileData.twitter !== undefined && (
-            <SocialMediaIcon
-              icon={"fa fa-twitter"}
-              text={smallProfileData.twitter}
-            />
+        {props.data.userData &&
+          twitter !== null &&
+          twitter.length > 0 &&
+          twitter !== undefined && (
+            <SocialMediaIcon icon={"fa fa-twitter"} text={twitter} />
           )}
-        {smallProfileData.instagram !== null &&
-          smallProfileData.instagram.length > 0 &&
-          smallProfileData.instagram !== undefined && (
-            <SocialMediaIcon
-              icon={"fa fa-instagram"}
-              text={smallProfileData.instagram}
-            />
+        {props.data.userData &&
+          instagram !== null &&
+          instagram.length > 0 &&
+          instagram !== undefined && (
+            <SocialMediaIcon icon={"fa fa-instagram"} text={instagram} />
           )}
-        {smallProfileData.website !== null &&
-          smallProfileData.website.length > 1 &&
-          smallProfileData.website !== undefined && (
-            <SocialMediaIcon
-              icon={"fa fa-link"}
-              text={smallProfileData.website}
-            />
+        {props.data.userData &&
+          website !== null &&
+          website.length > 1 &&
+          website !== undefined && (
+            <SocialMediaIcon icon={"fa fa-link"} text={website} />
           )}
       </>
     );
@@ -129,7 +138,12 @@ const Profile = (props) => {
     );
   };
 
-  const Workspace = () => {
+  // ! TODO: Add Link to Workspaces.
+  /**
+   * Component to build Workspaces thumbnail.
+   * @returns React.Node
+   */
+  const Workspaces = () => {
     return (
       <div className="mx-auto mb-5" id="outer-container">
         <main id="page-wrap">
@@ -145,29 +159,121 @@ const Profile = (props) => {
           </h5>
           <Row>
             <Col lg={8} style={{ borderRadius: "25px" }}>
-              <Image
-                src={default_image}
-                style={{ width: "40px", height: "40px", margin: "2px" }}
-                thumbnail
-              />
-              <Image
-                src={default_image}
-                style={{ width: "40px", height: "40px", margin: "2px" }}
-                thumbnail
-              />
-              <Image
-                src={default_image}
-                style={{ width: "40px", height: "40px", margin: "2px" }}
-                thumbnail
-              />
-              <Image
-                src={default_image}
-                style={{ width: "40px", height: "40px", margin: "2px" }}
-                thumbnail
-              />
+              {props.data.userData &&
+                workspaces &&
+                workspaces.map((workspace) => {
+                  return (
+                    <Image
+                      src={default_image}
+                      style={{ width: "40px", height: "40px", margin: "2px" }}
+                      thumbnail
+                    />
+                  );
+                })}
             </Col>
           </Row>
         </main>
+      </div>
+    );
+  };
+
+  // ! TODO: Add link to Teams
+
+  /**
+   * Component to build Teams View in the form of Cards
+   * @returns React.node
+   */
+  const Teams = () => {
+    return (
+      <div>
+        <h3 className="mb-3" style={{ color: "lightgrey" }}>
+          Teams
+        </h3>
+        <Row>
+          {props.data.userData && teams && teams.length > 0 ? (
+            teams.map((team) => {
+              return (
+                <TeamCard
+                  teamName="Boom Shaka Laka"
+                  workspaceName="Off in the church"
+                  role="Designer"
+                  percentComplete={2}
+                />
+              );
+            })
+          ) : (
+            <h4
+              className="text-center mx-auto my-auto pb-5 pt-5"
+              style={{ color: "lightgrey" }}
+            >
+              Not part of any teams yet!
+            </h4>
+          )}
+        </Row>
+      </div>
+    );
+  };
+
+  // ! TODO: Add parsing for Date.
+
+  /**
+   * Component for rendering a Github-Style task heatmap.
+   * @returns React.Node
+   */
+  const TaskHeatmap = () => {
+    return (
+      <div className="mt-4">
+        <h6 style={{ color: "lightgrey" }}>
+          {contribution.length} tasks completed so far
+        </h6>
+        <Card
+          style={{
+            borderWidth: "2px",
+            borderColor: "#222128",
+            backgroundColor: "inherit",
+          }}
+        >
+          <Card.Body style={{ paddingBottom: "0px", marginBottom: "0px" }}>
+            <CalendarHeatmap
+              weekdayLabels={[
+                "Sun",
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thurs",
+                "Fri",
+                "Sat",
+              ]}
+              titleForValue={(value) => {
+                if (!value) {
+                  return `0 tasks completed.`;
+                }
+                return `${value.count} tasks completed on ${value.date}`;
+              }}
+              showWeekdayLabels={true}
+              startDate={new Date("2020-12-20")}
+              endDate={new Date("2021-12-25")}
+              values={[
+                { date: "2021-01-01", count: 20 },
+                { date: "2021-02-01", count: 2 },
+                { date: "2021-03-01", count: 17 },
+                { date: "2021-03-02", count: 1 },
+                { date: "2021-03-03", count: 2 },
+                { date: "2021-03-04", count: 5 },
+                { date: "2021-05-05", count: 1 },
+                { date: "2021-05-06", count: 5 },
+                { date: "2021-05-08", count: 1 },
+                { date: "2021-05-12", count: 2 },
+              ]}
+              classForValue={(value) => {
+                if (!value) {
+                  return "color-empty";
+                }
+                return `color-scale-${value.count > 4 ? 4 : value.count}`;
+              }}
+            />
+          </Card.Body>
+        </Card>
       </div>
     );
   };
@@ -182,11 +288,7 @@ const Profile = (props) => {
       <Col className="d-small-block d-md-none">
         <Row>
           <Image
-            src={
-              props.data.userData.image
-                ? props.data.userData.image
-                : default_image
-            }
+            src={image ? image : default_image}
             style={{ height: "100px", width: "100px", marginBottom: "30px" }}
             roundedCircle
           />
@@ -200,7 +302,7 @@ const Profile = (props) => {
                 fontWeight: "600",
               }}
             >
-              {props.data.userData.firstName} {props.data.userData.lastName}
+              {firstName} {lastName}
             </h3>
             <h4
               style={{
@@ -210,7 +312,7 @@ const Profile = (props) => {
                 marginBottom: "40px",
               }}
             >
-              {props.data.userData.username}
+              {username}
             </h4>
           </Col>
         </Row>
@@ -227,11 +329,7 @@ const Profile = (props) => {
     return (
       <div className="d-none d-md-block">
         <Image
-          src={
-            props.data.userData.image
-              ? props.data.userData.image
-              : default_image
-          }
+          src={image ? image : default_image}
           style={{ height: "250px", width: "250px", marginBottom: "30px" }}
           roundedCircle
         />
@@ -243,7 +341,7 @@ const Profile = (props) => {
             fontWeight: "600",
           }}
         >
-          {props.data.userData.firstName} {props.data.userData.lastName}
+          {firstName} {lastName}
         </h3>
         <h4
           style={{
@@ -252,12 +350,12 @@ const Profile = (props) => {
             marginBottom: "40px",
           }}
         >
-          {props.data.userData.username}
+          {username}
         </h4>
       </div>
     );
   };
-  
+
   if (props.data.loading) {
     return <h2> Loading...</h2>;
   } else if (props.data.error) {
@@ -268,309 +366,227 @@ const Profile = (props) => {
     return (
       <div className="mx-auto" id="outer-container">
         <main id="page-wrap">
-      <Container style={{ marginTop: "5%" }} fluid>
-        <Row>
-          <Col md={1} lg={1} />
-          <Col xs={12} md={4} lg={2}>
-            <NarrowLayoutTop />
-            <WideLayoutTop />
-            {smallProfileData.bio && (
-              <h6 style={{ color: "lightgrey" }}>{smallProfileData.bio}</h6>
-            )}
-            {isEdit ? (
-              ""
-            ) : (
-              <Button
-                onClick={() => setIsEdit(true)}
-                size="sm"
-                className="mt-4 mb-4 p-2"
-                style={{
-                  textTransform: "capitalize",
-                  width: "100%",
-                  backgroundColor: "#222130",
-                  borderColor: "none",
-                  border: "0",
-                }}
-                block
-              >
-                Edit Profile
-              </Button>
-            )}
-            {isEdit ? (
-              <Row>
-                <Col>
-                  <Form className="mt-3 mb-3" style={{ width: "250px" }}>
-                    <Form.Group>
-                      <Form.Control
-                        style={{
-                          backgroundColor: "inherit",
-                          color: "lightgrey",
-                          borderColor: "#222128",
-                          borderWidth: "2px",
-                          height: "100px",
-                        }}
-                        as="textarea"
-                        name="bio"
-                        id="bio"
-                        value={tempData.bio}
-                        placeholder={"Bio"}
-                        onChange={handleChange}
-                      />
-                    </Form.Group>
-                    <Form.Group>
-                      <InputGroup>
-                        <InputGroup.Prepend>
-                          <InputGroup.Text
-                            className="fa fa-github"
-                            style={{
-                              color: "lightgrey",
-                              backgroundColor: "inherit",
-                              border: "0px",
-                            }}
-                          />
-                        </InputGroup.Prepend>
-                        <Form.Control
-                          style={{
-                            backgroundColor: "inherit",
-                            color: "lightgrey",
-                            borderColor: "#222128",
-                            width: "100px",
-                          }}
-                          type="text"
-                          name="github"
-                          id="github"
-                          size="sm"
-                          value={tempData.github}
-                          placeholder={"Github Username"}
-                          onChange={handleChange}
-                        />
-                      </InputGroup>
-                    </Form.Group>
-                    <Form.Group>
-                      <InputGroup>
-                        <InputGroup.Prepend>
-                          <InputGroup.Text
-                            className="fa fa-twitter"
-                            style={{
-                              color: "lightgrey",
-                              backgroundColor: "inherit",
-                              border: "0px",
-                            }}
-                          />
-                        </InputGroup.Prepend>
-                        <Form.Control
-                          style={{
-                            backgroundColor: "inherit",
-                            color: "lightgrey",
-                            borderColor: "#222128",
-                            width: "100px",
-                          }}
-                          type="text"
-                          name="twitter"
-                          id="twitter"
-                          size="sm"
-                          value={tempData.twitter}
-                          placeholder={"Twitter Username"}
-                          onChange={handleChange}
-                        />
-                      </InputGroup>
-                    </Form.Group>
-                    <Form.Group>
-                      <InputGroup>
-                        <InputGroup.Prepend>
-                          <InputGroup.Text
-                            className="fa fa-instagram"
-                            style={{
-                              color: "lightgrey",
-                              backgroundColor: "inherit",
-                              border: "0px",
-                            }}
-                          />
-                        </InputGroup.Prepend>
-                        <Form.Control
-                          style={{
-                            backgroundColor: "inherit",
-                            color: "lightgrey",
-                            borderColor: "#222128",
-                            width: "100px",
-                          }}
-                          type="text"
-                          name="instagram"
-                          id="instagram"
-                          size="sm"
-                          value={tempData.instagram}
-                          placeholder={"Instagram Username"}
-                          onChange={handleChange}
-                        />
-                      </InputGroup>
-                    </Form.Group>
-                    <Form.Group>
-                      <InputGroup>
-                        <InputGroup.Prepend>
-                          <InputGroup.Text
-                            className="fa fa-link"
-                            style={{
-                              color: "lightgrey",
-                              backgroundColor: "inherit",
-                              border: "0px",
-                            }}
-                          />
-                        </InputGroup.Prepend>
-                        <Form.Control
-                          style={{
-                            backgroundColor: "inherit",
-                            color: "lightgrey",
-                            borderColor: "#222128",
-                            width: "100px",
-                          }}
-                          type="text"
-                          name="website"
-                          id="website"
-                          size="sm"
-                          value={tempData.website}
-                          placeholder={"Wesbite URL"}
-                          onChange={handleChange}
-                        />
-                      </InputGroup>
-                    </Form.Group>
-                    <Col>
-                      <Row>
-                        <span
-                          type="button"
-                          onClick={onSave}
-                          className="mt-1 text-center"
-                          size="sm"
-                          style={{
-                            width: "50px",
-                            height: "30px",
-                            padding: "2px",
-                            textTransform: "capitalize",
-                            color: "lightgrey",
-                            backgroundColor: "#1e6823",
-                            borderRadius: "5px",
-                          }}
-                        >
-                          Save
-                        </span>
-                        <div className="mr-3"></div>
-                        <span
-                          type="button"
-                          onClick={onCancel}
-                          className="mt-1 text-center"
-                          size="sm"
-                          style={{
-                            width: "58px",
-                            height: "33px",
-                            paddingTop: "2px",
-                            paddingRight: "8px",
-                            paddingLeft: "7px",
-                            textTransform: "capitalize",
-                            color: "lightgrey",
-                            backgroundColor: "#222130",
-                            borderRadius: "5px",
-                          }}
-                        >
-                          Cancel
-                        </span>
-                      </Row>
-                    </Col>
-                  </Form>
-                </Col>
-              </Row>
-            ) : (
-              <Socials />
-            )}
-            <HR />
-            <Workspace />
-          </Col>
-          <Col className="d-none d-lg-block" lg={1} />
-          <Col xs={12} md={7} lg={7}>
-            <h3 className="mb-3" style={{ color: "lightgrey" }}>
-              Teams
-            </h3>
+          <Container style={{ marginTop: "5%" }} fluid>
             <Row>
-              <TeamCard
-                teamName="Bottom Fragger"
-                workspaceName="Ball of Duty"
-                role="Developer"
-                percentComplete={20}
-              />
-              <TeamCard
-                teamName="Bad Intentions"
-                workspaceName="Gold Diggers"
-                role="Owner"
-                percentComplete={80}
-              />
-              <TeamCard
-                teamName="Chicks with Kicks"
-                workspaceName="Win or Booze"
-                role="Team Leader"
-                percentComplete={50}
-              />
-              <TeamCard
-                teamName="Boom Shaka Laka"
-                workspaceName="Off in the church"
-                role="Designer"
-                percentComplete={2}
-              />
+              <Col md={1} lg={1} />
+              <Col xs={12} md={4} lg={2}>
+                <NarrowLayoutTop />
+                <WideLayoutTop />
+                {bio && <h6 style={{ color: "lightgrey" }}>{bio}</h6>}
+                {isEdit ? (
+                  ""
+                ) : (
+                  <Button
+                    onClick={() => setIsEdit(true)}
+                    size="sm"
+                    className="mt-4 mb-4 p-2"
+                    style={{
+                      textTransform: "capitalize",
+                      width: "100%",
+                      backgroundColor: "#222130",
+                      borderColor: "none",
+                      border: "0",
+                    }}
+                    block
+                  >
+                    Edit Profile
+                  </Button>
+                )}
+                {isEdit ? (
+                  <Row>
+                    <Col>
+                      <Form className="mt-3 mb-3" style={{ width: "250px" }}>
+                        <Form.Group>
+                          <Form.Control
+                            style={{
+                              backgroundColor: "inherit",
+                              color: "lightgrey",
+                              borderColor: "#222128",
+                              borderWidth: "2px",
+                              height: "100px",
+                            }}
+                            as="textarea"
+                            name="bio"
+                            id="bio"
+                            value={profileData.bio}
+                            placeholder={"Bio"}
+                            onChange={handleChange}
+                          />
+                        </Form.Group>
+                        <Form.Group>
+                          <InputGroup>
+                            <InputGroup.Prepend>
+                              <InputGroup.Text
+                                className="fa fa-github"
+                                style={{
+                                  color: "lightgrey",
+                                  backgroundColor: "inherit",
+                                  border: "0px",
+                                }}
+                              />
+                            </InputGroup.Prepend>
+                            <Form.Control
+                              style={{
+                                backgroundColor: "inherit",
+                                color: "lightgrey",
+                                borderColor: "#222128",
+                                width: "100px",
+                              }}
+                              type="text"
+                              name="github"
+                              id="github"
+                              size="sm"
+                              value={profileData.github}
+                              placeholder={"Github Username"}
+                              onChange={handleChange}
+                            />
+                          </InputGroup>
+                        </Form.Group>
+                        <Form.Group>
+                          <InputGroup>
+                            <InputGroup.Prepend>
+                              <InputGroup.Text
+                                className="fa fa-twitter"
+                                style={{
+                                  color: "lightgrey",
+                                  backgroundColor: "inherit",
+                                  border: "0px",
+                                }}
+                              />
+                            </InputGroup.Prepend>
+                            <Form.Control
+                              style={{
+                                backgroundColor: "inherit",
+                                color: "lightgrey",
+                                borderColor: "#222128",
+                                width: "100px",
+                              }}
+                              type="text"
+                              name="twitter"
+                              id="twitter"
+                              size="sm"
+                              value={profileData.twitter}
+                              placeholder={"Twitter Username"}
+                              onChange={handleChange}
+                            />
+                          </InputGroup>
+                        </Form.Group>
+                        <Form.Group>
+                          <InputGroup>
+                            <InputGroup.Prepend>
+                              <InputGroup.Text
+                                className="fa fa-instagram"
+                                style={{
+                                  color: "lightgrey",
+                                  backgroundColor: "inherit",
+                                  border: "0px",
+                                }}
+                              />
+                            </InputGroup.Prepend>
+                            <Form.Control
+                              style={{
+                                backgroundColor: "inherit",
+                                color: "lightgrey",
+                                borderColor: "#222128",
+                                width: "100px",
+                              }}
+                              type="text"
+                              name="instagram"
+                              id="instagram"
+                              size="sm"
+                              value={profileData.instagram}
+                              placeholder={"Instagram Username"}
+                              onChange={handleChange}
+                            />
+                          </InputGroup>
+                        </Form.Group>
+                        <Form.Group>
+                          <InputGroup>
+                            <InputGroup.Prepend>
+                              <InputGroup.Text
+                                className="fa fa-link"
+                                style={{
+                                  color: "lightgrey",
+                                  backgroundColor: "inherit",
+                                  border: "0px",
+                                }}
+                              />
+                            </InputGroup.Prepend>
+                            <Form.Control
+                              style={{
+                                backgroundColor: "inherit",
+                                color: "lightgrey",
+                                borderColor: "#222128",
+                                width: "100px",
+                              }}
+                              type="text"
+                              name="website"
+                              id="website"
+                              size="sm"
+                              value={profileData.website}
+                              placeholder={"Wesbite URL"}
+                              onChange={handleChange}
+                            />
+                          </InputGroup>
+                        </Form.Group>
+                        <Col>
+                          <Row>
+                            <span
+                              type="button"
+                              onClick={onSave}
+                              className="mt-1 text-center"
+                              size="sm"
+                              style={{
+                                width: "50px",
+                                height: "30px",
+                                padding: "2px",
+                                textTransform: "capitalize",
+                                color: "lightgrey",
+                                backgroundColor: "#1e6823",
+                                borderRadius: "5px",
+                              }}
+                            >
+                              Save
+                            </span>
+                            <div className="mr-3"></div>
+                            <span
+                              type="button"
+                              onClick={onCancel}
+                              className="mt-1 text-center"
+                              size="sm"
+                              style={{
+                                width: "58px",
+                                height: "33px",
+                                paddingTop: "2px",
+                                paddingRight: "8px",
+                                paddingLeft: "7px",
+                                textTransform: "capitalize",
+                                color: "lightgrey",
+                                backgroundColor: "#222130",
+                                borderRadius: "5px",
+                              }}
+                            >
+                              Cancel
+                            </span>
+                          </Row>
+                        </Col>
+                      </Form>
+                    </Col>
+                  </Row>
+                ) : (
+                  <Socials />
+                )}
+                <HR />
+                <Workspaces />
+              </Col>
+              <Col className="d-none d-lg-block" lg={1} />
+              <Col xs={12} md={7} lg={7}>
+                <Teams />
+                <TaskHeatmap />
+              </Col>
             </Row>
-            <div className="mt-4">
-              <h6 style={{ color: "lightgrey" }}>23 tasks completed so far</h6>
-              <Card
-                style={{
-                  borderWidth: "2px",
-                  borderColor: "#222128",
-                  backgroundColor: "inherit",
-                }}
-              >
-                <Card.Body
-                  style={{ paddingBottom: "0px", marginBottom: "0px" }}
-                >
-                  <CalendarHeatmap
-                    weekdayLabels={[
-                      "Sun",
-                      "Mon",
-                      "Tue",
-                      "Wed",
-                      "Thurs",
-                      "Fri",
-                      "Sat",
-                    ]}
-                    titleForValue={(value) => {
-                      if (!value) {
-                        return `0 tasks completed.`;
-                      }
-                      return `${value.count} tasks completed on ${value.date}`;
-                    }}
-                    showWeekdayLabels={true}
-                    startDate={new Date("2020-12-20")}
-                    endDate={new Date("2021-12-25")}
-                    values={[
-                      { date: "2021-01-01", count: 20 },
-                      { date: "2021-02-01", count: 2 },
-                      { date: "2021-03-01", count: 17 },
-                      { date: "2021-03-02", count: 1 },
-                      { date: "2021-03-03", count: 2 },
-                      { date: "2021-03-04", count: 5 },
-                      { date: "2021-05-05", count: 1 },
-                      { date: "2021-05-06", count: 5 },
-                      { date: "2021-05-08", count: 1 },
-                      { date: "2021-05-12", count: 2 },
-                    ]}
-                    classForValue={(value) => {
-                      if (!value) {
-                        return "color-empty";
-                      }
-                      return `color-scale-${value.count > 4 ? 4 : value.count}`;
-                    }}
-                  />
-                </Card.Body>
-              </Card>
-            </div>
-          </Col>
-        </Row>
-      </Container>
-      </main>
+          </Container>
+        </main>
       </div>
     );
 };
