@@ -15,7 +15,7 @@ import SideBar from "../SideBar/SideBar";
 import { signOut } from "../Auth/helper";
 import { Redirect } from "react-router-dom";
 // import Test from '../Test';
-const NavBar = ({ logOutUser }) => {
+const NavBar = ({ username, logOutUser }) => {
   const signout = () => {
     logOutUser();
   };
@@ -63,7 +63,7 @@ const NavBar = ({ logOutUser }) => {
                     fontWeight: "700",
                   }}
                 >
-                  elizab
+                  {username}
                 </Row>
               </Col>
             </NavDropdown.Item>
