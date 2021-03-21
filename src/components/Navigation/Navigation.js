@@ -1,24 +1,29 @@
-import React from 'react'
-import NavBar from '../NavBar/NavBar';
-import GuestNavBar from '../NavBar/GuestNavBar';
-import _ from 'lodash';
-import { Redirect } from 'react-router-dom';
-const Navigation = (props) => {
+import React from "react";
+import NavBar from "./components/NavBar/NavBar";
+import GuestNavBar from "./components/NavBar/GuestNavBar";
+import SideBar from "./components/SideBar/SideBar";
+import _ from "lodash";
 
-    const {data, signOutUser} = props;
-    console.log(data);
-    const logOutUser = () =>{
+const Navigation = (props) => {
+  const { data, signOutUser } = props;
+  const logOutUser = () => {
     signOutUser();
-      setTimeout(() => {
-        window.location.reload();
-      }, 20);
-    //   
-    }
-    return (
-        <div>
-            {data.userData === null?<GuestNavBar/>:<NavBar logOutUser={logOutUser}/>}
-        </div>
-    )
-}
+    setTimeout(() => {
+      window.location.reload();
+    }, 20);
+  };
+  return (
+    <div>
+      {data.userData === null ? (
+        <GuestNavBar />
+      ) : (
+        <>
+          <SideBar />
+          <NavBar username={data.userData.username} logOutUser={logOutUser} />
+        </>
+      )}
+    </div>
+  );
+};
 
 export default Navigation;
