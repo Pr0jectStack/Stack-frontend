@@ -3,7 +3,7 @@ import { Row, Col } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import CardItems from "./CardItems";
 import "./Landing.css";
-const Landing = ({ heading, type, _id, data, userId }) => {
+const Landing = ({ heading, type, _id, data, userId, openItem }) => {
   const [redirect, setRedirect] = useState(false);
 
   const redirectToForm = () => {
@@ -29,6 +29,8 @@ const Landing = ({ heading, type, _id, data, userId }) => {
             description={description}
             owner={owner}
             members={members}
+            id={_id}
+            openItem={openItem}
           />
         </Col>
       );

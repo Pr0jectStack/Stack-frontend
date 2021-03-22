@@ -10,9 +10,11 @@ const CardItems = ({
   description,
   teamLeader,
   members,
+  id,
+  openItem
 }) => {
   return (
-    <div>
+    <div onClick={()=>openItem(id)}>
       {demo ? (
         <Card
           style={{
