@@ -5,6 +5,7 @@ import signInReducer from "./auth/signinReducer";
 import signUpReducer from "./auth/signUpReducer";
 import profileReducer from "./profile/profileReducer";
 import workspaceReducer from "./workspace/workspaceReducer";
+import guestProfileReducer from "./guestProfile/guestProfileReducer";
 
 const persistConfig = {
   key: "root",
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   signUp: signUpReducer,
   profile: profileReducer,
   workspace: workspaceReducer,
+  guestProfile: guestProfileReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer); // Persisted Reducers
