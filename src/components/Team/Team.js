@@ -26,6 +26,7 @@ const Team = (props) => {
         userId={profile._id}
         openItem={openTeams}
         goBack={goBack}
+        ownerId={workspace.currentWorkspace.owner}
       />
     </div>
   );

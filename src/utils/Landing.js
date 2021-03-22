@@ -3,16 +3,27 @@ import { Row, Col } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import CardItems from "./CardItems";
 import "./Landing.css";
-const Landing = ({ heading, type, _id, data, userId,openItem,goBack }) => {
+const Landing = ({
+  heading,
+  type,
+  _id,
+  data,
+  userId,
+  openItem,
+  goBack,
+  ownerId = "",
+}) => {
   const [redirect, setRedirect] = useState(false);
 
   const redirectToForm = () => {
     if (redirect) {
-      return (
-        <Redirect
-          to={type === "workspace" ? `/createWorkspace` : `/createTeam`}
-        />
-      );
+      switch (type) {
+        case "workspace":
+          return <Redirect to={`/createWorkspace`} />;
+        case "team":
+          if(userId === ownerId)
+          return <Redirect to={`/createTeam`} />;
+      }
     }
   };
 
@@ -86,14 +97,14 @@ const Landing = ({ heading, type, _id, data, userId,openItem,goBack }) => {
       {showHeading()}
 
       <Row style={{ marginTop: "6%", maxWidth: "95%", marginLeft: "10px" }}>
-        <Col md="12 mb-2" lg="4">
+        {(type === "workspace" || userId === ownerId )&& <Col md="12 mb-2" lg="4">
           <div
             style={{ left: "0px", right: "0px" }}
             onClick={() => setRedirect(true)}
           >
-            <CardItems demo type={type} openItem={()=>setRedirect(true)} />
+            <CardItems demo type={type} openItem={() => setRedirect(true)} />
           </div>
-        </Col>
+        </Col>}
         {type === "workspace" ? showWorkspaces : showTeams}
       </Row>
     </div>
