@@ -10,6 +10,7 @@ const Workspace = (props) => {
 
   const openWorkspace = (wid)=>{
     props.updateCurrentWorkspace(wid);
+    // return <Redirect to="/dashboard/team"/>
     props.setCurrentPage("Team");
   }
 

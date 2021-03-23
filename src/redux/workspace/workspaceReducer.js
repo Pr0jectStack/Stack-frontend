@@ -1,4 +1,9 @@
 import { UPDATE_CURRENT_WORKSPACE_FAILURE, UPDATE_CURRENT_WORKSPACE_REQUEST,UPDATE_CURRENT_WORKSPACE_SUCCESS } from "../workspace/workspaceTypes";
+import {
+  ADD_TEAM_FAILURE,
+  ADD_TEAM_REQUEST,
+  ADD_TEAM_SUCCESS,
+} from "../team/teamTypes";
 const initialState = {
   loading: false,
   currentWorkspace: null,
@@ -28,6 +33,27 @@ const workspaceReducer = (state = initialState, action) => {
         currentWorkspace: null,
         error: action.payload,
       };
+    case ADD_TEAM_SUCCESS:
+        const currentWorkspace = state.currentWorkspace;
+        currentWorkspace.teams.push(action.payload);
+        return {
+          ...state,
+          loading: false,
+          currentWorkspace: currentWorkspace,
+          error: false,
+        };
+    case ADD_TEAM_REQUEST:
+        return {
+          ...state,
+          loading: true,
+          error: "",
+        };
+    case ADD_TEAM_FAILURE:
+        return {
+          ...state,
+          loading: false,
+          error: action.payload,
+        };
     default:
       return state;
   }

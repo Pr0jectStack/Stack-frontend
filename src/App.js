@@ -8,6 +8,7 @@ import PrivateRoute from "./components/Auth/PrivateRoute";
 import GuestRoute from "./components/Auth/GuestRoute";
 import NavigationContainer from "./containers/NavigationContainer";
 import CreateWorkspaceContainer from "./containers/CreateWorkspaceContainer";
+import CreateTeamContainer from "./containers/CreateTeamContainer";
 import TeamContainer from "./containers/TeamContainer";
 const App = () => {
   return (
@@ -31,7 +32,7 @@ const App = () => {
             component={DashboardContainer}
           />
           <PrivateRoute
-            path="/team"
+            path="/dashboard/team/"
             exact
             component={TeamContainer}
           />
@@ -40,6 +41,11 @@ const App = () => {
             path="/createWorkspace"
             exact
             component={CreateWorkspaceContainer}
+          />
+          <PrivateRoute
+            path="/createTeam"
+            exact
+            component={CreateTeamContainer}
           />
         </Switch>
       </Router>
