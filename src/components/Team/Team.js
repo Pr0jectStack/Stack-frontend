@@ -4,6 +4,14 @@ const Team = (props) => {
   const workspace =props.workspaceData;
   const profile = props.profileData;
 
+  const openTeams = () =>{
+    //TODO:   props.updateCurrentTeam(tid);
+    console.log("Teams");
+  }
+  const goBack = () =>{
+    props.setCurrentPage("Workspace");
+  }
+
   if (props.workspaceData.loading) {
     return <h2> Loading...</h2>;
   } else if (props.workspaceData.error) {
@@ -16,6 +24,9 @@ const Team = (props) => {
         type="team"
         data={workspace.currentWorkspace.teams}
         userId={profile._id}
+        openItem={openTeams}
+        goBack={goBack}
+        ownerId={workspace.currentWorkspace.owner}
       />
     </div>
   );

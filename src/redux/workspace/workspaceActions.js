@@ -76,11 +76,11 @@ export const addNewWorkspace = (data) => {
   };
 };
 
-export const updateCurrentWorkspace = (wid) => {
+export const updateCurrentWorkspace = (data) => {
   return (dispatch) => {
     dispatch(updateCurrentWorkspaceRequest());
     axios
-      .post(`${API}/db/getWorkSpaceById`, JSON.stringify({wid:wid}), {
+      .post(`${API}/db/getWorkSpaceById`, JSON.stringify({wid:data}), {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
