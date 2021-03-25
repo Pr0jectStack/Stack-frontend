@@ -1,9 +1,13 @@
-import React from "react";
-import Workspace from "../Workspace/Workspace";
-import {Redirect} from 'react-router-dom';
+import React,{useState} from "react";
+import { Redirect } from "react-router-dom";
 import WorkspaceContainer from "../../containers/WorkspaceContainer";
+import GuestProfileContainer from "../../containers/GuestProfileContainer";
+import TeamContainer from "../../containers/TeamContainer";
+
 const Dashboard = (props) => {
-  
+
+  const [currentPage, setCurrentPage] = useState("Workspace");
+
   if (props.data.loading) {
     return <h2> Loading...</h2>;
   } else if (props.data.error) {
@@ -12,12 +16,14 @@ const Dashboard = (props) => {
     return <Redirect to="/" />;
   } else
     return (
-    <div className="mx-auto" id="outer-container">
-      <main id="page-wrap">
-        <WorkspaceContainer/>
-      </main>
-    </div>
-  );
+      <div className="mx-auto" id="outer-container">
+        <GuestProfileContainer isOpen={false} userId={props.data.userData._id} />
+        <main id="page-wrap">
+          {currentPage === "Workspace" && <WorkspaceContainer setCurrentPage={setCurrentPage}/>}
+          {currentPage === "Team" && <TeamContainer setCurrentPage={setCurrentPage}/>}
+        </main>
+      </div>
+    );
 };
 
 export default Dashboard;
