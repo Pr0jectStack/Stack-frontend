@@ -5,6 +5,7 @@ import storage from "redux-persist/lib/storage";
 import signInReducer from "./auth/signinReducer";
 import signUpReducer from "./auth/signUpReducer";
 import profileReducer from "./profile/profileReducer";
+import settingsReducer from "./settings/settingsReducer";
 
 const persistConfig = {
   key: "root",
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   signIn: signInReducer,
   signUp: signUpReducer,
   profile: profileReducer,
+  settings: settingsReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer); // Persisted Reducers

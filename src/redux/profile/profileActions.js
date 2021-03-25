@@ -56,3 +56,9 @@ export const editProfileDataFromLogin = (data) => {
     dispatch(editUserProfileSuccess(data));
   };
 };
+
+export const setUserProfile = (data) => {
+  return (dispatch) => {
+    dispatch(editUserProfileSuccess(data));
+  };
+};

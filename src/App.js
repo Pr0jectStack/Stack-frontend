@@ -8,6 +8,8 @@ import PrivateRoute from "./components/Auth/PrivateRoute";
 import GuestRoute from "./components/Auth/GuestRoute";
 import NavigationContainer from "./containers/NavigationContainer";
 import CreateWorkspaceContainer from "./containers/CreateWorkspaceContainer";
+import SettingsContainer from "./containers/SettingsContainer";
+
 const App = () => {
   return (
     <>
@@ -23,6 +25,7 @@ const App = () => {
           <PrivateRoute path="/" exact component={DashboardContainer} />
 
           <PrivateRoute path="/profile" exact component={ProfileContainer} />
+          <PrivateRoute path="/settings" exact component={SettingsContainer} />
 
           <PrivateRoute
             path="/dashboard"
