@@ -4,8 +4,6 @@ import { useForm } from "react-hook-form";
 
 import "./ChangePasswordComponent.css";
 
-// ! TODO: Add Functionality
-
 const ChangePasswordComponent = (props) => {
   const { register, handleSubmit, errors, watch } = useForm({});
 

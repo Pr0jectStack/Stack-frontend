@@ -7,8 +7,6 @@ import "./ChangeOtherDetailsComponent.css";
 // TODO: Add proper validation for inputs
 
 const ChangeOtherDetailsComponent = (props) => {
-  console.log(props);
-
   const { register, handleSubmit, errors } = useForm({
     defaultValues: {
       bio: props.userData.bio,
