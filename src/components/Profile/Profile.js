@@ -97,27 +97,28 @@ const Profile = (props) => {
           <SocialMediaIcon icon={"fa fa-at"} text={email} />
         )}
         {props.data.userData &&
+          socialMediaHandles &&
+          github !== undefined &&
           github !== null &&
-          github.length > 0 &&
-          github !== undefined && (
+          github.length > 0 && (
             <SocialMediaIcon icon={"fa fa-github"} text={github} />
           )}
         {props.data.userData &&
+          twitter !== undefined &&
           twitter !== null &&
-          twitter.length > 0 &&
-          twitter !== undefined && (
+          twitter.length > 0 && (
             <SocialMediaIcon icon={"fa fa-twitter"} text={twitter} />
           )}
         {props.data.userData &&
+          instagram !== undefined &&
           instagram !== null &&
-          instagram.length > 0 &&
-          instagram !== undefined && (
+          instagram.length > 0 && (
             <SocialMediaIcon icon={"fa fa-instagram"} text={instagram} />
           )}
         {props.data.userData &&
+          website !== undefined &&
           website !== null &&
-          website.length > 1 &&
-          website !== undefined && (
+          website.length > 1 && (
             <SocialMediaIcon icon={"fa fa-link"} text={website} />
           )}
       </>

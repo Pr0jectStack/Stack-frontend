@@ -16,9 +16,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   changeOtherSettings: (changedData) =>
     dispatch(changeOtherSettings(changedData)),
-  changeImage: (changedImage) => dispatch(changeImage(changedImage)),
-  changePassword: (changedPassword) =>
-    dispatch(changePassword(changedPassword)),
+  changeImage: (userId, changedImage) =>
+    dispatch(changeImage(userId, changedImage)),
+  changePassword: (userId, changedPassword) =>
+    dispatch(changePassword(userId, changedPassword)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
