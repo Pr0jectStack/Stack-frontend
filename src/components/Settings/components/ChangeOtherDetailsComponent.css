@@ -1,0 +1,30 @@
+#name,
+#username,
+#email_address,
+#bio,
+#github,
+#twitter,
+#instagram,
+#website {
+  background-color: #2c2b3659;
+  border-color: #21262d;
+  border-width: 2px;
+  color: lightgrey;
+  width: 70vh;
+}
+
+#other-details-submit-button {
+  background-color: #238636;
+  color: white;
+  border-width: 0px;
+  border-color: #161b22;
+  font-size: 15px;
+  margin-bottom: 30px;
+}
+
+#other-details-submit-button:hover {
+  background-color: #238636;
+  border-width: 1px;
+  border-color: lightgrey;
+  margin-bottom: 30px;
+}

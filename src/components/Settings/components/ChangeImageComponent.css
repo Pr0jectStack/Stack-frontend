@@ -1,0 +1,30 @@
+.container {
+  position: relative;
+}
+
+#profile-image {
+  height: 240px;
+  width: 240px;
+  margin-bottom: 45px;
+}
+
+.picture-edit-button {
+  position: absolute;
+  bottom: 50px;
+  left: 18px;
+  height: 35px;
+  width: 70px;
+  background-color: #2c2b36;
+  color: lightgrey;
+  font-weight: thin;
+  text-align: center;
+  border: 1px solid;
+  border-radius: 4px;
+  border-color: lightgrey;
+  padding: 5px;
+  cursor: pointer;
+}
+
+input[type="file"] {
+  display: none;
+}

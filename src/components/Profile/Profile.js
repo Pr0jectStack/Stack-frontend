@@ -404,6 +404,7 @@ const Profile = (props) => {
                               borderColor: "#222128",
                               borderWidth: "2px",
                               height: "100px",
+                              width: "250px",
                             }}
                             as="textarea"
                             name="bio"

@@ -60,7 +60,7 @@ const NavBar = ({ image, username, logOutUser }) => {
               <Link to="/profile">Your Profile</Link>
             </NavDropdown.Item>
             <NavDropdown.Item eventKey="2">
-              <Link to="/profile" className="">
+              <Link to="/settings" className="">
                 Settings
               </Link>
             </NavDropdown.Item>
