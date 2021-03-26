@@ -31,6 +31,15 @@ const Profile = (props) => {
 
   const { github, twitter, instagram, website } = socialMediaHandles || {};
 
+  // Convert Buffer to base64 string.
+  const base64String = btoa(
+    String.fromCharCode(...new Uint8Array(image.data.data))
+  );
+  // Convert the base64 String to image.
+  let userImage = image
+    ? `data:${image.contentType};base64,${base64String}`
+    : default_image;
+
   const [isEdit, setIsEdit] = useState(false);
   const [profileData, setProfileData] = useState({
     bio: bio,
@@ -289,7 +298,7 @@ const Profile = (props) => {
       <Col className="d-small-block d-md-none">
         <Row>
           <Image
-            src={image ? image : default_image}
+            src={userImage}
             style={{ height: "100px", width: "100px", marginBottom: "30px" }}
             roundedCircle
           />
@@ -330,7 +339,7 @@ const Profile = (props) => {
     return (
       <div className="d-none d-md-block">
         <Image
-          src={image ? image : default_image}
+          src={userImage}
           style={{ height: "250px", width: "250px", marginBottom: "30px" }}
           roundedCircle
         />
