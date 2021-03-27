@@ -4,6 +4,7 @@ import storage from "redux-persist/lib/storage";
 import signInReducer from "./auth/signinReducer";
 import signUpReducer from "./auth/signUpReducer";
 import profileReducer from "./profile/profileReducer";
+import settingsReducer from "./settings/settingsReducer";
 import workspaceReducer from "./workspace/workspaceReducer";
 import guestProfileReducer from "./guestProfile/guestProfileReducer";
 
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   signIn: signInReducer,
   signUp: signUpReducer,
   profile: profileReducer,
+  settings: settingsReducer,
   workspace: workspaceReducer,
   guestProfile: guestProfileReducer,
 });

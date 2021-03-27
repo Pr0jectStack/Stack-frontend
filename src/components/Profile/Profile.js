@@ -31,6 +31,15 @@ const Profile = (props) => {
 
   const { github, twitter, instagram, website } = socialMediaHandles || {};
 
+  // Convert Buffer to base64 string.
+  const base64String = btoa(
+    String.fromCharCode(...new Uint8Array(image.data.data))
+  );
+  // Convert the base64 String to image.
+  let userImage = image
+    ? `data:${image.contentType};base64,${base64String}`
+    : default_image;
+
   const [isEdit, setIsEdit] = useState(false);
   const [profileData, setProfileData] = useState({
     bio: bio,
@@ -97,27 +106,28 @@ const Profile = (props) => {
           <SocialMediaIcon icon={"fa fa-at"} text={email} />
         )}
         {props.data.userData &&
+          socialMediaHandles &&
+          github !== undefined &&
           github !== null &&
-          github.length > 0 &&
-          github !== undefined && (
+          github.length > 0 && (
             <SocialMediaIcon icon={"fa fa-github"} text={github} />
           )}
         {props.data.userData &&
+          twitter !== undefined &&
           twitter !== null &&
-          twitter.length > 0 &&
-          twitter !== undefined && (
+          twitter.length > 0 && (
             <SocialMediaIcon icon={"fa fa-twitter"} text={twitter} />
           )}
         {props.data.userData &&
+          instagram !== undefined &&
           instagram !== null &&
-          instagram.length > 0 &&
-          instagram !== undefined && (
+          instagram.length > 0 && (
             <SocialMediaIcon icon={"fa fa-instagram"} text={instagram} />
           )}
         {props.data.userData &&
+          website !== undefined &&
           website !== null &&
-          website.length > 1 &&
-          website !== undefined && (
+          website.length > 1 && (
             <SocialMediaIcon icon={"fa fa-link"} text={website} />
           )}
       </>
@@ -288,7 +298,7 @@ const Profile = (props) => {
       <Col className="d-small-block d-md-none">
         <Row>
           <Image
-            src={image ? image : default_image}
+            src={userImage}
             style={{ height: "100px", width: "100px", marginBottom: "30px" }}
             roundedCircle
           />
@@ -329,7 +339,7 @@ const Profile = (props) => {
     return (
       <div className="d-none d-md-block">
         <Image
-          src={image ? image : default_image}
+          src={userImage}
           style={{ height: "250px", width: "250px", marginBottom: "30px" }}
           roundedCircle
         />
@@ -404,6 +414,7 @@ const Profile = (props) => {
                               borderColor: "#222128",
                               borderWidth: "2px",
                               height: "100px",
+                              width: "250px",
                             }}
                             as="textarea"
                             name="bio"
