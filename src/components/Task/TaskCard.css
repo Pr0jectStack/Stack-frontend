@@ -1,0 +1,9 @@
+.task-options{
+    display: none;
+}
+#task-card:hover .task-options{
+    display: block;
+}
+#task-card{
+    transition: all 0.3s ease-in-out;
+  }

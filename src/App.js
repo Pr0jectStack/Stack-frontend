@@ -10,6 +10,7 @@ import NavigationContainer from "./containers/NavigationContainer";
 import CreateWorkspaceContainer from "./containers/CreateWorkspaceContainer";
 import CreateTeamContainer from "./containers/CreateTeamContainer";
 import TeamContainer from "./containers/TeamContainer";
+import Task from "../src/components/Task/Task";
 const App = () => {
   return (
     <>
@@ -20,6 +21,7 @@ const App = () => {
           <GuestRoute path="/signup" exact component={SignUpContainer} />
           <GuestRoute path="/signin" exact component={SignInContainer} />
           <GuestRoute path="/" exact component={SignInContainer} />
+          <GuestRoute path= "/test" exact component={Task} />
 
           {/* Private Routes */}
           <PrivateRoute path="/" exact component={DashboardContainer} />
