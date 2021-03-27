@@ -2,15 +2,18 @@
 #username,
 #email_address,
 #bio,
-#github,
-#twitter,
-#instagram,
-#website {
+#socialMediaHandle {
   background-color: #2c2b3659;
   border-color: #21262d;
   border-width: 2px;
   color: lightgrey;
   width: 70vh;
+}
+
+#name,
+#username,
+#email_address {
+  background-color: #2c2b36b9;
 }
 
 #other-details-submit-button {

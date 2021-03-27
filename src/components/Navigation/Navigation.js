@@ -19,7 +19,11 @@ const Navigation = (props) => {
       ) : (
         <>
           <SideBar />
-          <NavBar username={data.userData.username} logOutUser={logOutUser} />
+          <NavBar
+            image={data.userData.image}
+            username={data.userData.username}
+            logOutUser={logOutUser}
+          />
         </>
       )}
     </div>

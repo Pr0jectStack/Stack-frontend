@@ -49,7 +49,10 @@ const Settings = (props) => {
           <hr />
           <Row>
             <Col className="d-xs-block d-sm-block d-md-block d-lg-none">
-              <ChangeImageComponent />
+              <ChangeImageComponent
+                userData={props.userData}
+                changeImage={props.changeImage}
+              />
             </Col>
             <Col>
               <ChangeOtherDetailsComponent
@@ -59,14 +62,20 @@ const Settings = (props) => {
             </Col>
             <Col sm={0} xs={0} md={0}></Col>
             <Col className="d-none d-lg-block">
-              <ChangeImageComponent changeImage={props.changeImage} />
+              <ChangeImageComponent
+                userData={props.userData}
+                changeImage={props.changeImage}
+              />
             </Col>
           </Row>
         </Col>
         <Col md={6} lg={7} id={itemSelected === 1 ? "" : "inactive"}>
           <h3 id="heading">Change password</h3>
           <hr />
-          <ChangePasswordComponent changePassword={props.changePassword} />
+          <ChangePasswordComponent
+            userId={props.userData._id}
+            changePassword={props.changePassword}
+          />
         </Col>
       </Row>
     );

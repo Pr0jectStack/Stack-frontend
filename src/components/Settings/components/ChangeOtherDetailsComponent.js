@@ -7,8 +7,6 @@ import "./ChangeOtherDetailsComponent.css";
 // TODO: Add proper validation for inputs
 
 const ChangeOtherDetailsComponent = (props) => {
-  console.log(props);
-
   const { register, handleSubmit, errors } = useForm({
     defaultValues: {
       bio: props.userData.bio,
@@ -70,14 +68,19 @@ const ChangeOtherDetailsComponent = (props) => {
         </Form.Group>
         <Form.Group>
           <Form.Label id="label">Github username</Form.Label>
-          <Form.Control type="text" name="github" id="github" ref={register} />
+          <Form.Control
+            type="text"
+            name="github"
+            id="socialMediaHandle"
+            ref={register}
+          />
         </Form.Group>
         <Form.Group>
           <Form.Label id="label">Twitter username</Form.Label>
           <Form.Control
             type="text"
             name="twitter"
-            id="twitter"
+            id="socialMediaHandle"
             ref={register}
           />
         </Form.Group>
@@ -86,7 +89,7 @@ const ChangeOtherDetailsComponent = (props) => {
           <Form.Control
             type="text"
             name="instagram"
-            id="instagram"
+            id="socialMediaHandle"
             ref={register}
           />
         </Form.Group>
@@ -95,7 +98,7 @@ const ChangeOtherDetailsComponent = (props) => {
           <Form.Control
             type="text"
             name="website"
-            id="website"
+            id="socialMediaHandle"
             ref={register}
           />
         </Form.Group>
