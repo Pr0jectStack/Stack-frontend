@@ -1,7 +1,9 @@
-import React from "react";
-import { Card, Row, Col, Badge } from "react-bootstrap";
+import React,{useState} from "react";
+import { Card, Row, Col, Badge, Modal } from "react-bootstrap";
 import { Progress } from "react-sweet-progress";
 import "react-sweet-progress/lib/style.css";
+import AddNewMembersUtilContainer from "../containers/AddNewMembersUtilContainer";
+
 const CardItems = ({
   demo = false,
   type,
@@ -13,8 +15,11 @@ const CardItems = ({
   id,
   openItem
 }) => {
+
+  const [modalShow, setModalShow] = useState(false);
+
   return (
-    <div onClick={()=>openItem(id)}>
+    <div >
       {demo ? (
         <Card
           style={{
@@ -27,6 +32,7 @@ const CardItems = ({
             borderStyle: "dashed",
             borderRadius:"15px"
           }}
+          onClick={()=>openItem(id)}
         >
           <Card.Body>
            
@@ -56,18 +62,26 @@ const CardItems = ({
             backgroundColor: "inherit",
             borderWidth: "2px",
             borderColor: "#222128",
-            borderRadius:"15px"
+            borderRadius:"15px",
+           
           }}
+       
         >
           <Card.Body>
-            <Card.Title style={{ color: "#008ecc" }}>{title}</Card.Title>
+            <Card.Title style={{ color: "#008ecc" }}>{title}
+            <i onClick={()=>setModalShow(true)} style={{float:"right",backgroundColor:"#0e101c"}} className="fa fa-user-plus btn text-light" aria-hidden="true"></i>
+            </Card.Title>
             <Card.Subtitle className="mb-3" style={{ color: "grey" }}>
               {subtitle}
             </Card.Subtitle>
-            <Card.Text className="mb-5 text-white">{description}</Card.Text>
-            <Progress
-              className="mx-center shadow"
-              style={{ fontSize: "10px" }}
+            <Card.Text className="mb-5 text-white">{description}<br/>
+            </Card.Text>
+           
+          </Card.Body>
+          <p className="btn tbtn-outline btn-info mx-3" onClick={()=>openItem(id)}>View</p>
+          <Progress
+              className="mx-center shadow pb-3 px-3"
+              style={{ fontSize: "10px"}}
               type="bar"
               width={100}
               status="default"
@@ -81,10 +95,37 @@ const CardItems = ({
                 },
               }}
             />
-          </Card.Body>
+            <AddNewMembers
+              show={modalShow}
+              type={type}
+              id={id}
+              title={title}
+              onHide={() => setModalShow(false)}
+            />
         </Card>
       )}
     </div>
+  );
+};
+
+const AddNewMembers = (props) => {
+  const addTask = props.addTask;
+  return (
+    <Modal
+      {...props}
+      size="md"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton style={{backgroundColor:"#0e101c",color:"white"}}>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Add members to {props.title}
+        </Modal.Title>{" "}
+      </Modal.Header>
+      <Modal.Body style={{backgroundColor:"#0e101c",color:"white"}}>
+        <AddNewMembersUtilContainer closeModal={props.onHide} id={props.id} type={props.type}/>
+      </Modal.Body>
+    </Modal>
   );
 };
 
