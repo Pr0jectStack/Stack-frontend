@@ -2,7 +2,8 @@ import React,{useState} from "react";
 import { Card, Row, Col, Badge, Modal } from "react-bootstrap";
 import { Progress } from "react-sweet-progress";
 import "react-sweet-progress/lib/style.css";
-import AddNewMembersUtil from './AddNewMembersUtil';
+import AddNewMembersUtilContainer from "../containers/AddNewMembersUtilContainer";
+
 const CardItems = ({
   demo = false,
   type,
@@ -122,7 +123,7 @@ const AddNewMembers = (props) => {
         </Modal.Title>{" "}
       </Modal.Header>
       <Modal.Body style={{backgroundColor:"#0e101c",color:"white"}}>
-        <AddNewMembersUtil closeModal={props.onHide} id={props.id} type={props.type}/>
+        <AddNewMembersUtilContainer closeModal={props.onHide} id={props.id} type={props.type}/>
       </Modal.Body>
     </Modal>
   );

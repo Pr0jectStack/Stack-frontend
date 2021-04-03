@@ -5,6 +5,13 @@ import ReactDatePicker from "react-datepicker";
 import { Badge, Col, Row } from "react-bootstrap";
 
 const AddNewMembersUtil = (props) => {
+    // console.log(props);
+
+    const profile =props.profileData;
+    const wid =props.id;
+
+
+
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [member, setMember] = useState("");
@@ -13,15 +20,19 @@ const AddNewMembersUtil = (props) => {
   const { register, handleSubmit, errors, watch, control } = useForm({});
 
   const onSubmit = (data) => {
-    data.members = members;
-    console.log(data);
-
+    if(members.length>0 && props.type === "workspace"){
+        data.members = members;
+        data.userId = profile._id;
+        data.wid = wid;
+        props.addMembersToWorkspace(data);
+    }
+    
     /** WHEN SUCCESSFUL CLOSE THE MODAL */
     props.closeModal();
   };
 
   const checkIfWorkSpaceExists = (value) => {
-    //TODO
+    //TODO: 
   };
   const sleep = (milliseconds) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));

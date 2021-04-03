@@ -1,4 +1,6 @@
-import { UPDATE_CURRENT_WORKSPACE_FAILURE, UPDATE_CURRENT_WORKSPACE_REQUEST,UPDATE_CURRENT_WORKSPACE_SUCCESS } from "../workspace/workspaceTypes";
+import { UPDATE_CURRENT_WORKSPACE_FAILURE, UPDATE_CURRENT_WORKSPACE_REQUEST,UPDATE_CURRENT_WORKSPACE_SUCCESS,  ADD_MEMBERS_TO_WORKSPACE_FAILURE,
+  ADD_MEMBERS_TO_WORKSPACE_REQUEST,
+  ADD_MEMBERS_TO_WORKSPACE_SUCCESS } from "../workspace/workspaceTypes";
 import {
   ADD_TEAM_FAILURE,
   ADD_TEAM_REQUEST,
@@ -8,6 +10,8 @@ const initialState = {
   loading: false,
   currentWorkspace: null,
   error: "",
+  addingMembers:false,
+  addingMembersError:""
 };
 
 const workspaceReducer = (state = initialState, action) => {
@@ -53,6 +57,24 @@ const workspaceReducer = (state = initialState, action) => {
           ...state,
           loading: false,
           error: action.payload,
+        };
+    case ADD_MEMBERS_TO_WORKSPACE_SUCCESS:
+        return {
+          ...state,
+          addingMembers: false,
+          addingMembersError:""
+        };
+    case ADD_MEMBERS_TO_WORKSPACE_REQUEST:
+        return {
+          ...state,
+          addingMembers: true,
+          addingMembersError: "",
+        };
+    case ADD_MEMBERS_TO_WORKSPACE_FAILURE:
+        return {
+          ...state,
+          addingMembers: false,
+          addingMembersError: action.payload,
         };
     default:
       return state;
