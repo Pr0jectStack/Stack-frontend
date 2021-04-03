@@ -4,7 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 import ReactDatePicker from "react-datepicker";
 import { Badge, Col, Row } from "react-bootstrap";
 
-const CreateTask = (props) => {
+const AddNewMembersUtil = (props) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [member, setMember] = useState("");
@@ -57,54 +57,6 @@ const CreateTask = (props) => {
             onSubmit={handleSubmit(onSubmit)}
             style={{ maxWidth: "95%", width: "550px", margin: "auto" }}
           >
-            <input
-              className="auth-input"
-              type="text"
-              placeholder="Task name"
-              name="taskDescription"
-              ref={register({
-                required: true,
-                validate: async (value) => {
-                  await sleep(1000);
-                  return checkIfWorkSpaceExists(value);
-                },
-              })}
-            />
-            {errors.taskDescription &&
-              errors.taskDescription.type === "required" && (
-                <p className="warning">This is required</p>
-              )}
-
-            <br />
-
-            <input
-              className="auth-input"
-              type="date"
-              name="deadline"
-              ref={register({
-                required: true,
-              })}
-            />
-            {errors.deadline && errors.deadline.type === "required" && (
-              <p className="warning">This is required</p>
-            )}
-            <br />
-
-            <select name="priority" ref={register()} className="auth-input">
-              <option value="NORMAL">NORMAL</option>
-              <option value="LOW">LOW</option>
-              <option value="URGENT">URGENT</option>
-            </select>
-            <br />
-
-            <select name="STATUS" ref={register()} className="auth-input">
-              <option value="BACKLOG">BACKLOG</option>
-              <option value="PROGRESS">PROGRESS</option>
-              <option value="REVIEW">REVIEW</option>
-              <option value="COMPLETED">COMPLETED</option>
-            </select>
-            <br />
-
             <div
               className="d-flex bg-white"
               style={{
@@ -146,4 +98,4 @@ const CreateTask = (props) => {
   );
 };
 
-export default CreateTask;
+export default AddNewMembersUtil;

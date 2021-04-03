@@ -21,8 +21,7 @@ const Landing = ({
         case "workspace":
           return <Redirect to={`/createWorkspace`} />;
         case "team":
-          if(userId === ownerId)
-          return <Redirect to={`/createTeam`} />;
+          if (userId === ownerId) return <Redirect to={`/createTeam`} />;
       }
     }
   };
@@ -31,7 +30,6 @@ const Landing = ({
     data.length > 0 &&
     data.map((workspace) => {
       let { owner, description, members, teams, name, _id } = workspace;
-
       return (
         <Col md="12  mb-2" lg="4" key={_id}>
           <CardItems
@@ -46,12 +44,11 @@ const Landing = ({
         </Col>
       );
     });
+
   const showTeams =
-    // <h1 className="text-white">{JSON.stringify(data[0])}</h1>
     data.length > 0 &&
     data.map((workspace) => {
       let { owner, inviteLink, members, tasks, name, _id } = workspace;
-
       return (
         <Col md="12  mb-2" lg="4" key={_id}>
           <CardItems
@@ -92,19 +89,20 @@ const Landing = ({
   };
 
   return (
-    <div className="">
+    <div>
       {redirectToForm()}
       {showHeading()}
-
       <Row style={{ marginTop: "6%", maxWidth: "95%", marginLeft: "10px" }}>
-        {(type === "workspace" || userId === ownerId )&& <Col md="12 mb-2" lg="4">
-          <div
-            style={{ left: "0px", right: "0px" }}
-            onClick={() => setRedirect(true)}
-          >
-            <CardItems demo type={type} openItem={() => setRedirect(true)} />
-          </div>
-        </Col>}
+        {(type === "workspace" || userId === ownerId) && (
+          <Col md="12 mb-2" lg="4">
+            <div
+              style={{ left: "0px", right: "0px" }}
+              onClick={() => setRedirect(true)}
+            >
+              <CardItems demo type={type} openItem={() => setRedirect(true)} />
+            </div>
+          </Col>
+        )}
         {type === "workspace" ? showWorkspaces : showTeams}
       </Row>
     </div>

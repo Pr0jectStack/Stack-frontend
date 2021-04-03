@@ -56,13 +56,13 @@ const NewTaskForm = (props) => {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
+      <Modal.Header closeButton style={{backgroundColor:"#0e101c",color:"white"}}>
         <Modal.Title id="contained-modal-title-vcenter">
           Add new Task
         </Modal.Title>{" "}
       </Modal.Header>
-      <Modal.Body>
-        <CreateTask />
+      <Modal.Body style={{backgroundColor:"#0e101c",color:"white"}}>
+        <CreateTask closeModal={props.onHide}/>
       </Modal.Body>
     </Modal>
   );
