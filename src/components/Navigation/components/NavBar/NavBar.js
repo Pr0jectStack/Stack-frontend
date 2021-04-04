@@ -6,14 +6,20 @@ import "./NavBar.css";
 
 const NavBar = ({ image, username, logOutUser }) => {
   // Convert Buffer to base64 string.
-  const base64String = image
-    ? btoa(String.fromCharCode(...new Uint8Array(image.data.data)))
-    : "";
+  const bufferToBase64 = (data) => {
+    let binary = "";
+    let bytes = new Uint8Array(data);
+    let len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return btoa(binary);
+  };
+
   // Convert the base64 String to image.
-  let userImage =
-    image && base64String.length > 0
-      ? `data:${image.contentType};base64,${base64String}`
-      : default_image;
+  let userImage = image
+    ? `data:${image.contentType};base64,${bufferToBase64(image.data.data)}`
+    : default_image;
 
   const signout = () => {
     logOutUser();
