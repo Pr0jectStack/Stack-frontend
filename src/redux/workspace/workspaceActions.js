@@ -147,7 +147,7 @@ export const addMembersToWorkspace = (data) =>{
     })
     .catch(err=>{
       const errorMsg = err.message;
-      dispatch(updateCurrentWorkspaceFailure(errorMsg));
+      dispatch(addMembersToWorkspaceFailure(errorMsg));
     })
 
   }

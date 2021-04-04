@@ -5,34 +5,38 @@ import ReactDatePicker from "react-datepicker";
 import { Badge, Col, Row } from "react-bootstrap";
 
 const AddNewMembersUtil = (props) => {
-    // console.log(props);
-
-    const profile =props.profileData;
-    const wid =props.id;
-
-
+  const profile = props.profileData;
+  const workspace = props.workspaceData.currentWorkspace;
+  const membersInWorkspace = workspace.members;
 
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState("");
   const [member, setMember] = useState("");
   const [members, setMembers] = useState([]);
 
   const { register, handleSubmit, errors, watch, control } = useForm({});
 
   const onSubmit = (data) => {
-    if(members.length>0 && props.type === "workspace"){
-        data.members = members;
-        data.userId = profile._id;
-        data.wid = wid;
-        props.addMembersToWorkspace(data);
+    if (members.length > 0 && props.type === "workspace") {
+      data.members = members;
+      data.userId = profile._id;
+      data.wid = props.id;
+      props.addMembersToWorkspace(data);
     }
-    
+    if (members.length > 0 && props.type === "team") {
+      data.members = members;
+      data.userId = profile._id;
+      data.tid = props.id;
+      data.wid = workspace._id;
+      props.addMembersToTeam(data);
+    }
+
     /** WHEN SUCCESSFUL CLOSE THE MODAL */
     props.closeModal();
   };
 
   const checkIfWorkSpaceExists = (value) => {
-    //TODO: 
+    //TODO:
   };
   const sleep = (milliseconds) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -54,9 +58,71 @@ const AddNewMembersUtil = (props) => {
     });
 
   const addMember = () => {
-    if (member !== "") {
+    if (member !== "" && props.type === "workspace") {
       setMembers([...members, member]);
       setMember("");
+    }
+    if (member !== "" && props.type === "team") {
+      if (allowed(member)) {
+        setMembers([...members, member]);
+        setMember("");
+        setError("");
+        setSuccess(member + " is added to the team.");
+        setMember("");
+        setTimeout(() => {
+          setSuccess("");
+        }, 3000);
+      } else {
+        setSuccess("");
+        setError(member + " is not a part of this workspace");
+        setTimeout(() => {
+          setError("");
+        }, 3000);
+      }
+    }
+  };
+
+  const allowed = (member) => {
+    for (let i = 0; i < membersInWorkspace.length; i++) {
+      if (
+        membersInWorkspace[i].username === member ||
+        membersInWorkspace[i].email === member
+      ) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const successMessage = () => {
+    if (success !== "") {
+      return (
+        <div className="row">
+          <div className="col-md-12 offset">
+            <div className="alert alert-success">
+              <i class="fa fa-check" aria-hidden="true"></i>
+              {"  "}
+              {success}
+            </div>
+          </div>
+        </div>
+      );
+    }
+  };
+
+  const errorMessage = () => {
+    if (error !== "") {
+      return (
+        <div className="row">
+          <div className="col-md-12 offset">
+            <div className="alert alert-danger">
+              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+              {"  "}
+              {error}
+            </div>
+          </div>
+        </div>
+      );
     }
   };
 
@@ -68,6 +134,8 @@ const AddNewMembersUtil = (props) => {
             onSubmit={handleSubmit(onSubmit)}
             style={{ maxWidth: "95%", width: "550px", margin: "auto" }}
           >
+            {errorMessage()}
+            {successMessage()}
             <div
               className="d-flex bg-white"
               style={{

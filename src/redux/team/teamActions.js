@@ -8,6 +8,10 @@ import {
   UPDATE_CURRENT_TEAM_SUCCESS,
   UPDATE_CURRENT_TEAM_REQUEST,
   UPDATE_CURRENT_TEAM_FAILURE,
+
+  ADD_MEMBERS_TO_TEAM_FAILURE,
+  ADD_MEMBERS_TO_TEAM_SUCCESS,
+  ADD_MEMBERS_TO_TEAM_REQUEST
 } from "./teamTypes";
 
 const addTeamRequest = () => {
@@ -26,6 +30,26 @@ const addTeamSuccess = (newTeam) => {
 const addTeamFailure = (errorMsg) => {
   return {
     type: ADD_TEAM_FAILURE,
+    payload: errorMsg,
+  };
+};
+
+const addMembersToTeamRequest = () => {
+  return {
+    type: ADD_MEMBERS_TO_TEAM_REQUEST,
+  };
+};
+
+const addMembersToTeamSuccess = (newTeam) => {
+  return {
+    type: ADD_MEMBERS_TO_TEAM_SUCCESS,
+    payload: newTeam,
+  };
+};
+
+const addMembersToTeamFailure = (errorMsg) => {
+  return {
+    type: ADD_MEMBERS_TO_TEAM_FAILURE,
     payload: errorMsg,
   };
 };
@@ -75,6 +99,35 @@ export const addNewTeam = (data) => {
       });
   };
 };
+
+export const addMembersToTeam = (data) =>{
+  return (dispatch) =>{
+
+    dispatch(addMembersToTeamRequest());
+
+    axios.post(`${API}/db/addMembersToTeam`,JSON.stringify(data),{
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response)=>{
+      const data =response.data;
+      if(data.error){
+        return dispatch(addMembersToTeamFailure(data.error));
+      }else{
+        dispatch(addMembersToTeamSuccess(data.team));
+      }
+    })
+    .catch(err=>{
+      const errorMsg = err.message;
+      dispatch(addMembersToTeamFailure(errorMsg));
+    })
+
+  }
+}
+
+
 
 // export const updateCurrentTeam = (data) => {
 //   return (dispatch) => {

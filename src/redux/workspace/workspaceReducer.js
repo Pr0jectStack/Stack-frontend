@@ -1,17 +1,27 @@
-import { UPDATE_CURRENT_WORKSPACE_FAILURE, UPDATE_CURRENT_WORKSPACE_REQUEST,UPDATE_CURRENT_WORKSPACE_SUCCESS,  ADD_MEMBERS_TO_WORKSPACE_FAILURE,
+import {
+  UPDATE_CURRENT_WORKSPACE_FAILURE,
+  UPDATE_CURRENT_WORKSPACE_REQUEST,
+  UPDATE_CURRENT_WORKSPACE_SUCCESS,
+  ADD_MEMBERS_TO_WORKSPACE_FAILURE,
   ADD_MEMBERS_TO_WORKSPACE_REQUEST,
-  ADD_MEMBERS_TO_WORKSPACE_SUCCESS } from "../workspace/workspaceTypes";
+  ADD_MEMBERS_TO_WORKSPACE_SUCCESS,
+} from "../workspace/workspaceTypes";
 import {
   ADD_TEAM_FAILURE,
   ADD_TEAM_REQUEST,
   ADD_TEAM_SUCCESS,
+  ADD_MEMBERS_TO_TEAM_FAILURE,
+  ADD_MEMBERS_TO_TEAM_REQUEST,
+  ADD_MEMBERS_TO_TEAM_SUCCESS,
 } from "../team/teamTypes";
 const initialState = {
   loading: false,
   currentWorkspace: null,
   error: "",
-  addingMembers:false,
-  addingMembersError:""
+  addingMembers: false,
+  addingMembersError: "",
+  addingMembersToTeam:false,
+  addingMembersToTeamError:""
 };
 
 const workspaceReducer = (state = initialState, action) => {
@@ -38,44 +48,79 @@ const workspaceReducer = (state = initialState, action) => {
         error: action.payload,
       };
     case ADD_TEAM_SUCCESS:
-        const currentWorkspace = state.currentWorkspace;
-        currentWorkspace.teams.push(action.payload);
-        return {
-          ...state,
-          loading: false,
-          currentWorkspace: currentWorkspace,
-          error: false,
-        };
+      const currentWorkspace = state.currentWorkspace;
+      currentWorkspace.teams.push(action.payload);
+      return {
+        ...state,
+        loading: false,
+        currentWorkspace: currentWorkspace,
+        error: false,
+      };
     case ADD_TEAM_REQUEST:
-        return {
-          ...state,
-          loading: true,
-          error: "",
-        };
+      return {
+        ...state,
+        loading: true,
+        error: "",
+      };
     case ADD_TEAM_FAILURE:
-        return {
-          ...state,
-          loading: false,
-          error: action.payload,
-        };
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
     case ADD_MEMBERS_TO_WORKSPACE_SUCCESS:
-        return {
-          ...state,
-          addingMembers: false,
-          addingMembersError:""
-        };
+      return {
+        ...state,
+        addingMembers: false,
+        addingMembersError: "",
+      };
     case ADD_MEMBERS_TO_WORKSPACE_REQUEST:
-        return {
-          ...state,
-          addingMembers: true,
-          addingMembersError: "",
-        };
+      return {
+        ...state,
+        addingMembers: true,
+        addingMembersError: "",
+      };
     case ADD_MEMBERS_TO_WORKSPACE_FAILURE:
-        return {
-          ...state,
-          addingMembers: false,
-          addingMembersError: action.payload,
-        };
+      return {
+        ...state,
+        addingMembers: false,
+        addingMembersError: action.payload,
+      };
+
+    case ADD_MEMBERS_TO_TEAM_SUCCESS:
+      let updatedTeam =action.payload;
+      /**
+       * Go through teams of current workspace
+       * Find the team whose id === updateTeam._id
+       * Delete that team
+       * Insert updatedTeam at that position
+       */
+      let currentWorkspaceUpdated = state.currentWorkspace;
+      for(let i=0;i<currentWorkspaceUpdated.teams.length;i++){
+        if(currentWorkspaceUpdated.teams[i]._id == updatedTeam._id){
+          currentWorkspaceUpdated.teams[i] = updatedTeam;
+          break;
+        }
+      }
+      return {
+        ...state,
+        currentWorkspace:currentWorkspaceUpdated,
+        addingMembersToTeam: false,
+        addingMembersToTeamError: "",
+      };
+    case ADD_MEMBERS_TO_TEAM_REQUEST:
+      return {
+        ...state,
+        addingMembersToTeam: true,
+        addingMembersToTeamError: "",
+      };
+    case ADD_MEMBERS_TO_TEAM_FAILURE:
+      return {
+        ...state,
+        addingMembersToTeam: false,
+        addingMembersToTeamError: action.payload,
+      };
+
     default:
       return state;
   }
