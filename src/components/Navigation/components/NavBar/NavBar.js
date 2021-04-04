@@ -5,15 +5,15 @@ import default_image from "./default_image.jpg";
 import "./NavBar.css";
 
 const NavBar = ({ image, username, logOutUser }) => {
-  
   // Convert Buffer to base64 string.
   const base64String = image
     ? btoa(String.fromCharCode(...new Uint8Array(image.data.data)))
     : "";
   // Convert the base64 String to image.
-  let userImage = image
-    ? `data:${image.contentType};base64,${base64String}`
-    : default_image;
+  let userImage =
+    image && base64String.length > 0
+      ? `data:${image.contentType};base64,${base64String}`
+      : default_image;
 
   const signout = () => {
     logOutUser();
