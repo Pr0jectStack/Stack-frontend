@@ -9,8 +9,8 @@ const TaskCard = ({
   assignedBy,
 }) => {
   return (
-    <p
-    id="task-card"
+    <div
+      id="task-card"
       className={
         category === "completed"
           ? "bg-success"
@@ -20,14 +20,43 @@ const TaskCard = ({
           ? "bg-info"
           : "bg-light"
       }
-      style={{ padding: "20px", background: "white", width: "100%" }}
+      style={{
+        maxHeight: "auto",
+        minHeight: "50px",
+        background: "white",
+        width: "100%",
+        marginBottom: "10px",
+      }}
     >
-      {taskDescription}
-      <span className="task-options" style={{float:"right",fontSize:"20px"}}>
-        <i className="fa fa-pencil bg-dark p-2 text-white" style={{borderRadius:"12px"}} aria-hidden="true"></i>
-        <i className="fa fa-trash bg-danger ml-1 p-2 text-white" style={{borderRadius:"12px"}} aria-hidden="true"></i>
-      </span>
-    </p>
+      <div className="d-flex justify-content-between">
+        <div style={{padding:"20px"}}>
+          {taskDescription}
+          <span className="ml-3"><i class="fa fa-clock-o" aria-hidden="true">{'  '}24/02/2020</i></span>
+        </div>
+        
+        <div className="task-options" style={{fontSize:"30px",}}>
+          {" "}
+          <i
+            className="fa fa-eye bg-info p-3 text-white"
+            aria-hidden="true"
+            style={{ height: "100%", }}
+            // onClick={()=>alert("View")} [ ADD VIEW FUNCTIONALITY ]
+          ></i>
+          <i
+            className="fa fa-pencil bg-dark p-3 text-white"
+            aria-hidden="true"
+            style={{ height: "100%", }}
+            // onClick={()=>alert("Edit")} [ ADD EDIT FUNCTIONALITY ]
+          ></i>
+          <i
+            className="fa fa-trash bg-danger p-3 text-white"
+            style={{ height: "100%" }}
+            aria-hidden="true"
+            // onClick={()=>alert("Delete")} [ ADD DELETE FUNCTIONALITY] 
+          ></i>
+        </div>
+      </div>
+    </div>
   );
 };
 
