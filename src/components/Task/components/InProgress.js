@@ -13,7 +13,7 @@ const InProgress = (props) => {
     });
   return (
     <div>
-      <h3 className="text-white mb-3">InProgress</h3>
+      <h3 className="text-white mb-3">In Progress</h3>
 
       {showTasks}
     </div>

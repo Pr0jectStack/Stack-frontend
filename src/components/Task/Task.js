@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Backlog from "./Backlog";
-import Review from "./Review";
-import Completed from "./Completed";
-import InProgress from "./InProgress";
+import Backlog from "./components/Backlog";
+import Review from "./components/Review";
+import Completed from "./components/Completed";
+import InProgress from "./components/InProgress";
 
 const Task = (props) => {
   const addTask = (task) => {
