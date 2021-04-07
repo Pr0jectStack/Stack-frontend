@@ -70,7 +70,7 @@ const Settings = (props) => {
           </Row>
         </Col>
         <Col md={6} lg={7} id={itemSelected === 1 ? "" : "inactive"}>
-          <h3 id="heading">Change password</h3>
+          <h3 id="heading" style={{marginLeft:"1%"}}>Change password</h3>
           <hr />
           <ChangePasswordComponent
             userId={props.userData._id}
