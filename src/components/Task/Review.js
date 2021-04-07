@@ -1,25 +1,22 @@
-import React,{useState} from 'react'
-import TaskCard from './TaskCard';
+import React, { useState } from "react";
+import TaskCard from "./TaskCard";
 const Review = (props) => {
-    const addTask = props.addTask;
-    const tasks = props.tasks;
-    const [modalShow, setModalShow] = useState(false);
-  
-    const showTasks =
-      tasks.length > 0 &&
-      tasks.map((task) => {
-        let { taskDescription, category } = task;
-        if(category === "review")
-        return (
-        <TaskCard taskDescription={taskDescription} category={category} />
-        )
-      });
-    return (
-        <div>
-            <h3 className="text-white mb-3">Review</h3>
-            {showTasks}
-        </div>
-    )
-}
+  const tasks = props.tasks.tasks;
+  const [modalShow, setModalShow] = useState(false);
 
-export default Review
+  const showTasks =
+    tasks &&
+    tasks.length > 0 &&
+    tasks.map((task) => {
+      if (task.status === "REVIEW")
+        return <TaskCard key={task._id} task={task} />;
+    });
+  return (
+    <div>
+      <h3 className="text-white mb-3">Review</h3>
+      {showTasks}
+    </div>
+  );
+};
+
+export default Review;

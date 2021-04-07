@@ -14,9 +14,9 @@ const CreateTask = (props) => {
 
   const onSubmit = (data) => {
     data.members = members;
-    console.log(data);
 
     /** WHEN SUCCESSFUL CLOSE THE MODAL */
+    props.addTask(data);
     props.closeModal();
   };
 
@@ -61,7 +61,7 @@ const CreateTask = (props) => {
               className="auth-input"
               type="text"
               placeholder="Task name"
-              name="taskDescription"
+              name="taskName"
               ref={register({
                 required: true,
                 validate: async (value) => {
@@ -70,10 +70,9 @@ const CreateTask = (props) => {
                 },
               })}
             />
-            {errors.taskDescription &&
-              errors.taskDescription.type === "required" && (
-                <p className="warning">This is required</p>
-              )}
+            {errors.taskName && errors.taskName.type === "required" && (
+              <p className="warning">This is required</p>
+            )}
 
             <br />
 
@@ -81,13 +80,13 @@ const CreateTask = (props) => {
               className="auth-input"
               type="date"
               name="deadline"
-              ref={register({
-                required: true,
-              })}
+              // ref={register({
+              //   required: true,
+              // })}
             />
-            {errors.deadline && errors.deadline.type === "required" && (
+            {/* {errors.deadline && errors.deadline.type === "required" && (
               <p className="warning">This is required</p>
-            )}
+            )} */}
             <br />
 
             <select name="priority" ref={register()} className="auth-input">
@@ -97,9 +96,9 @@ const CreateTask = (props) => {
             </select>
             <br />
 
-            <select name="STATUS" ref={register()} className="auth-input">
+            <select name="status" ref={register()} className="auth-input">
               <option value="BACKLOG">BACKLOG</option>
-              <option value="PROGRESS">PROGRESS</option>
+              <option value="IN_PROGRESS">PROGRESS</option>
               <option value="REVIEW">REVIEW</option>
               <option value="COMPLETED">COMPLETED</option>
             </select>

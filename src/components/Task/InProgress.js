@@ -1,22 +1,20 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import TaskCard from "./TaskCard";
 const InProgress = (props) => {
-  const addTask = props.addTask;
-  const tasks = props.tasks;
+  const tasks = props.tasks.tasks;
   const [modalShow, setModalShow] = useState(false);
 
   const showTasks =
+    tasks &&
     tasks.length > 0 &&
     tasks.map((task) => {
-      let { taskDescription, category } = task;
-    
-      if(category === "inProgress")
-      return <TaskCard taskDescription={taskDescription} category={category} />;
+      if (task.status === "IN_PROGRESS")
+        return <TaskCard key={task._id} task={task} />;
     });
   return (
     <div>
       <h3 className="text-white mb-3">InProgress</h3>
-      
+
       {showTasks}
     </div>
   );

@@ -1,23 +1,16 @@
 import React from "react";
 import "./TaskCard.css";
-const TaskCard = ({
-  taskDescription,
-  deadline,
-  category,
-  priority,
-  membersAssigned,
-  assignedBy,
-}) => {
-
+const TaskCard = ({ task }) => {
   return (
     <div
+      key={task._id}
       id="task-card"
       className={
-        category === "completed"
+        task.status === "COMPLETED"
           ? "bg-success"
-          : category === "review"
+          : task.status === "REVIEW"
           ? "bg-warning"
-          : category === "inProgress"
+          : task.status === "IN_PROGRESS"
           ? "bg-info"
           : "bg-light"
       }
@@ -30,30 +23,37 @@ const TaskCard = ({
       }}
     >
       <div className="d-flex justify-content-between">
-        <div style={{padding:"20px"}}>
-          {taskDescription}
-          <span className="ml-3"><i class="fa fa-clock-o" aria-hidden="true">{'  '}24/02/2020</i></span>
+        <div style={{ padding: "20px" }}>
+          {task.taskName}
+          {task.deadline && (
+            <span className="ml-3">
+              <i class="fa fa-clock-o" aria-hidden="true">
+                {"  "}
+                {task.deadline}
+              </i>
+            </span>
+          )}
         </div>
-        
-        <div className="task-options" style={{fontSize:"30px",}}>
+
+        <div className="task-options" style={{ fontSize: "30px" }}>
           {" "}
           <i
             className="fa fa-eye bg-info p-3 text-white"
             aria-hidden="true"
-            style={{ height: "100%", }}
+            style={{ height: "100%" }}
             // onClick={()=>alert("View")} [ ADD VIEW FUNCTIONALITY ]
           ></i>
           <i
             className="fa fa-pencil bg-dark p-3 text-white"
             aria-hidden="true"
-            style={{ height: "100%", }}
+            style={{ height: "100%" }}
             // onClick={()=>alert("Edit")} [ ADD EDIT FUNCTIONALITY ]
           ></i>
           <i
             className="fa fa-trash bg-danger p-3 text-white"
             style={{ height: "100%" }}
             aria-hidden="true"
-            // onClick={()=>alert("Delete")} [ ADD DELETE FUNCTIONALITY] 
+            // onClick={()=>alert("Delete")} [ ADD DELETE FUNCTIONALITY]
           ></i>
         </div>
       </div>
