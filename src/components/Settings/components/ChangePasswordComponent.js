@@ -21,12 +21,15 @@ const ChangePasswordComponent = (props) => {
   };
 
   return (
-    <div>
+    <div style={{width:"95%",margin:"10px"}}>
       <Form onSubmit={handleSubmit(onSubmit)} id="change-password-form">
         <Form.Group>
           <Form.Label id="label">Old password</Form.Label>
           <Col>
             <Row>
+              <div className="d-flex" style={{width:"97%"}}>
+
+             
               <Form.Control
                 name="password"
                 id="old_password"
@@ -36,13 +39,16 @@ const ChangePasswordComponent = (props) => {
                   minLength: 8,
                 })}
                 required
+                className="text-white"
               />
               <i
                 id="eye-toggle-button"
                 className={isVisible ? "fa fa-eye" : "fa fa-eye-slash"}
                 aria-hidden="true"
                 onClick={() => setIsVisible(!isVisible)}
+                style={{backgroundColor:"inherit",padding:"10px",marginLeft:"-40px"}}
               />
+               </div>
             </Row>
           </Col>
           {errors.old_password && errors.old_password.type === "required" && (
@@ -56,6 +62,7 @@ const ChangePasswordComponent = (props) => {
           <Form.Label id="label">New password</Form.Label>
           <Col>
             <Row>
+              <div className="d-flex" style={{width:"97%"}}>
               <Form.Control
                 name="new_password"
                 id="new_password"
@@ -68,13 +75,16 @@ const ChangePasswordComponent = (props) => {
                     "New password cannot be equal to the Old password",
                 })}
                 required
+                className="text-white"
               />
               <i
                 id="eye-toggle-button"
                 className={isVisible ? "fa fa-eye" : "fa fa-eye-slash"}
                 aria-hidden="true"
                 onClick={() => setIsVisible(!isVisible)}
+                style={{backgroundColor:"inherit",padding:"10px",marginLeft:"-40px"}}
               />
+               </div>
             </Row>
           </Col>
           {errors.new_password && errors.new_password.type === "required" && (
@@ -91,6 +101,7 @@ const ChangePasswordComponent = (props) => {
           <Form.Label id="label">Confirm new password</Form.Label>
           <Col>
             <Row>
+            <div className="d-flex" style={{width:"97%"}}>
               <Form.Control
                 name="confirm_new_password"
                 id="confirm_new_password"
@@ -103,13 +114,16 @@ const ChangePasswordComponent = (props) => {
                     "The passwords do not match",
                 })}
                 required
+                className="text-white"
               />
               <i
                 id="eye-toggle-button"
                 className={isVisible ? "fa fa-eye" : "fa fa-eye-slash"}
                 aria-hidden="true"
                 onClick={() => setIsVisible(!isVisible)}
+                style={{backgroundColor:"inherit",padding:"10px",marginLeft:"-40px"}}
               />
+              </div>
             </Row>
           </Col>
           {errors.confirm_new_password &&
