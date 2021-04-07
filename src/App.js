@@ -12,6 +12,7 @@ import SettingsContainer from "./containers/SettingsContainer";
 import CreateTeamContainer from "./containers/CreateTeamContainer";
 import TeamContainer from "./containers/TeamContainer";
 import Task from "../src/components/Task/Task";
+import SpeechToText from "./utils/SpeechToText";
 const App = () => {
   return (
     <>
@@ -23,6 +24,7 @@ const App = () => {
           <GuestRoute path="/signin" exact component={SignInContainer} />
           <GuestRoute path="/" exact component={SignInContainer} />
           <GuestRoute path= "/test" exact component={Task} />
+          <GuestRoute path= "/speech" exact component={SpeechToText} />
 
           {/* Private Routes */}
           <PrivateRoute path="/" exact component={DashboardContainer} />
