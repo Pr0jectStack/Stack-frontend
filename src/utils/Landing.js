@@ -13,9 +13,11 @@ const Landing = ({
   goBack,
   ownerId = "",
   updateCurrentWorkspace,
+  updateCurrentTeam,
   showMembers,
   setShowMembers
 }) => {
+  console.log(updateCurrentWorkspace)
   const [redirect, setRedirect] = useState(false);
 
   const redirectToForm = () => {
@@ -67,6 +69,7 @@ const Landing = ({
             openItem={openItem}
             inviteLink={inviteLink}
             showMembers={showMembers}
+            updateCurrentTeam={updateCurrentTeam}
             setShowMembers={setShowMembers}
           />
         </Col>

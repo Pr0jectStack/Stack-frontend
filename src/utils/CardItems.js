@@ -17,7 +17,8 @@ const CardItems = ({
   id,
   openItem,
   updateCurrentWorkspace,
-  setShowMembers,
+  updateCurrentTeam,
+  setShowMembers
 }) => {
   const [modalShow, setModalShow] = useState(false);
 
@@ -28,6 +29,7 @@ const CardItems = ({
     }
     else if(type === "team"){
       //TODO: updateCurrentTeam(id);
+      updateCurrentTeam(id);
       setShowMembers(type);
     }
   }

@@ -4,13 +4,15 @@ import {
   addNewWorkspace,
   updateCurrentWorkspace,
 } from "../redux/workspace/workspaceActions";
+import { updateCurrentTeam } from "../redux/team/teamActions";
 
 const mapStateToProps = (state) => ({
   
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  updateCurrentWorkspace: (data) => dispatch(updateCurrentWorkspace(data))
+  updateCurrentTeam: (data) => dispatch(updateCurrentTeam(data)),
+  updateCurrentWorkspace: (data) => dispatch(updateCurrentWorkspace(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Landing);
