@@ -68,7 +68,7 @@ const Task = (props) => {
           <i className="fa fa-arrow-left btn text-white" aria-hidden="true"></i>
         </h3>
         <h1 className="landing-h1 mt-2">{props.teamData.currentTeam.name}</h1>;
-        <div className="row" style={{ marginTop: "7%" }}>
+        <div className="row" style={{ marginTop: "4%" }}>
           <div className="col-md-3 mx-auto">
             <Backlog
               tasks={props.data}

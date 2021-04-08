@@ -42,7 +42,7 @@ const Backlog = (props) => {
       {props.hasAuth && (
         <p
           id="task-card"
-          className="bg-light text-center"
+          className="bg-light text-center btn"
           style={{
             padding: "20px",
             background: "white",
