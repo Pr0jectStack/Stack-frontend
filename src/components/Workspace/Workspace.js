@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import LandingContainer from "../../containers/LandingContainer";
 import TeamContainer from "../../containers/TeamContainer";
-import Landing from "../../utils/Landing";
 const Workspace = (props) => {
 
   const workspaces = props.data.workspaces;
@@ -16,12 +16,14 @@ const Workspace = (props) => {
 
   return (
     <div>
-      <Landing
+      <LandingContainer
         heading="Workspaces"
         type="workspace"
         data={workspaces}
         userId={userId}
         openItem={openWorkspace}
+        showMembers={props.showMembers}
+        setShowMembers={props.setShowMembers}
       />
     </div>
   );
