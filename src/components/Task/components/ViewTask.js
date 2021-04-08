@@ -23,11 +23,13 @@ const ViewTask = ({
 }) => {
   const [showDescSaveButton, setDescShowSaveButton] = useState(false);
   const [showDeadlineSaveButton, setDeadlineShowSaveButton] = useState(false);
+  const [showPrioritySaveButton, setPriorityShowSaveButton] = useState(false);
   const [taskDescription, setTaskDescription] = useState(task.taskDescription);
   const [taskName, setTaskName] = useState(task.taskName);
   const [changeName, setChangeName] = useState(false);
   const [destination, setDestination] = useState("BACKLOG");
   const [deadline, setDeadline] = useState(task.deadline);
+  const [priority, setPriority] = useState(task.priority);
 
   const handleMove = () => {
     moveTask(task._id, destination);
@@ -55,6 +57,8 @@ const ViewTask = ({
     setTaskDescription(task.taskDescription);
     setDeadline(task.deadline);
     setTaskName(task.taskName);
+    setPriority(task.priority);
+    setPriorityShowSaveButton(false);
     handleClose();
   };
 
@@ -80,6 +84,15 @@ const ViewTask = ({
     const newTask = {
       ...task,
       taskName: taskName,
+    };
+    editTask(newTask);
+    onHide();
+  };
+
+  const onPrioritySave = () => {
+    const newTask = {
+      ...task,
+      priority: priority,
     };
     editTask(newTask);
     onHide();
@@ -202,6 +215,61 @@ const ViewTask = ({
         </Row>
       </Modal.Header>
       <Modal.Body>
+        <div className="mb-3">
+          <span
+            style={{
+              fontWeight: "600",
+              fontSize: "18px",
+            }}
+          >
+            Task Priority
+          </span>
+          <DropdownButton
+            className="mt-1"
+            id="dropdown-item-button"
+            title={priority}
+            size="md"
+          >
+            <Dropdown.Item
+              as="button"
+              onClick={() => {
+                setPriority("NORMAL");
+                setPriorityShowSaveButton(true);
+              }}
+            >
+              NORMAL
+            </Dropdown.Item>
+            <Dropdown.Item
+              as="button"
+              onClick={() => {
+                setPriority("LOW");
+                setPriorityShowSaveButton(true);
+              }}
+            >
+              LOW
+            </Dropdown.Item>
+            <Dropdown.Item
+              as="button"
+              onClick={() => {
+                setPriority("URGENT");
+                setPriorityShowSaveButton(true);
+              }}
+            >
+              URGENT
+            </Dropdown.Item>
+          </DropdownButton>
+          {showPrioritySaveButton && (
+            <span
+              type="button"
+              id="priority-button"
+              className="mt-3 d-flex justify-content-center align-items-center"
+              size="sm"
+              onClick={onPrioritySave}
+            >
+              Save
+            </span>
+          )}
+        </div>
         {hasAuth && (
           <Form className="mb-4" style={{ width: "100%" }}>
             <Form.Group>
