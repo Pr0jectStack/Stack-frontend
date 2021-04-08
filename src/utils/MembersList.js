@@ -3,7 +3,7 @@ import { push as Menu } from "react-burger-menu";
 import Loading from "./Loading/Loading";
 const MembersList = (props) => {
   
-  let { type, workspaceData, owner = "", teamLeader = "",showMembers,setShowMembers } = props;
+  let { type, workspaceData, teamData, owner = "", teamLeader = "",showMembers,setShowMembers } = props;
   
 
   const handleOnClose = () => {
@@ -22,7 +22,7 @@ const MembersList = (props) => {
       className=""
       width={"320px"}
     >
-      {workspaceData.loading?(
+      {(showMembers === "workspace" && workspaceData.loading)||(showMembers === "team" && teamData.loading)?(
         <Loading/>
       ):(
       <div className="text-white">
@@ -30,6 +30,21 @@ const MembersList = (props) => {
         <hr/>
         <span style={{marginTop:"10%"}}>
         {showMembers === "workspace" && workspaceData.currentWorkspace.members.map((member) => {
+          return (
+            <p>
+              <i class="fa fa-user" aria-hidden="true"></i>{'  '}
+              {member.username} 
+              <small style={{float:"right"}}>{member._id == owner
+                ? <span style={{color:"orange"}}>  owner</span>
+                : member.id == teamLeader
+                ? <span style={{color:"yellow"}}>  TL</span>
+                : "member"}
+              
+              </small>
+            </p>
+          );
+        })}
+        {showMembers === "team" && teamData.currentTeam.members.map((member) => {
           return (
             <p>
               <i class="fa fa-user" aria-hidden="true"></i>{'  '}
