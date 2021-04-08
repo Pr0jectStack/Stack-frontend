@@ -21,6 +21,7 @@ const Backlog = (props) => {
             moveTask={props.moveTask}
             editTask={props.editTask}
             deleteTask={props.deleteTask}
+            assignMembers={props.assignMembers}
             hasAuth={props.hasAuth}
           />
         );
@@ -30,37 +31,43 @@ const Backlog = (props) => {
     <div>
       <h3 className="text-white mb-3">Backlog</h3>
       {/* <button onClick={() => setModalShow(true)}>Add a task</button> */}
-      <SpeechToText
-        note={note}
-        setNote={setNote}
-        width="100%"
-        handleSubmit={() => alert(note)}
-      />
-
-      <p
-        id="task-card"
-        className="bg-light text-center"
-        style={{
-          padding: "20px",
-          background: "white",
-          width: "100%",
-          border: "1px dashed",
-        }}
-        onClick={() => setModalShow(true)}
-      >
-        {/* Add a task */}
-        <span style={{ fontSize: "40px" }}>
-          <i className="fa fa-plus mx-3 mt-3" aria-hidden="true"></i>
-        </span>
-        <br />
-        Add a new task
-      </p>
+      {props.hasAuth && (
+        <SpeechToText
+          note={note}
+          setNote={setNote}
+          width="100%"
+          handleSubmit={() => alert(note)}
+        />
+      )}
+      {props.hasAuth && (
+        <p
+          id="task-card"
+          className="bg-light text-center"
+          style={{
+            padding: "20px",
+            background: "white",
+            width: "100%",
+            border: "1px dashed",
+          }}
+          onClick={() => setModalShow(true)}
+        >
+          {/* Add a task */}
+          <span style={{ fontSize: "40px" }}>
+            <i className="fa fa-plus mx-3 mt-3" aria-hidden="true"></i>
+          </span>
+          <br />
+          Add a new task
+        </p>
+      )}
       {showTasks}
-      <NewTaskForm
-        show={modalShow}
-        addTask={addTask}
-        onHide={() => setModalShow(false)}
-      />
+      {props.hasAuth && (
+        <NewTaskForm
+          show={modalShow}
+          addTask={addTask}
+          hasAuth={props.hasAuth}
+          onHide={() => setModalShow(false)}
+        />
+      )}
     </div>
   );
 };

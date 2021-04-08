@@ -4,6 +4,9 @@ import {
   ADD_TASK_FAILURE,
   ADD_TASK_REQUEST,
   ADD_TASK_SUCCESS,
+  ASSIGN_MEMBERS_TASK_FAILURE,
+  ASSIGN_MEMBERS_TASK_REQUEST,
+  ASSIGN_MEMBERS_TASK_SUCCESS,
   DELETE_TASK_FAILURE,
   DELETE_TASK_REQUEST,
   DELETE_TASK_SUCCESS,
@@ -108,10 +111,30 @@ const deleteTaskFailure = (errorMsg) => {
   };
 };
 
+const assignMembersToTaskRequest = () => {
+  return {
+    type: ASSIGN_MEMBERS_TASK_REQUEST,
+  };
+};
+
+const assignMembersToTaskSuccess = (updatedTask) => {
+  return {
+    type: ASSIGN_MEMBERS_TASK_SUCCESS,
+    payload: updatedTask,
+  };
+};
+
+const assignMembersToTaskFailure = (errorMsg) => {
+  return {
+    type: ASSIGN_MEMBERS_TASK_FAILURE,
+    payload: errorMsg,
+  };
+};
+
 /**
  * Set Task fetched from teams.
  * @param {Object} tasks - Task Object
- * @param {String} tid - CurrentTeam ID
+ * @param {string} tid - CurrentTeam ID
  * @returns void
  */
 export const setTasks = (tasks, tid, owner, teamLeader) => {
@@ -196,6 +219,14 @@ export const moveTask = (taskId, tid, destination) => {
   };
 };
 
+/**
+ * Edit Task. Specifically handle request for changing
+ * Task Name, Task Description, Deadline, Priority and Category.
+ * @param {object} task - Task Object
+ * @param {string} tid - Team ID
+ * @param {string} userId - User ID
+ * @returns void
+ */
 export const editTask = (task, tid, userId) => {
   return (dispatch) => {
     dispatch(editTaskRequest());
@@ -227,6 +258,13 @@ export const editTask = (task, tid, userId) => {
   };
 };
 
+/**
+ * Delete Task.
+ * @param {string} taskId - Task Id
+ * @param {string} tid - Team Id
+ * @param {string} userId - User Id
+ * @returns void
+ */
 export const deleteTask = (taskId, tid, userId) => {
   return (dispatch) => {
     dispatch(deleteTaskRequest());
@@ -254,6 +292,42 @@ export const deleteTask = (taskId, tid, userId) => {
       .catch((error) => {
         const errorMsg = error.response.data.error;
         dispatch(deleteTaskFailure(errorMsg));
+      });
+  };
+};
+
+export const assignMembersToTask = (taskId, tid, userId, members) => {
+  return (dispatch) => {
+    dispatch(assignMembersToTaskRequest());
+    axios
+      .put(
+        `${API}/db/assignMembersToTask`,
+        JSON.stringify({
+          tid: tid,
+          taskId: taskId,
+          userId: userId,
+          members: members,
+        }),
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        const data = response.data;
+
+        if (data.error) {
+          // console.log("erro", data.error);
+          dispatch(assignMembersToTaskFailure(data.error));
+        } else {
+          dispatch(assignMembersToTaskSuccess(data.tasks));
+        }
+      })
+      .catch((error) => {
+        const errorMsg = error.response.data.error;
+        dispatch(assignMembersToTaskFailure(errorMsg));
       });
   };
 };

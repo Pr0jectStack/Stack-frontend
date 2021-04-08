@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import { Modal, Row, Col } from "react-bootstrap";
 import "./TaskCard.css";
 import ViewTask from "./ViewTask";
-const TaskCard = ({ task, moveTask, editTask, deleteTask, hasAuth }) => {
+const TaskCard = ({
+  task,
+  moveTask,
+  editTask,
+  deleteTask,
+  assignMembers,
+  hasAuth,
+}) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleClose = () => setShowModal(false);
@@ -16,6 +23,7 @@ const TaskCard = ({ task, moveTask, editTask, deleteTask, hasAuth }) => {
         moveTask={moveTask}
         editTask={editTask}
         deleteTask={deleteTask}
+        assignMembers={assignMembers}
         hasAuth={hasAuth}
       />
       <div

@@ -2,6 +2,7 @@ import Task from "../components/Task/Task";
 import { connect } from "react-redux";
 import {
   addNewTask,
+  assignMembersToTask,
   deleteTask,
   editTask,
   moveTask,
@@ -19,6 +20,8 @@ const mapDispatchToProps = (dispatch) => ({
   moveTask: (taskId, tid, destination) =>
     dispatch(moveTask(taskId, tid, destination)),
   editTask: (task, tid, userId) => dispatch(editTask(task, tid, userId)),
+  assignMembers: (taskId, tid, userId, members) =>
+    dispatch(assignMembersToTask(taskId, tid, userId, members)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Task);

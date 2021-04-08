@@ -27,7 +27,7 @@ const Task = (props) => {
       status: task.status,
       priority: task.priority,
       deadline: task.deadline,
-      membersAssigned: task.members,
+      membersAssigned: task.membersAssigned,
     };
     props.addTask(newTask, props.data.tid, props.userId);
   };
@@ -42,6 +42,10 @@ const Task = (props) => {
 
   const deleteTask = (taskId) => {
     props.deleteTask(taskId, props.data.tid, props.userId);
+  };
+
+  const assignMembers = (taskId, members) => {
+    props.assignMembers(taskId, props.data.tid, props.userId, members);
   };
 
   if (props.data.loading) {
@@ -60,7 +64,8 @@ const Task = (props) => {
               moveTask={moveTask}
               editTask={editTask}
               deleteTask={deleteTask}
-              hasAuth={hasAuth}
+              assignMembers={assignMembers}
+              hasAuth={hasAuth()}
             />
           </div>
           <div className="col-md-3 mx-auto">
@@ -69,7 +74,8 @@ const Task = (props) => {
               tid={props.data.tid}
               moveTask={moveTask}
               deleteTask={deleteTask}
-              hasAuth={hasAuth}
+              assignMembers={assignMembers}
+              hasAuth={hasAuth()}
             />
           </div>
           <div className="col-md-3 mx-auto">
@@ -79,7 +85,8 @@ const Task = (props) => {
               moveTask={moveTask}
               editTask={editTask}
               deleteTask={deleteTask}
-              hasAuth={hasAuth}
+              assignMembers={assignMembers}
+              hasAuth={hasAuth()}
             />
           </div>
           <div className="col-md-3 mx-auto">
@@ -89,7 +96,8 @@ const Task = (props) => {
               moveTask={moveTask}
               editTask={editTask}
               deleteTask={deleteTask}
-              hasAuth={hasAuth}
+              assignMembers={assignMembers}
+              hasAuth={hasAuth()}
             />
           </div>
         </div>

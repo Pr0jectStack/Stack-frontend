@@ -10,10 +10,10 @@ const CreateTask = (props) => {
   const [member, setMember] = useState("");
   const [members, setMembers] = useState([]);
 
-  const { register, handleSubmit, errors, watch, control } = useForm({});
+  const { register, handleSubmit, errors } = useForm({});
 
   const onSubmit = (data) => {
-    data.members = members;
+    data.membersAssigned = members;
 
     /** WHEN SUCCESSFUL CLOSE THE MODAL */
     props.addTask(data);
@@ -29,14 +29,14 @@ const CreateTask = (props) => {
 
   const showBadges =
     members.length > 0 &&
-    members.map((memberr) => {
+    members.map((member) => {
       return (
         <Col md="12  mb-2" lg="auto">
           <p
             className="bg-light p-2 text-dark text-center"
             style={{ borderRadius: "15px", fontSize: "13px" }}
           >
-            {memberr}
+            {member}
           </p>
         </Col>
       );
@@ -80,13 +80,10 @@ const CreateTask = (props) => {
               className="auth-input"
               type="date"
               name="deadline"
-              // ref={register({
-              //   required: true,
-              // })}
+              ref={register({
+                required: false,
+              })}
             />
-            {/* {errors.deadline && errors.deadline.type === "required" && (
-              <p className="warning">This is required</p>
-            )} */}
             <br />
 
             <select name="priority" ref={register()} className="auth-input">

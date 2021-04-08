@@ -2,6 +2,9 @@ import {
   ADD_TASK_FAILURE,
   ADD_TASK_REQUEST,
   ADD_TASK_SUCCESS,
+  ASSIGN_MEMBERS_TASK_FAILURE,
+  ASSIGN_MEMBERS_TASK_REQUEST,
+  ASSIGN_MEMBERS_TASK_SUCCESS,
   DELETE_TASK_FAILURE,
   DELETE_TASK_REQUEST,
   DELETE_TASK_SUCCESS,
@@ -117,6 +120,28 @@ const taskReducer = (state = initialState, action) => {
         error: "",
       };
     case DELETE_TASK_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        tasks: null,
+        error: action.payload,
+      };
+
+    case ASSIGN_MEMBERS_TASK_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        tasks: null,
+        error: "",
+      };
+    case ASSIGN_MEMBERS_TASK_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        tasks: action.payload,
+        error: "",
+      };
+    case ASSIGN_MEMBERS_TASK_FAILURE:
       return {
         ...state,
         loading: false,

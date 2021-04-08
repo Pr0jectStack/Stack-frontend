@@ -19,7 +19,8 @@
 
 #move-button,
 #deadline-button,
-#priority-button {
+#priority-button,
+#assign-members-button {
   width: 50px;
   height: 30px;
   padding: 2px;
@@ -27,6 +28,12 @@
   color: white;
   background-color: #2a9431;
   border-radius: 5px;
+}
+
+#assign-members-button {
+  width: 60px;
+  height: 30px;
+  padding: 5px;
 }
 
 #name-button {
@@ -47,4 +54,13 @@
   background-color: red;
   color: white;
   border-radius: 5px;
+}
+
+#add-new-member-button {
+  background-color: lightgrey;
+  cursor: pointer;
+}
+
+#add-new-member-button:hover {
+  border: 1px solid black;
 }

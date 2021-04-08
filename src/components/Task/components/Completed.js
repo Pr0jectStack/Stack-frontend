@@ -16,6 +16,7 @@ const Completed = (props) => {
             moveTask={props.moveTask}
             editTask={props.editTask}
             deleteTask={props.deleteTask}
+            assignMembers={props.assignMembers}
             hasAuth={props.hasAuth}
           />
         );
