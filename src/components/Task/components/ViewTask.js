@@ -9,6 +9,7 @@ import {
   DropdownButton,
   Form,
 } from "react-bootstrap";
+import { scryRenderedComponentsWithType } from "react-dom/test-utils";
 
 import "./ViewTask.css";
 
@@ -18,6 +19,7 @@ const ViewTask = ({
   handleClose,
   moveTask,
   editTask,
+  deleteTask,
   hasAuth,
 }) => {
   const [showDescSaveButton, setDescShowSaveButton] = useState(false);
@@ -81,6 +83,11 @@ const ViewTask = ({
       taskName: taskName,
     };
     editTask(newTask);
+    onHide();
+  };
+
+  const onDelete = () => {
+    deleteTask(task._id);
     onHide();
   };
 
@@ -274,6 +281,17 @@ const ViewTask = ({
             </span>
           )}
         </Form>
+        {hasAuth && (
+          <span
+            type="button"
+            id="delete-button"
+            className="mt-2 d-flex justify-content-center align-items-center"
+            size="sm"
+            onClick={onDelete}
+          >
+            Delete Task
+          </span>
+        )}
       </Modal.Body>
     </Modal>
   );

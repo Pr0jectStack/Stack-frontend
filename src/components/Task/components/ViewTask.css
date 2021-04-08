@@ -38,3 +38,12 @@
   background-color: #2a9431;
   border-radius: 5px;
 }
+
+#delete-button {
+  padding: 8px;
+  display: inline;
+  float: left;
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+}

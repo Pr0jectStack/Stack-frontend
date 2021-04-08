@@ -40,6 +40,10 @@ const Task = (props) => {
     props.editTask(task, props.data.tid, props.userId);
   };
 
+  const deleteTask = (taskId) => {
+    props.deleteTask(taskId, props.data.tid, props.userId);
+  };
+
   if (props.data.loading) {
     return <h2> Loading...</h2>;
   } else if (props.data.error) {
@@ -55,6 +59,7 @@ const Task = (props) => {
               addTask={addTask}
               moveTask={moveTask}
               editTask={editTask}
+              deleteTask={deleteTask}
               hasAuth={hasAuth}
             />
           </div>
@@ -63,6 +68,7 @@ const Task = (props) => {
               tasks={props.data}
               tid={props.data.tid}
               moveTask={moveTask}
+              deleteTask={deleteTask}
               hasAuth={hasAuth}
             />
           </div>
@@ -72,6 +78,7 @@ const Task = (props) => {
               tid={props.data.tid}
               moveTask={moveTask}
               editTask={editTask}
+              deleteTask={deleteTask}
               hasAuth={hasAuth}
             />
           </div>
@@ -81,6 +88,7 @@ const Task = (props) => {
               tid={props.data.tid}
               moveTask={moveTask}
               editTask={editTask}
+              deleteTask={deleteTask}
               hasAuth={hasAuth}
             />
           </div>

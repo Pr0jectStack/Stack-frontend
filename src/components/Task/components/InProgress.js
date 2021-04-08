@@ -15,6 +15,7 @@ const InProgress = (props) => {
             task={task}
             moveTask={props.moveTask}
             editTask={props.editTask}
+            deleteTask={props.deleteTask}
             hasAuth={props.hasAuth}
           />
         );
