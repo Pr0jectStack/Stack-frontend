@@ -2,16 +2,16 @@ import React from "react";
 import Landing from "../../utils/Landing";
 import Loading from "../../utils/Loading/Loading";
 const Team = (props) => {
-  const workspace =props.workspaceData;
+  const workspace = props.workspaceData;
   const profile = props.profileData;
 
-  const openTeams = () =>{
-    //TODO:   props.updateCurrentTeam(tid);
-    console.log("Teams");
-  }
-  const goBack = () =>{
+  const openTeams = (tid) => {
+    props.updateCurrentTeam(tid);
+    props.setCurrentPage("Task");
+  };
+  const goBack = () => {
     props.setCurrentPage("Workspace");
-  }
+  };
 
   if (props.workspaceData.loading) {
     return <Loading/>

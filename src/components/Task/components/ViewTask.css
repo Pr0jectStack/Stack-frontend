@@ -1,0 +1,66 @@
+#popover-menu {
+  padding: 8px;
+}
+
+#dropdown-item-button {
+  background-color: transparent;
+  color: grey;
+}
+
+#move-button {
+  width: 50px;
+  height: 30px;
+  padding: 2px;
+  text-transform: capitalize;
+  color: lightgrey;
+  background-color: #1e6823;
+  border-radius: 5px;
+}
+
+#move-button,
+#deadline-button,
+#priority-button,
+#assign-members-button {
+  width: 50px;
+  height: 30px;
+  padding: 2px;
+  text-transform: capitalize;
+  color: white;
+  background-color: #2a9431;
+  border-radius: 5px;
+}
+
+#assign-members-button {
+  width: 60px;
+  height: 30px;
+  padding: 5px;
+}
+
+#name-button {
+  width: 50px;
+  height: 30px;
+  padding: 2px;
+  font-size: 15px;
+  text-transform: capitalize;
+  color: white;
+  background-color: #2a9431;
+  border-radius: 5px;
+}
+
+#delete-button {
+  padding: 8px;
+  display: inline;
+  float: left;
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+}
+
+#add-new-member-button {
+  background-color: lightgrey;
+  cursor: pointer;
+}
+
+#add-new-member-button:hover {
+  border: 1px solid black;
+}

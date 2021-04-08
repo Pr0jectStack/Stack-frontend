@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API } from "../../backend";
 import { editProfileDataFromLogin } from "../profile/profileActions";
+import { setTasks } from "../task/taskActions";
 import {
   ADD_TEAM_SUCCESS,
   ADD_TEAM_REQUEST,
@@ -8,10 +9,9 @@ import {
   UPDATE_CURRENT_TEAM_SUCCESS,
   UPDATE_CURRENT_TEAM_REQUEST,
   UPDATE_CURRENT_TEAM_FAILURE,
-
   ADD_MEMBERS_TO_TEAM_FAILURE,
   ADD_MEMBERS_TO_TEAM_SUCCESS,
-  ADD_MEMBERS_TO_TEAM_REQUEST
+  ADD_MEMBERS_TO_TEAM_REQUEST,
 } from "./teamTypes";
 
 const addTeamRequest = () => {
@@ -100,58 +100,62 @@ export const addNewTeam = (data) => {
   };
 };
 
-export const addMembersToTeam = (data) =>{
-  return (dispatch) =>{
-
+export const addMembersToTeam = (data) => {
+  return (dispatch) => {
     dispatch(addMembersToTeamRequest());
 
-    axios.post(`${API}/db/addMembersToTeam`,JSON.stringify(data),{
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
-    .then((response)=>{
-      const data =response.data;
-      if(data.error){
-        return dispatch(addMembersToTeamFailure(data.error));
-      }else{
-        dispatch(addMembersToTeamSuccess(data.team));
-      }
-    })
-    .catch(err=>{
-      const errorMsg = err.message;
-      dispatch(addMembersToTeamFailure(errorMsg));
-    })
+    axios
+      .post(`${API}/db/addMembersToTeam`, JSON.stringify(data), {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        if (data.error) {
+          return dispatch(addMembersToTeamFailure(data.error));
+        } else {
+          dispatch(addMembersToTeamSuccess(data.team));
+        }
+      })
+      .catch((err) => {
+        const errorMsg = err.message;
+        dispatch(addMembersToTeamFailure(errorMsg));
+      });
+  };
+};
 
-  }
-}
+export const updateCurrentTeam = (data) => {
+  return (dispatch) => {
+    dispatch(updateCurrentTeamRequest());
+    axios
+      .get(`${API}/db/getTeamById?tid=${data}`, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
 
-
-
-// export const updateCurrentTeam = (data) => {
-//   return (dispatch) => {
-//     dispatch(updateCurrentTeamRequest());
-//     axios
-//       .post(`${API}/db/getWorkSpaceById`, JSON.stringify({wid:data}), {
-//         headers: {
-//           Accept: "application/json",
-//           "Content-Type": "application/json",
-//         },
-//       })
-//       .then((response) => {
-//         const data = response.data;
-
-//         if (data.error) {
-//           return dispatch(updateCurrentTeamFailure(data.error));
-//         } else {
-//           dispatch(updateCurrentTeamSuccess(data.workspace));
-//         }
-//       })
-//       .catch((error) => {
-//         const errorMsg = error.message;
-//         dispatch(updateCurrentTeamFailure(errorMsg));
-//       });
-//   };
-// };
-
+        if (data.error) {
+          return dispatch(updateCurrentTeamFailure(data.error));
+        } else {
+          dispatch(
+            setTasks(
+              data.team.tasks,
+              data.team._id,
+              data.team.owner,
+              data.team.teamLeader
+            )
+          );
+          dispatch(updateCurrentTeamSuccess(data.team));
+        }
+      })
+      .catch((error) => {
+        const errorMsg = error.message;
+        dispatch(updateCurrentTeamFailure(errorMsg));
+      });
+  };
+};

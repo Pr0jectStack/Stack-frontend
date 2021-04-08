@@ -10,13 +10,13 @@ const CreateTask = (props) => {
   const [member, setMember] = useState("");
   const [members, setMembers] = useState([]);
 
-  const { register, handleSubmit, errors, watch, control } = useForm({});
+  const { register, handleSubmit, errors } = useForm({});
 
   const onSubmit = (data) => {
-    data.members = members;
-    console.log(data);
+    data.membersAssigned = members;
 
     /** WHEN SUCCESSFUL CLOSE THE MODAL */
+    props.addTask(data);
     props.closeModal();
   };
 
@@ -29,14 +29,14 @@ const CreateTask = (props) => {
 
   const showBadges =
     members.length > 0 &&
-    members.map((memberr) => {
+    members.map((member) => {
       return (
         <Col md="12  mb-2" lg="auto">
           <p
             className="bg-light p-2 text-dark text-center"
             style={{ borderRadius: "15px", fontSize: "13px" }}
           >
-            {memberr}
+            {member}
           </p>
         </Col>
       );
@@ -61,7 +61,7 @@ const CreateTask = (props) => {
               className="auth-input"
               type="text"
               placeholder="Task name"
-              name="taskDescription"
+              name="taskName"
               ref={register({
                 required: true,
                 validate: async (value) => {
@@ -70,10 +70,9 @@ const CreateTask = (props) => {
                 },
               })}
             />
-            {errors.taskDescription &&
-              errors.taskDescription.type === "required" && (
-                <p className="warning">This is required</p>
-              )}
+            {errors.taskName && errors.taskName.type === "required" && (
+              <p className="warning">This is required</p>
+            )}
 
             <br />
 
@@ -82,12 +81,9 @@ const CreateTask = (props) => {
               type="date"
               name="deadline"
               ref={register({
-                required: true,
+                required: false,
               })}
             />
-            {errors.deadline && errors.deadline.type === "required" && (
-              <p className="warning">This is required</p>
-            )}
             <br />
 
             <select name="priority" ref={register()} className="auth-input">
@@ -97,9 +93,9 @@ const CreateTask = (props) => {
             </select>
             <br />
 
-            <select name="STATUS" ref={register()} className="auth-input">
+            <select name="status" ref={register()} className="auth-input">
               <option value="BACKLOG">BACKLOG</option>
-              <option value="PROGRESS">PROGRESS</option>
+              <option value="IN_PROGRESS">PROGRESS</option>
               <option value="REVIEW">REVIEW</option>
               <option value="COMPLETED">COMPLETED</option>
             </select>

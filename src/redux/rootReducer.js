@@ -7,6 +7,7 @@ import profileReducer from "./profile/profileReducer";
 import settingsReducer from "./settings/settingsReducer";
 import workspaceReducer from "./workspace/workspaceReducer";
 import guestProfileReducer from "./guestProfile/guestProfileReducer";
+import taskReducer from "./task/taskReducer";
 
 const persistConfig = {
   key: "root",
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   settings: settingsReducer,
   workspace: workspaceReducer,
   guestProfile: guestProfileReducer,
+  task: taskReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer); // Persisted Reducers
