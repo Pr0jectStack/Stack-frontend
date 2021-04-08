@@ -16,12 +16,14 @@ import {
   SET_TASK,
 } from "./taskTypes";
 
-const setTask = (tasks, tid) => {
+const setTask = (tasks, tid, owner, teamLeader) => {
   return {
     type: SET_TASK,
     payload: {
       tasks: tasks,
       tid: tid,
+      owner: owner,
+      teamLeader: teamLeader,
     },
   };
 };
@@ -110,14 +112,21 @@ const deleteTaskFailure = (errorMsg) => {
  * Set Task fetched from teams.
  * @param {Object} tasks - Task Object
  * @param {String} tid - CurrentTeam ID
- * @returns Redux.dispatch
+ * @returns void
  */
-export const setTasks = (tasks, tid) => {
+export const setTasks = (tasks, tid, owner, teamLeader) => {
   return (dispatch) => {
-    dispatch(setTask(tasks, tid));
+    dispatch(setTask(tasks, tid, owner, teamLeader));
   };
 };
 
+/**
+ * Add new task.
+ * @param {object} task - Task Object
+ * @param {string} tid - Team id
+ * @param {string} userId - User id
+ * @returns void
+ */
 export const addNewTask = (task, tid, userId) => {
   return (dispatch) => {
     dispatch(addTaskRequest());
@@ -149,9 +158,40 @@ export const addNewTask = (task, tid, userId) => {
   };
 };
 
+export const moveTask = (taskId, tid, destination) => {
+  return (dispatch) => {
+    dispatch(moveTaskRequest());
+    axios
+      .put(
+        `${API}/db/moveTask`,
+        JSON.stringify({ tid: tid, taskId: taskId, destination: destination }),
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        const data = response.data;
+
+        if (data.error) {
+          // console.log("erro", data.error);
+          dispatch(moveTaskFailure(data.error));
+        } else {
+          dispatch(moveTaskSuccess(data.tasks));
+        }
+      })
+      .catch((error) => {
+        const errorMsg = error.response.data.error;
+        dispatch(moveTaskFailure(errorMsg));
+      });
+  };
+};
+
 export const deleteTask = (taskId, tid, userId) => {
   return (dispatch) => {
-    dispatch(addTaskRequest());
+    dispatch(deleteTaskRequest());
     axios
       .post(
         `${API}/db/deleteTask`,
@@ -167,15 +207,15 @@ export const deleteTask = (taskId, tid, userId) => {
         const data = response.data;
 
         if (data.error) {
-          console.log("erro", data.error);
-          dispatch(addTaskFailure(data.error));
+          // console.log("erro", data.error);
+          dispatch(deleteTaskFailure(data.error));
         } else {
-          dispatch(addTaskSuccess(data.tasks));
+          dispatch(deleteTaskSuccess(data.tasks));
         }
       })
       .catch((error) => {
         const errorMsg = error.response.data.error;
-        dispatch(addTaskFailure(errorMsg));
+        dispatch(deleteTaskFailure(errorMsg));
       });
   };
 };

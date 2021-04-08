@@ -16,6 +16,11 @@ const Task = (props) => {
     };
     props.addTask(newTask, props.data.tid, props.userId);
   };
+
+  const moveTask = (taskId, destination) => {
+    props.moveTask(taskId, props.data.tid, destination);
+  };
+
   if (props.data.loading) {
     return <h2> Loading...</h2>;
   } else if (props.data.error) {
@@ -25,16 +30,33 @@ const Task = (props) => {
       <div className="" style={{ marginInline: "8%" }}>
         <div className="row" style={{ marginTop: "7%" }}>
           <div className="col-md-3 mx-auto">
-            <Backlog tasks={props.data} addTask={addTask} />
+            <Backlog
+              tasks={props.data}
+              tid={props.data.tid}
+              addTask={addTask}
+              moveTask={moveTask}
+            />
           </div>
           <div className="col-md-3 mx-auto">
-            <InProgress tasks={props.data} />
+            <InProgress
+              tasks={props.data}
+              tid={props.data.tid}
+              moveTask={moveTask}
+            />
           </div>
           <div className="col-md-3 mx-auto">
-            <Review tasks={props.data} />
+            <Review
+              tasks={props.data}
+              tid={props.data.tid}
+              moveTask={moveTask}
+            />
           </div>
           <div className="col-md-3 mx-auto">
-            <Completed tasks={props.data} />
+            <Completed
+              tasks={props.data}
+              tid={props.data.tid}
+              moveTask={moveTask}
+            />
           </div>
         </div>
       </div>

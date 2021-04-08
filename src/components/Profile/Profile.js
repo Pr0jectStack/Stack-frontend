@@ -550,19 +550,11 @@ const Profile = (props) => {
                         <Col>
                           <Row>
                             <span
+                              id="move-button"
                               type="button"
                               onClick={onSave}
                               className="mt-1 text-center"
                               size="sm"
-                              style={{
-                                width: "50px",
-                                height: "30px",
-                                padding: "2px",
-                                textTransform: "capitalize",
-                                color: "lightgrey",
-                                backgroundColor: "#1e6823",
-                                borderRadius: "5px",
-                              }}
                             >
                               Save
                             </span>

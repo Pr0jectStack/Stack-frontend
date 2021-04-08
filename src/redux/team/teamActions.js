@@ -142,7 +142,14 @@ export const updateCurrentTeam = (data) => {
         if (data.error) {
           return dispatch(updateCurrentTeamFailure(data.error));
         } else {
-          dispatch(setTasks(data.team.tasks, data.team._id));
+          dispatch(
+            setTasks(
+              data.team.tasks,
+              data.team._id,
+              data.team.owner,
+              data.team.teamLeader
+            )
+          );
           dispatch(updateCurrentTeamSuccess(data.team));
         }
       })

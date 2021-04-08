@@ -1,0 +1,28 @@
+#popover-menu {
+  padding: 8px;
+}
+
+#dropdown-item-button {
+  background-color: transparent;
+  color: grey;
+}
+
+#move-button {
+  width: 50px;
+  height: 30px;
+  padding: 2px;
+  text-transform: capitalize;
+  color: lightgrey;
+  background-color: #1e6823;
+  border-radius: 5px;
+}
+
+#popover-menu span {
+  width: 50px;
+  height: 30px;
+  padding: 2px;
+  text-transform: capitalize;
+  color: white;
+  background-color: #2a9431;
+  border-radius: 5px;
+}

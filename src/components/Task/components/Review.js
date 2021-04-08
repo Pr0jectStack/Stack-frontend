@@ -9,7 +9,9 @@ const Review = (props) => {
     tasks.length > 0 &&
     tasks.map((task) => {
       if (task.status === "REVIEW")
-        return <TaskCard key={task._id} task={task} />;
+        return (
+          <TaskCard key={task._id} task={task} moveTask={props.moveTask} />
+        );
     });
   return (
     <div>

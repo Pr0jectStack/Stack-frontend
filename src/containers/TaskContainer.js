@@ -1,6 +1,6 @@
 import Task from "../components/Task/Task";
 import { connect } from "react-redux";
-import { addNewTask, deleteTask } from "../redux/task/taskActions";
+import { addNewTask, deleteTask, moveTask } from "../redux/task/taskActions";
 
 const mapStateToProps = (state) => ({
   data: state.task,
@@ -9,7 +9,10 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addTask: (task, tid, userId) => dispatch(addNewTask(task, tid, userId)),
-  deleteTask: (taskId, tid, userId) => dispatch(deleteTask(taskId, tid, userId)),
+  deleteTask: (taskId, tid, userId) =>
+    dispatch(deleteTask(taskId, tid, userId)),
+  moveTask: (taskId, tid, destination) =>
+    dispatch(moveTask(taskId, tid, destination)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Task);

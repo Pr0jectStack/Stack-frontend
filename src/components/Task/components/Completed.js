@@ -9,7 +9,9 @@ const Completed = (props) => {
     tasks.length > 0 &&
     tasks.map((task) => {
       if (task.status === "COMPLETED")
-        return <TaskCard key={task._id} task={task} />;
+        return (
+          <TaskCard key={task._id} task={task} moveTask={props.moveTask} />
+        );
     });
   return (
     <div>
