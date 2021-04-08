@@ -13,18 +13,32 @@ import CreateTeamContainer from "./containers/CreateTeamContainer";
 import TeamContainer from "./containers/TeamContainer";
 import Task from "../src/components/Task/Task";
 import SpeechToText from "./utils/SpeechToText";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
+
 const App = () => {
   return (
     <>
       <Router>
         <NavigationContainer />
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
         <Switch>
           {/* Public Routes */}
           <GuestRoute path="/signup" exact component={SignUpContainer} />
           <GuestRoute path="/signin" exact component={SignInContainer} />
           <GuestRoute path="/" exact component={SignInContainer} />
-          <GuestRoute path= "/test" exact component={Task} />
-          <GuestRoute path= "/speech" exact component={SpeechToText} />
+          <GuestRoute path="/test" exact component={Task} />
+          <GuestRoute path="/speech" exact component={SpeechToText} />
 
           {/* Private Routes */}
           <PrivateRoute path="/" exact component={DashboardContainer} />
