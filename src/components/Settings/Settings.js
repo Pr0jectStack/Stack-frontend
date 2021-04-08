@@ -3,13 +3,14 @@ import { Row, Col, Card, ListGroup } from "react-bootstrap";
 import ChangeImageComponent from "./components/ChangeImageComponent";
 import ChangeOtherDetailsComponent from "./components/ChangeOtherDetailsComponent";
 import ChangePasswordComponent from "./components/ChangePasswordComponent";
+import Loading from "../../utils/Loading/Loading";
 import "./Settings.css";
 
 const Settings = (props) => {
   const [itemSelected, setItemSelected] = useState(0);
 
   if (props.data.loading) {
-    return <h2> Loading...</h2>;
+    return <Loading/>
   } else if (props.data.error) {
     return <h2>{props.data.error}</h2>;
   } else
