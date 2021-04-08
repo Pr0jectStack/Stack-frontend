@@ -12,6 +12,9 @@ const Landing = ({
   openItem,
   goBack,
   ownerId = "",
+  updateCurrentWorkspace,
+  showMembers,
+  setShowMembers
 }) => {
   const [redirect, setRedirect] = useState(false);
 
@@ -40,6 +43,9 @@ const Landing = ({
             members={members}
             id={_id}
             openItem={openItem}
+            updateCurrentWorkspace={updateCurrentWorkspace}
+            showMembers={showMembers}
+            setShowMembers={setShowMembers}
           />
         </Col>
       );
@@ -60,6 +66,8 @@ const Landing = ({
             id={_id}
             openItem={openItem}
             inviteLink={inviteLink}
+            showMembers={showMembers}
+            setShowMembers={setShowMembers}
           />
         </Col>
       );

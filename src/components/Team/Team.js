@@ -27,6 +27,8 @@ const Team = (props) => {
         openItem={openTeams}
         goBack={goBack}
         ownerId={workspace.currentWorkspace.owner}
+        showMembers={props.showMembers}
+        setShowMembers={props.setShowMembers}
       />
     </div>
   );
