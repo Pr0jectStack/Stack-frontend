@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, Row, Col } from "react-bootstrap";
 import "./TaskCard.css";
 import ViewTask from "./ViewTask";
-const TaskCard = ({ task, moveTask }) => {
+const TaskCard = ({ task, moveTask, editTask, hasAuth }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleClose = () => setShowModal(false);
@@ -14,6 +14,8 @@ const TaskCard = ({ task, moveTask }) => {
         showModal={showModal}
         handleClose={handleClose}
         moveTask={moveTask}
+        editTask={editTask}
+        hasAuth={hasAuth}
       />
       <div
         key={task._id}
@@ -43,7 +45,7 @@ const TaskCard = ({ task, moveTask }) => {
               <span className="ml-3">
                 <i class="fa fa-clock-o" aria-hidden="true">
                   {"  "}
-                  {task.deadline}
+                  {new Date(task.deadline).toLocaleDateString("en-UK")}
                 </i>
               </span>
             )}

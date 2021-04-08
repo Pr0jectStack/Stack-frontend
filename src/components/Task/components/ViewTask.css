@@ -17,10 +17,22 @@
   border-radius: 5px;
 }
 
-#popover-menu span {
+#move-button,
+#deadline-button {
   width: 50px;
   height: 30px;
   padding: 2px;
+  text-transform: capitalize;
+  color: white;
+  background-color: #2a9431;
+  border-radius: 5px;
+}
+
+#name-button {
+  width: 50px;
+  height: 30px;
+  padding: 2px;
+  font-size: 15px;
   text-transform: capitalize;
   color: white;
   background-color: #2a9431;

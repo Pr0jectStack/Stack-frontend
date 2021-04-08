@@ -158,6 +158,13 @@ export const addNewTask = (task, tid, userId) => {
   };
 };
 
+/**
+ * Move task from one column to another.
+ * @param {string} taskId - Task Id
+ * @param {string} tid - Team Id
+ * @param {string} destination - DEstination Column
+ * @returns void
+ */
 export const moveTask = (taskId, tid, destination) => {
   return (dispatch) => {
     dispatch(moveTaskRequest());
@@ -185,6 +192,37 @@ export const moveTask = (taskId, tid, destination) => {
       .catch((error) => {
         const errorMsg = error.response.data.error;
         dispatch(moveTaskFailure(errorMsg));
+      });
+  };
+};
+
+export const editTask = (task, tid, userId) => {
+  return (dispatch) => {
+    dispatch(editTaskRequest());
+    axios
+      .put(
+        `${API}/db/editTask`,
+        JSON.stringify({ tid: tid, ...task, userId: userId, taskId: task._id }),
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        const data = response.data;
+
+        if (data.error) {
+          // console.log("erro", data.error);
+          dispatch(editTaskFailure(data.error));
+        } else {
+          dispatch(editTaskSuccess(data.tasks));
+        }
+      })
+      .catch((error) => {
+        const errorMsg = error.response.data.error;
+        dispatch(editTaskFailure(errorMsg));
       });
   };
 };

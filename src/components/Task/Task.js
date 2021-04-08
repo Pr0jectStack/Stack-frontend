@@ -5,6 +5,21 @@ import Completed from "./components/Completed";
 import InProgress from "./components/InProgress";
 
 const Task = (props) => {
+  const hasAuth = () => {
+    if (!props.userId) return false;
+    if (
+      props.data.owner &&
+      props.userId.toString() === props.data.owner.toString()
+    )
+      return true;
+    if (
+      props.data.teamLeader &&
+      props.userId.toString() === props.data.teamLeader.toString()
+    )
+      return true;
+    return false;
+  };
+
   const addTask = (task) => {
     const newTask = {
       taskName: task.taskName,
@@ -21,6 +36,10 @@ const Task = (props) => {
     props.moveTask(taskId, props.data.tid, destination);
   };
 
+  const editTask = (task) => {
+    props.editTask(task, props.data.tid, props.userId);
+  };
+
   if (props.data.loading) {
     return <h2> Loading...</h2>;
   } else if (props.data.error) {
@@ -35,6 +54,8 @@ const Task = (props) => {
               tid={props.data.tid}
               addTask={addTask}
               moveTask={moveTask}
+              editTask={editTask}
+              hasAuth={hasAuth}
             />
           </div>
           <div className="col-md-3 mx-auto">
@@ -42,6 +63,7 @@ const Task = (props) => {
               tasks={props.data}
               tid={props.data.tid}
               moveTask={moveTask}
+              hasAuth={hasAuth}
             />
           </div>
           <div className="col-md-3 mx-auto">
@@ -49,6 +71,8 @@ const Task = (props) => {
               tasks={props.data}
               tid={props.data.tid}
               moveTask={moveTask}
+              editTask={editTask}
+              hasAuth={hasAuth}
             />
           </div>
           <div className="col-md-3 mx-auto">
@@ -56,6 +80,8 @@ const Task = (props) => {
               tasks={props.data}
               tid={props.data.tid}
               moveTask={moveTask}
+              editTask={editTask}
+              hasAuth={hasAuth}
             />
           </div>
         </div>

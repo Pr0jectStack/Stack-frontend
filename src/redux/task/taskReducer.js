@@ -2,6 +2,9 @@ import {
   ADD_TASK_FAILURE,
   ADD_TASK_REQUEST,
   ADD_TASK_SUCCESS,
+  EDIT_TASK_FAILURE,
+  EDIT_TASK_REQUEST,
+  EDIT_TASK_SUCCESS,
   MOVE_TASK_FAILURE,
   MOVE_TASK_REQUEST,
   MOVE_TASK_SUCCESS,
@@ -29,6 +32,7 @@ const taskReducer = (state = initialState, action) => {
         teamLeader: action.payload.teamLeader,
         error: "",
       };
+
     case ADD_TASK_REQUEST:
       return {
         ...state,
@@ -50,6 +54,7 @@ const taskReducer = (state = initialState, action) => {
         tasks: null,
         error: action.payload,
       };
+
     case MOVE_TASK_REQUEST:
       return {
         ...state,
@@ -65,6 +70,28 @@ const taskReducer = (state = initialState, action) => {
         error: "",
       };
     case MOVE_TASK_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        tasks: null,
+        error: action.payload,
+      };
+
+    case EDIT_TASK_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        tasks: null,
+        error: "",
+      };
+    case EDIT_TASK_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        tasks: action.payload,
+        error: "",
+      };
+    case EDIT_TASK_FAILURE:
       return {
         ...state,
         loading: false,

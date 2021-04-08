@@ -10,7 +10,13 @@ const InProgress = (props) => {
     tasks.map((task) => {
       if (task.status === "IN_PROGRESS")
         return (
-          <TaskCard key={task._id} task={task} moveTask={props.moveTask} />
+          <TaskCard
+            key={task._id}
+            task={task}
+            moveTask={props.moveTask}
+            editTask={props.editTask}
+            hasAuth={props.hasAuth}
+          />
         );
     });
   return (
