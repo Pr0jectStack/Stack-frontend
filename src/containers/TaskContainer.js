@@ -10,6 +10,7 @@ import {
 
 const mapStateToProps = (state) => ({
   data: state.task,
+  teamData: state.team,
   userId: state.profile.userData._id,
 });
 

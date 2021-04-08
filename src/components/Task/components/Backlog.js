@@ -35,7 +35,7 @@ const Backlog = (props) => {
         <SpeechToText
           note={note}
           setNote={setNote}
-          width="100%"
+          width="110%"
           handleSubmit={() => alert(note)}
         />
       )}

@@ -3,8 +3,13 @@ import Backlog from "./components/Backlog";
 import Review from "./components/Review";
 import Completed from "./components/Completed";
 import InProgress from "./components/InProgress";
+import Loading from "../../utils/Loading/Loading";
 
 const Task = (props) => {
+  const goBack = () => {
+    props.setCurrentPage("Team");
+  };
+
   const hasAuth = () => {
     if (!props.userId) return false;
     if (
@@ -48,13 +53,21 @@ const Task = (props) => {
     props.assignMembers(taskId, props.data.tid, props.userId, members);
   };
 
-  if (props.data.loading) {
-    return <h2> Loading...</h2>;
+  if (props.data.loading || props.teamData.loading) {
+    return <Loading />;
   } else if (props.data.error) {
     return <h2>{props.data.error}</h2>;
   } else {
     return (
       <div className="" style={{ marginInline: "8%" }}>
+        <h3
+          className="text-white mt-3"
+          style={{ marginLeft: "2.3%" }}
+          onClick={() => goBack()}
+        >
+          <i className="fa fa-arrow-left btn text-white" aria-hidden="true"></i>
+        </h3>
+        <h1 className="landing-h1 mt-2">{props.teamData.currentTeam.name}</h1>;
         <div className="row" style={{ marginTop: "7%" }}>
           <div className="col-md-3 mx-auto">
             <Backlog

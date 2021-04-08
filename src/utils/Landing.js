@@ -86,7 +86,7 @@ const Landing = ({
               style={{ marginLeft: "10%" }}
               onClick={() => goBack()}
             >
-              <i className="fa fa-arrow-left" aria-hidden="true"></i>
+              <i className="fa fa-arrow-left btn text-white" aria-hidden="true"></i>
             </h3>
           </div>
           <div>

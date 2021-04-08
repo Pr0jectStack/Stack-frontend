@@ -54,7 +54,7 @@ const SpeechToText = (props) => {
   };
 
   return (
-    <div className="container mb-1" style={{ width: width }}>
+    <div className="container mb-1" style={{ width: width,marginLeft:"-15px"}}>
       <div className="mic-box">
         <div className="row">
           <div className="col-2">
