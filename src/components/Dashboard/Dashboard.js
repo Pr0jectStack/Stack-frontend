@@ -25,12 +25,21 @@ const Dashboard = (props) => {
           isOpen={false}
           userId={props.data.userData._id}
         />
+        {showMembers && <MembersListContainer showMembers={showMembers} setShowMembers={setShowMembers}/>}
         <main id="page-wrap">
           {currentPage === "Workspace" && (
-            <WorkspaceContainer setCurrentPage={setCurrentPage} />
+            <WorkspaceContainer
+              setCurrentPage={setCurrentPage}
+              showMembers={showMembers}
+              setShowMembers={setShowMembers}
+            />
           )}
           {currentPage === "Team" && (
-            <TeamContainer setCurrentPage={setCurrentPage} />
+            <TeamContainer
+              setCurrentPage={setCurrentPage}
+              showMembers={showMembers}
+              setShowMembers={setShowMembers}
+            />
           )}
           {currentPage === "Task" && (
             <TaskContainer setCurrentPage={setCurrentPage} />
