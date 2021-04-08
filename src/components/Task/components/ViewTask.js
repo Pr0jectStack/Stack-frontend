@@ -165,6 +165,7 @@ const ViewTask = ({
                         id="dropdown-item-button"
                         title={destination}
                         size="md"
+                        disabled={!hasAuth}
                       >
                         <Dropdown.Item
                           as="button"
@@ -229,6 +230,7 @@ const ViewTask = ({
             id="dropdown-item-button"
             title={priority}
             size="md"
+            disabled={!hasAuth}
           >
             <Dropdown.Item
               as="button"
@@ -299,6 +301,7 @@ const ViewTask = ({
                 }
                 placeholder="dd/mm/yyy"
                 onChange={handleDeadlineChange}
+                disabled={!hasAuth}
               />
             </Form.Group>
             {showDeadlineSaveButton && (
