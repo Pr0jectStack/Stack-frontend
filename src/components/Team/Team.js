@@ -1,5 +1,6 @@
 import React from "react";
 import Landing from "../../utils/Landing";
+import Loading from "../../utils/Loading/Loading";
 const Team = (props) => {
   const workspace =props.workspaceData;
   const profile = props.profileData;
@@ -13,7 +14,7 @@ const Team = (props) => {
   }
 
   if (props.workspaceData.loading) {
-    return <h2> Loading...</h2>;
+    return <Loading/>
   } else if (props.workspaceData.error) {
     return <h2>{props.data.error}</h2>;
   } else

@@ -1,20 +1,16 @@
 import React,{useState} from "react";
 import { push as Menu } from "react-burger-menu";
+import Loading from "./Loading/Loading";
 const MembersList = (props) => {
   
-  const { type, workspaceData, owner = "", teamLeader = "",showMembers,setShowMembers } = props;
-  
-  
+  let { type, workspaceData, owner = "", teamLeader = "",showMembers,setShowMembers } = props;
   
 
   const handleOnClose = () => {
     setShowMembers("");
   };
-  if (workspaceData.loading) {
-    return <></>
-    // return <h1>Loading...</h1>
-  } else {
-    const owner = workspaceData.currentWorkspace.owner;
+
+    owner = workspaceData.currentWorkspace && workspaceData.currentWorkspace.owner;
     return (
       <Menu
       pageWrapId={"page-wrap"}
@@ -26,6 +22,9 @@ const MembersList = (props) => {
       className=""
       width={"320px"}
     >
+      {workspaceData.loading?(
+        <Loading/>
+      ):(
       <div className="text-white">
         <h2>Members</h2>
         <hr/>
@@ -38,7 +37,7 @@ const MembersList = (props) => {
               <small style={{float:"right"}}>{member._id == owner
                 ? <span style={{color:"orange"}}>  owner</span>
                 : member.id == teamLeader
-                ? "TL"
+                ? <span style={{color:"yellow"}}>  TL</span>
                 : "member"}
               
               </small>
@@ -47,9 +46,9 @@ const MembersList = (props) => {
         })}
         </span>
       </div>
+      )}
       </Menu>
     );
   }
-};
 
 export default MembersList;

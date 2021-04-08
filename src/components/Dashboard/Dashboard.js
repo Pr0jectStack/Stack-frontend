@@ -5,6 +5,7 @@ import GuestProfileContainer from "../../containers/GuestProfileContainer";
 import TeamContainer from "../../containers/TeamContainer";
 import MembersList from "../../utils/MembersList";
 import MembersListContainer from "../../containers/MembersListContainer";
+import Loading from "../../utils/Loading/Loading";
 
 const Dashboard = (props) => {
 
@@ -12,7 +13,7 @@ const Dashboard = (props) => {
   const [showMembers, setShowMembers] = useState("");
 
   if (props.data.loading) {
-    return <h2> Loading...</h2>;
+    return <Loading/>
   } else if (props.data.error) {
     return <h2>{props.data.error}</h2>;
   } else if (props.data && props.data.userData === null) {

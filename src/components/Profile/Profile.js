@@ -14,6 +14,7 @@ import TeamCard from "./components/TeamCard";
 import default_image from "./default_image.jpg";
 import "./Profile.css";
 import { Redirect } from "react-router-dom";
+import Loading from "../../utils/Loading/Loading";
 
 const Profile = (props) => {
   const {
@@ -374,7 +375,7 @@ const Profile = (props) => {
   };
 
   if (props.data.loading) {
-    return <h2> Loading...</h2>;
+    return <Loading/>
   } else if (props.data.error) {
     return <h2>{props.data.error}</h2>;
   } else if (props.data && props.data.userData === null) {
