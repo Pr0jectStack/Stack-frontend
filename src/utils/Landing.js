@@ -13,8 +13,9 @@ const Landing = ({
   goBack,
   ownerId = "",
   updateCurrentWorkspace,
+  updateCurrentTeam,
   showMembers,
-  setShowMembers
+  setShowMembers,
 }) => {
   const [redirect, setRedirect] = useState(false);
 
@@ -67,6 +68,7 @@ const Landing = ({
             openItem={openItem}
             inviteLink={inviteLink}
             showMembers={showMembers}
+            updateCurrentTeam={updateCurrentTeam}
             setShowMembers={setShowMembers}
           />
         </Col>
@@ -83,7 +85,10 @@ const Landing = ({
               style={{ marginLeft: "10%" }}
               onClick={() => goBack()}
             >
-              <i className="fa fa-arrow-left" aria-hidden="true"></i>
+              <i
+                className="fa fa-arrow-left btn text-white"
+                aria-hidden="true"
+              ></i>
             </h3>
           </div>
           <div>

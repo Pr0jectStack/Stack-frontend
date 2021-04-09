@@ -1,9 +1,11 @@
 import React from "react";
+import LandingContainer from "../../containers/LandingContainer";
 import Landing from "../../utils/Landing";
 import Loading from "../../utils/Loading/Loading";
 const Team = (props) => {
   const workspace = props.workspaceData;
   const profile = props.profileData;
+
 
   const openTeams = (tid) => {
     props.updateCurrentTeam(tid);
@@ -20,7 +22,7 @@ const Team = (props) => {
   } else
   return (
     <div>
-      <Landing
+      <LandingContainer
         heading={workspace.currentWorkspace.name}
         type="team"
         data={workspace.currentWorkspace.teams}

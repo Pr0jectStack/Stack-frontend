@@ -6,7 +6,8 @@ import {
 } from "../redux/workspace/workspaceActions";
 
 const mapStateToProps = (state) => ({
-    workspaceData: state.workspace
+    workspaceData: state.workspace,
+    teamData:state.team
     //TODO: ADD TEAMDATA
 });
 

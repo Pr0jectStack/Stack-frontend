@@ -35,14 +35,14 @@ const Backlog = (props) => {
         <SpeechToText
           note={note}
           setNote={setNote}
-          width="100%"
+          width="110%"
           handleSubmit={() => alert(note)}
         />
       )}
       {props.hasAuth && (
         <p
           id="task-card"
-          className="bg-light text-center"
+          className="bg-light text-center btn"
           style={{
             padding: "20px",
             background: "white",

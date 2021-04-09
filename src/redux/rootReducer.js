@@ -8,6 +8,7 @@ import settingsReducer from "./settings/settingsReducer";
 import workspaceReducer from "./workspace/workspaceReducer";
 import guestProfileReducer from "./guestProfile/guestProfileReducer";
 import taskReducer from "./task/taskReducer";
+import teamReducer from "./team/teamReducer";
 
 const persistConfig = {
   key: "root",
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   settings: settingsReducer,
   workspace: workspaceReducer,
   guestProfile: guestProfileReducer,
+  team:teamReducer,
   task: taskReducer,
 });
 

@@ -31,12 +31,12 @@ const TaskCard = ({
         id="task-card"
         className={
           task.status === "COMPLETED"
-            ? "bg-success"
+            ? "bg-success btn"
             : task.status === "REVIEW"
-            ? "bg-warning"
+            ? "bg-warning btn"
             : task.status === "IN_PROGRESS"
-            ? "bg-info"
-            : "bg-light"
+            ? "bg-info btn"
+            : "bg-light btn"
         }
         onClick={() => setShowModal(true)}
         style={{
