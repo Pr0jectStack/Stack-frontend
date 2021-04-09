@@ -25,3 +25,19 @@ export const checkUserExists = (data) => {
     })
     .catch((err) => {});
 };
+
+export const activateUserEmail = (token) => {
+  return fetch(`${API}/auth/email-verify?token=${token}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .catch((err) => {
+      // console.log(err);
+    });
+};

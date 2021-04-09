@@ -15,9 +15,8 @@ const Landing = ({
   updateCurrentWorkspace,
   updateCurrentTeam,
   showMembers,
-  setShowMembers
+  setShowMembers,
 }) => {
-  console.log(updateCurrentWorkspace)
   const [redirect, setRedirect] = useState(false);
 
   const redirectToForm = () => {
@@ -86,7 +85,10 @@ const Landing = ({
               style={{ marginLeft: "10%" }}
               onClick={() => goBack()}
             >
-              <i className="fa fa-arrow-left btn text-white" aria-hidden="true"></i>
+              <i
+                className="fa fa-arrow-left btn text-white"
+                aria-hidden="true"
+              ></i>
             </h3>
           </div>
           <div>
