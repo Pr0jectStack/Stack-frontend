@@ -15,7 +15,8 @@ import Task from "../src/components/Task/Task";
 import SpeechToText from "./utils/SpeechToText";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-import EmailActivation from './components/Auth/EmailActivation';
+import EmailActivation from "./components/Auth/EmailActivation";
+import ResetPassword from "./components/Auth/ResetPassword";
 
 const App = () => {
   return (
@@ -74,6 +75,11 @@ const App = () => {
             exact
             path="/authentication/activate/:token"
             component={EmailActivation}
+          />
+          <Route
+            exact
+            path="/reset/password/:resetLink"
+            component={ResetPassword}
           />
         </Switch>
       </Router>
