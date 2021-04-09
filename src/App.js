@@ -15,6 +15,7 @@ import Task from "../src/components/Task/Task";
 import SpeechToText from "./utils/SpeechToText";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import EmailActivation from './components/Auth/EmailActivation';
 
 const App = () => {
   return (
@@ -66,6 +67,13 @@ const App = () => {
             path="/createTeam"
             exact
             component={CreateTeamContainer}
+          />
+
+          {/* Other Routes */}
+          <Route
+            exact
+            path="/authentication/activate/:token"
+            component={EmailActivation}
           />
         </Switch>
       </Router>
