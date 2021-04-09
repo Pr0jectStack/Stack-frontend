@@ -177,17 +177,37 @@ const Profile = (props) => {
           </h5>
           <Row>
             <Col lg={8} style={{ borderRadius: "25px" }}>
-              {props.data.userData &&
-                workspaces &&
-                workspaces.map((workspace) => {
-                  return (
-                    <Image
-                      src={default_image}
-                      style={{ width: "40px", height: "40px", margin: "2px" }}
-                      thumbnail
-                    />
-                  );
-                })}
+              <Row style={{ marginLeft: "1px" }}>
+                {props.data.userData &&
+                  workspaces &&
+                  workspaces.map((workspace) => {
+                    return (
+                      // <Image
+                      //   src={default_image}
+                      //   style={{ width: "40px", height: "40px", margin: "2px" }}
+                      //   thumbnail
+                      // />
+                      <div
+                        onClick={() => {
+                          props.updateCurrentWorkspace(workspace._id);
+                        }}
+                        style={{
+                          width: "40px",
+                          height: "40px",
+                          backgroundColor: "grey",
+                          border: "1px solid black",
+                          margin: "5px",
+                          textAlign: "center",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <h6 className="d-flex justify-content-center mt-2">
+                          {workspace.name[0] + workspace.name[1]}
+                        </h6>
+                      </div>
+                    );
+                  })}
+              </Row>
             </Col>
           </Row>
         </main>
@@ -210,11 +230,28 @@ const Profile = (props) => {
         <Row>
           {props.data.userData && teams && teams.length > 0 ? (
             teams.map((team) => {
+              const { teamLeader, owner } = team;
+              const userId = props.data.userData._id;
+
+              let workspaceName = "";
+              for (let i = 0; i < workspaces.length; i++) {
+                if (workspaces[i].teams.includes(team._id)) {
+                  workspaceName = workspaces[i].name;
+                  break;
+                }
+              }
+
               return (
                 <TeamCard
-                  teamName="Boom Shaka Laka"
-                  workspaceName="Off in the church"
-                  role="Designer"
+                  teamName={team.name}
+                  workspaceName={workspaceName}
+                  role={
+                    userId === teamLeader
+                      ? "Team Leader"
+                      : userId === owner
+                      ? "Onwer"
+                      : "Member"
+                  }
                   percentComplete={2}
                 />
               );
@@ -375,7 +412,7 @@ const Profile = (props) => {
   };
 
   if (props.data.loading) {
-    return <Loading/>
+    return <Loading />;
   } else if (props.data.error) {
     return <h2>{props.data.error}</h2>;
   } else if (props.data && props.data.userData === null) {
@@ -593,7 +630,7 @@ const Profile = (props) => {
               <Col className="d-none d-lg-block" lg={1} />
               <Col xs={12} md={7} lg={7}>
                 <Teams />
-                <TaskHeatmap />
+                {/* <TaskHeatmap /> */}
               </Col>
             </Row>
           </Container>
