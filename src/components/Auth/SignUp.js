@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import {Link} from 'react-router-dom';
 import "./Auth.css";
 import { checkUserExists } from "./helper";
+import { toast } from "react-toastify";
 
 const SignUp = (props) => {
   const [error, setError] = useState("");
@@ -37,6 +38,24 @@ const SignUp = (props) => {
       }
     });
   };
+  let cnt=0;
+  const showToast = (status, message) => {
+    if (status == "SUCCESS") {
+      toast.success(message+" "+cnt);cnt=cnt+1;
+    }
+    else toast.error(message);
+  };
+
+  const successMessage = () =>{
+    if(props.data.userData){
+      showToast("SUCCESS",props.data.userData);
+      props.updateSignUpUserData();
+    }
+    else if(props.data.error){
+      showToast("ERROR",props.data.error);
+      props.updateSignUpUserData();
+    }
+  }
 
   const sleep = (milliseconds) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -48,6 +67,7 @@ const SignUp = (props) => {
   };
   return (
     <div>
+      {successMessage()}
       <form
         className="auth-form"
         onSubmit={handleSubmit(onSubmit)}
