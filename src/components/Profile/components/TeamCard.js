@@ -29,10 +29,7 @@ const TeamCard = ({ teamName, workspaceName, role, percentComplete }) => {
                     pill
                     style={{
                       textAlign: "center",
-                      paddingTop: "5%",
-                      paddingBottom: "6%",
-                      paddingRight: "5%",
-                      paddingLeft: "6%",
+                      padding: "3%",
                       backgroundColor: "#222030",
                       color: "#008ecc",
                       fontWeight: "500",
@@ -42,7 +39,7 @@ const TeamCard = ({ teamName, workspaceName, role, percentComplete }) => {
                   </Badge>
                 </h6>
               </Col>
-              <Col>
+              {/* <Col>
                 <Progress
                   style={{ fontSize: "20px" }}
                   type="circle"
@@ -58,7 +55,7 @@ const TeamCard = ({ teamName, workspaceName, role, percentComplete }) => {
                     },
                   }}
                 />
-              </Col>
+              </Col> */}
             </Row>
           </Card.Body>
         </Card>
