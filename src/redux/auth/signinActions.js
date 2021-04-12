@@ -1,7 +1,14 @@
 import axios from "axios";
 import { API } from "../../backend";
 import { editProfileDataFromLogin } from "../profile/profileActions";
-import { SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_IN_FAILURE } from "./authTypes";
+import {
+  SIGN_IN_REQUEST,
+  SIGN_IN_SUCCESS,
+  SIGN_IN_FAILURE,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILURE,
+} from "./authTypes";
 
 const signInRequest = () => {
   return {
@@ -23,6 +30,26 @@ const signInFailure = (errorMsg) => {
   };
 };
 
+const forgotUserPasswordRequest = () => {
+  return {
+    type: RESET_PASSWORD_REQUEST,
+  };
+};
+
+const forgotUserPasswordSuccess = (data) => {
+  return {
+    type: RESET_PASSWORD_SUCCESS,
+    payload: data,
+  };
+};
+
+const forgotUserPasswordFailure = (errorMsg) => {
+  return {
+    type: RESET_PASSWORD_FAILURE,
+    payload: errorMsg,
+  };
+};
+
 export const signInUser = (data) => {
   return (dispatch) => {
     dispatch(signInRequest());
@@ -40,13 +67,39 @@ export const signInUser = (data) => {
           localStorage.setItem("jwt", JSON.stringify(data.token));
         }
 
-
         dispatch(signInSuccess(data.user));
         dispatch(editProfileDataFromLogin(data.user));
       })
       .catch((error) => {
         const errorMsg = error.message;
         dispatch(signInFailure(errorMsg));
+      });
+  };
+};
+
+export const forgotUserPassword = (email) => {
+  return (dispatch) => {
+    dispatch(forgotUserPasswordRequest());
+    axios
+      .put(`${API}/auth/forgotPassword`, JSON.stringify(email), {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+
+        if (data.error) {
+          // console.log("erro", data.error);
+          dispatch(forgotUserPasswordFailure(data.error));
+        } else {
+          dispatch(forgotUserPasswordSuccess(data.message));
+        }
+      })
+      .catch((error) => {
+        const errorMsg = error.response.data.error;
+        dispatch(forgotUserPasswordFailure(errorMsg));
       });
   };
 };

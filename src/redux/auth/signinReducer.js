@@ -1,4 +1,11 @@
-import { SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_IN_FAILURE } from "./authTypes";
+import {
+  SIGN_IN_REQUEST,
+  SIGN_IN_SUCCESS,
+  SIGN_IN_FAILURE,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILURE,
+} from "./authTypes";
 
 const initialState = {
   loading: false,
@@ -29,7 +36,28 @@ const signInReducer = (state = initialState, action) => {
         userData: null,
         error: action.payload,
       };
-    
+    case RESET_PASSWORD_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        userData: null,
+        error: null,
+      };
+    case RESET_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        userData: action.payload,
+        error: null,
+      };
+    case RESET_PASSWORD_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        userData: null,
+        error: action.payload,
+      };
+
     default:
       return state;
   }
