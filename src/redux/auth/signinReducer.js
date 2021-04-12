@@ -5,6 +5,7 @@ import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAILURE,
+  EMPTY_SIGN_IN_ERROR,
 } from "./authTypes";
 
 const initialState = {
@@ -56,6 +57,13 @@ const signInReducer = (state = initialState, action) => {
         loading: false,
         userData: null,
         error: action.payload,
+      };
+
+    case EMPTY_SIGN_IN_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: "",
       };
 
     default:

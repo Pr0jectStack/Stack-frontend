@@ -1,4 +1,4 @@
-import { SIGN_UP_REQUEST, SIGN_UP_SUCCESS, SIGN_UP_FAILURE } from "./authTypes";
+import { SIGN_UP_REQUEST, SIGN_UP_SUCCESS, SIGN_UP_FAILURE,UPDATE_SIGN_UP_DATA } from "./authTypes";
 
 const initialState = {
   loading: false,
@@ -6,7 +6,7 @@ const initialState = {
   error: "",
 };
 
-export const signInReducer = (state = initialState, action) => {
+export const signUpReducer = (state = initialState, action) => {
   switch (action.type) {
     case SIGN_UP_REQUEST:
       return {
@@ -29,9 +29,16 @@ export const signInReducer = (state = initialState, action) => {
         userData: null,
         error: action.payload,
       };
+    case UPDATE_SIGN_UP_DATA:
+      return {
+        ...state,
+        loading:false,
+        userData:null,
+        error:""
+      }
     default:
       return state;
   }
 };
 
-export default signInReducer;
+export default signUpReducer;

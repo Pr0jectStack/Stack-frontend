@@ -4,6 +4,8 @@ import { Redirect, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loading from "../../utils/Loading/Loading";
 import "./Auth.css";
+import { toast } from "react-toastify";
+import Loading from "../../utils/Loading/Loading";
 
 const SignIn = (props) => {
   const { register, handleSubmit, errors } = useForm({});
@@ -45,8 +47,18 @@ const SignIn = (props) => {
   if (props.data.error) {
     showToast("ERROR", props.data.error);
   }
-  if (props.data.loading) {
+
+  const errorMessage = () => {
+    if (props.signIn.error) {
+      showToast("ERROR", props.signIn.error);
+      props.removeSignInError();
+    }
+  };
+
+  if (props.data.loading || props.signIn.loading) {
     return <Loading />;
+  } else if (props.data.error) {
+    return <h2>{props.data.error}</h2>;
   } else if (props.data && props.data.userData) {
     return <Redirect to="/dashboard" />;
   } else {
@@ -97,6 +109,7 @@ const SignIn = (props) => {
       </div>
     ) : (
       <div>
+        {errorMessage()}
         <form
           key={1}
           className="auth-form"

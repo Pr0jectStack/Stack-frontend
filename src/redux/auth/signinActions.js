@@ -8,6 +8,7 @@ import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAILURE,
+  EMPTY_SIGN_IN_ERROR,
 } from "./authTypes";
 
 const signInRequest = () => {
@@ -27,6 +28,11 @@ const signInFailure = (errorMsg) => {
   return {
     type: SIGN_IN_FAILURE,
     payload: errorMsg,
+  };
+};
+const emptySignInError = () => {
+  return {
+    type: EMPTY_SIGN_IN_ERROR,
   };
 };
 
@@ -62,7 +68,6 @@ export const signInUser = (data) => {
       })
       .then((response) => {
         const data = response.data;
-
         if (typeof window !== undefined) {
           localStorage.setItem("jwt", JSON.stringify(data.token));
         }
@@ -71,7 +76,10 @@ export const signInUser = (data) => {
         dispatch(editProfileDataFromLogin(data.user));
       })
       .catch((error) => {
-        const errorMsg = error.message;
+        // const errorMsg = error.message;
+        //TODO: MESSAGE NOT SHOWING THE RETURNED MESSAGE FROM BACKEND
+        const errorMsg = "Invalid login details";
+        console.log(error);
         dispatch(signInFailure(errorMsg));
       });
   };
@@ -101,5 +109,10 @@ export const forgotUserPassword = (email) => {
         const errorMsg = error.response.data.error;
         dispatch(forgotUserPasswordFailure(errorMsg));
       });
+  };
+};
+export const removeSignInError = () => {
+  return (dispatch) => {
+    dispatch(emptySignInError());
   };
 };
