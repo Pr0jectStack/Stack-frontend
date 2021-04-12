@@ -1,29 +1,35 @@
 import { API } from "../../backend";
-import { SIGN_UP_REQUEST, SIGN_UP_SUCCESS, SIGN_UP_FAILURE } from "./authTypes";
+import { SIGN_UP_REQUEST, SIGN_UP_SUCCESS, SIGN_UP_FAILURE,UPDATE_SIGN_UP_DATA } from "./authTypes";
 
-const signInRequest = () => {
+const signUpRequest = () => {
   return {
     type: SIGN_UP_REQUEST,
   };
 };
 
-const signInSuccess = (userData) => {
+const signUpSuccess = (userData) => {
   return {
     type: SIGN_UP_SUCCESS,
     payload: userData,
   };
 };
 
-const signInFailure = (errorMsg) => {
+const signUpFailure = (errorMsg) => {
   return {
     type: SIGN_UP_FAILURE,
     payload: errorMsg,
   };
 };
+const updateSignUpData = (userData) =>{
+  return{
+    type: UPDATE_SIGN_UP_DATA,
+    payload:userData
+  }
+}
 
 export const signUpUser = (data) => {
   return (dispatch) => {
-    dispatch(signInRequest());
+    dispatch(signUpRequest());
     fetch(`${API}/auth/signUp`, {
       method: "POST",
       headers: {
@@ -33,12 +39,29 @@ export const signUpUser = (data) => {
       body: JSON.stringify(data),
     })
       .then((response) => {
-        const userData = response.data;
-        dispatch(signInSuccess(userData));
+        const p =response.json();
+        p.then(data=>{
+          console.log(data);
+          if(data.error){
+            dispatch(signUpFailure(data.error));
+          }
+          else{
+            dispatch(signUpSuccess(data.message));
+          }
+        })
+        // console.log(p);
+        // const userData= response.data;
+        // dispatch(signUpSuccess(userData));
       })
       .catch((error) => {
         const errorMsg = error.message;
-        dispatch(signInFailure(errorMsg));
+        dispatch(signUpFailure(errorMsg));
       });
   };
 };
+
+export const updateSignUpUserData = () =>{
+  return (dispatch) =>{
+    dispatch(updateSignUpData());
+  }
+}

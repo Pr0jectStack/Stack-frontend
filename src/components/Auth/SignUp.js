@@ -1,8 +1,9 @@
 import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "./Auth.css";
 import { checkUserExists } from "./helper";
+import { toast } from "react-toastify";
 
 const SignUp = (props) => {
   const [error, setError] = useState("");
@@ -38,6 +39,21 @@ const SignUp = (props) => {
     });
   };
 
+  const showToast = (status, message) => {
+    if (status == "SUCCESS") toast.success(message, { toastId: "success" });
+    else toast.error(message, { toastId: "error" });
+  };
+
+  const message = () => {
+    if (props.data.userData) {
+      showToast("SUCCESS", props.data.userData);
+      props.updateSignUpUserData();
+    } else if (props.data.error) {
+      showToast("ERROR", props.data.error);
+      props.updateSignUpUserData();
+    }
+  };
+
   const sleep = (milliseconds) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
   };
@@ -48,11 +64,17 @@ const SignUp = (props) => {
   };
   return (
     <div>
+      {message()}
       <form
         className="auth-form"
         onSubmit={handleSubmit(onSubmit)}
         // style={{ width: "90%", marginTop: "100px" }}
-        style={{ maxWidth: "90%", width: "480px", margin: "auto",marginTop: "100px" }}
+        style={{
+          maxWidth: "90%",
+          width: "480px",
+          margin: "auto",
+          marginTop: "100px",
+        }}
       >
         <h1 className="auth-h1">Create Account</h1>
         <h6 className="text-white mb-5 text-center">

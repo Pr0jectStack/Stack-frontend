@@ -10,3 +10,10 @@ export const SIGN_IN_FAILURE = "SIGN_IN_FAILURE";
 export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE";
 export const SIGN_OUT_FAILURE = "SIGN_OUT_FAILURE";
 
+
+export const UPDATE_SIGN_UP_DATA = "UPDATE_SIGN_UP_DATA";
+
+export const EMPTY_SIGN_IN_ERROR = "EMPTY_SIGN_IN_ERROR";
+
+
+
