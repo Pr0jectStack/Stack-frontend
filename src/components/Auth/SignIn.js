@@ -4,8 +4,6 @@ import { Redirect, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loading from "../../utils/Loading/Loading";
 import "./Auth.css";
-import { toast } from "react-toastify";
-import Loading from "../../utils/Loading/Loading";
 
 const SignIn = (props) => {
   const { register, handleSubmit, errors } = useForm({});
