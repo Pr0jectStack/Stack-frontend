@@ -21,19 +21,17 @@ import ResetPassword from "./components/Auth/ResetPassword";
 const App = () => {
   return (
     <>
+      <ToastContainer
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        draggable
+        pauseOnHover
+      />
       <Router>
         <NavigationContainer />
-        <ToastContainer
-          position="top-right"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
         <Switch>
           {/* Public Routes */}
           <GuestRoute path="/signup" exact component={SignUpContainer} />

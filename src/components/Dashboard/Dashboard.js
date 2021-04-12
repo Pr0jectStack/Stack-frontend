@@ -19,8 +19,8 @@ const Dashboard = (props) => {
    * @param {string} message - Text for the Toast Body
    */
   const showToast = (status, message) => {
-    if (status == "SUCCESS") toast.success(message);
-    else toast.error(message);
+    if (status == "SUCCESS") toast.success(message, { toastId: "success" });
+    else toast.error(message, { toastId: "error" });
   };
 
   if (props.data.error) {
