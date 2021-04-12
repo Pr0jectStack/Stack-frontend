@@ -18,7 +18,7 @@ const Navigation = (props) => {
         <GuestNavBar />
       ) : (
         <>
-          <SideBar />
+          <SideBar logOutUser={logOutUser} />
           <NavBar
             image={data.userData.image}
             username={data.userData.username}
