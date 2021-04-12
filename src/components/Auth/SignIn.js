@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Redirect,Link } from "react-router-dom";
 import "./Auth.css";
+import { toast } from "react-toastify";
+import Loading from "../../utils/Loading/Loading"
+
 
 const SignIn = (props) => {
   const { register, handleSubmit, errors } = useForm({});
@@ -20,8 +23,20 @@ const SignIn = (props) => {
   );
   const regex = new RegExp(username_regex.source + "|" + email_regex.source);
 
-  if (props.data.loading) {
-    return <h2> Loading...</h2>;
+  const showToast = (status, message) => {
+    if (status == "SUCCESS") toast.success(message, { toastId: "success" });
+    else toast.error(message, { toastId: "error" });
+  };
+
+  const errorMessage = () =>{
+    if(props.signIn.error){
+      showToast("ERROR",props.signIn.error);
+      props.removeSignInError();
+    }
+  }
+
+  if (props.data.loading || props.signIn.loading) {
+    return <Loading/> ;
   } else if (props.data.error) {
     return <h2>{props.data.error}</h2>;
   } else if (props.data && props.data.userData) {
@@ -29,6 +44,7 @@ const SignIn = (props) => {
   } else
     return (
       <div>
+        {errorMessage()}
         <form
           className="auth-form"
           onSubmit={handleSubmit(onSubmit)}

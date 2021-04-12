@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API } from "../../backend";
 import { editProfileDataFromLogin } from "../profile/profileActions";
-import { SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_IN_FAILURE } from "./authTypes";
+import { SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_IN_FAILURE,EMPTY_SIGN_IN_ERROR } from "./authTypes";
 
 const signInRequest = () => {
   return {
@@ -22,6 +22,11 @@ const signInFailure = (errorMsg) => {
     payload: errorMsg,
   };
 };
+const emptySignInError = () => {
+  return {
+    type: EMPTY_SIGN_IN_ERROR,
+  };
+};
 
 export const signInUser = (data) => {
   return (dispatch) => {
@@ -35,7 +40,6 @@ export const signInUser = (data) => {
       })
       .then((response) => {
         const data = response.data;
-
         if (typeof window !== undefined) {
           localStorage.setItem("jwt", JSON.stringify(data.token));
         }
@@ -45,8 +49,17 @@ export const signInUser = (data) => {
         dispatch(editProfileDataFromLogin(data.user));
       })
       .catch((error) => {
-        const errorMsg = error.message;
+        // const errorMsg = error.message;
+        //TODO: MESSAGE NOT SHOWING THE RETURNED MESSAGE FROM BACKEND
+        const errorMsg ="Invalid login details"
+        console.log(error);
         dispatch(signInFailure(errorMsg));
       });
   };
 };
+
+export const removeSignInError = () =>{
+  return (dispatch) =>{
+    dispatch(emptySignInError());
+  }
+}

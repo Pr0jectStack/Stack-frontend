@@ -13,5 +13,7 @@ export const SIGN_OUT_FAILURE = "SIGN_OUT_FAILURE";
 
 export const UPDATE_SIGN_UP_DATA = "UPDATE_SIGN_UP_DATA";
 
+export const EMPTY_SIGN_IN_ERROR = "EMPTY_SIGN_IN_ERROR";
+
 
 

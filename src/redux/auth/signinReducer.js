@@ -1,4 +1,4 @@
-import { SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_IN_FAILURE } from "./authTypes";
+import { SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_IN_FAILURE,EMPTY_SIGN_IN_ERROR } from "./authTypes";
 
 const initialState = {
   loading: false,
@@ -29,6 +29,12 @@ const signInReducer = (state = initialState, action) => {
         userData: null,
         error: action.payload,
       };
+    case EMPTY_SIGN_IN_ERROR:
+      return{
+        ...state,
+        loading:false,
+        error:""
+      }
     
     default:
       return state;
