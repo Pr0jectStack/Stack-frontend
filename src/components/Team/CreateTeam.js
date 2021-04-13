@@ -25,6 +25,7 @@ const CreateTeam = (props) => {
     if(profileData._id === ownerId){
       data.owner = userId;
       data.wid = workspaceData.currentWorkspace._id;
+      data.inviteLink ="sasaaassa"
       addNewTeam(data);
     }
     else{
@@ -101,11 +102,11 @@ const CreateTeam = (props) => {
                 </p>
               )}
               {errors.name && errors.name.type === "validate" && (
-                <p className="warning">Workspace already exists.</p>
+                <p className="warning">Team already exists.</p>
               )}
 
               {/* Invite Link */}
-              <input
+              {/* <input
                 className="auth-input"
                 type="text"
                 placeholder="Invite link"
@@ -116,7 +117,7 @@ const CreateTeam = (props) => {
               />
               {errors.name && errors.name.type === "required" && (
                 <p className="warning">This is required</p>
-              )}
+              )} */}
 
               {/* Button */}
               <input
