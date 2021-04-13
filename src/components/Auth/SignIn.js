@@ -42,9 +42,9 @@ const SignIn = (props) => {
     props.forgotUserPassword(email);
   };
 
-  if (props.data.error) {
-    showToast("ERROR", props.data.error);
-  }
+  // if (props.data.error) {
+  //   showToast("ERROR", props.data.error);
+  // }
 
   const errorMessage = () => {
     if (props.signIn.error) {
@@ -75,7 +75,7 @@ const SignIn = (props) => {
               style={{ cursor: "pointer", color: "white" }}
             />{" "}
             <h1 className="text-center" style={{ color: "white" }}>
-              Reset password
+              Forgot password
             </h1>
           </div>
 
