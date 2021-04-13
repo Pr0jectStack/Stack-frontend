@@ -490,7 +490,7 @@ const Profile = (props) => {
                               }}
                               type="text"
                               name="github"
-                              id="github"
+                              id="github1"
                               size="sm"
                               value={profileData.github}
                               placeholder={"Github Username"}
@@ -519,7 +519,7 @@ const Profile = (props) => {
                               }}
                               type="text"
                               name="twitter"
-                              id="twitter"
+                              id="twitter1"
                               size="sm"
                               value={profileData.twitter}
                               placeholder={"Twitter Username"}
