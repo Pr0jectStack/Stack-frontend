@@ -5,14 +5,35 @@ import ChangeOtherDetailsComponent from "./components/ChangeOtherDetailsComponen
 import ChangePasswordComponent from "./components/ChangePasswordComponent";
 import Loading from "../../utils/Loading/Loading";
 import "./Settings.css";
+import { toast } from "react-toastify";
 
 const Settings = (props) => {
   const [itemSelected, setItemSelected] = useState(0);
 
+
+  /**
+   * Display a 3s Toast on the top right corner of the screen
+   * @param {string} status - SUCCESS/ ERROR
+   * @param {string} message - Text for the Toast Body
+   */
+  const showToast = (status, message) => {
+    if (status === "SUCCESS") toast.success(message, { toastId: "success" });
+    else toast.error(message, { toastId: "error" });
+  };
+
+  let shown =false;
+
+  // if(props.data.error && !shown){
+  //   showToast("ERROR","Some error occured, Please try again");
+  //   shown=true;
+  // }
+  // if(props.data.changedData && !shown){
+  //   showToast("SUCCESS","Successfuly updated");
+  //   shown=true;
+  // }
+
   if (props.data.loading) {
     return <Loading/>
-  } else if (props.data.error) {
-    return <h2>{props.data.error}</h2>;
   } else
     return (
       <Row style={{ marginTop: "50px" }}>

@@ -52,6 +52,7 @@ const CreateWorkspace = (props) => {
                 ></i>
                 {"  "}Back
               </Link>
+              
               {/* Description */}
               <input
                 className="auth-input"
@@ -60,8 +61,8 @@ const CreateWorkspace = (props) => {
                 name="name"
                 ref={register({
                   required: true,
-                  minLength: 5,
-                  maxLength: 15,
+                  minLength: 3,
+                  maxLength: 50,
                   pattern: /^[ A-Za-z0-9]*$/,
                   validate: async (value) => {
                     await sleep(1000);

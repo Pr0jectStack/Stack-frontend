@@ -3,12 +3,14 @@ import { useForm, Controller } from "react-hook-form";
 import { Link, Redirect } from "react-router-dom";
 import ReactDatePicker from "react-datepicker";
 import { Badge, Col, Row } from "react-bootstrap";
+import SpeechToText from "../../../utils/SpeechToText";
 
 const CreateTask = (props) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [member, setMember] = useState("");
   const [members, setMembers] = useState([]);
+  const [note, setNote] = useState(null);
 
   const { register, handleSubmit, errors } = useForm({});
 
@@ -57,19 +59,40 @@ const CreateTask = (props) => {
             onSubmit={handleSubmit(onSubmit)}
             style={{ maxWidth: "95%", width: "550px", margin: "auto" }}
           >
-            <input
-              className="auth-input"
-              type="text"
-              placeholder="Task name"
-              name="taskName"
-              ref={register({
-                required: true,
-                validate: async (value) => {
-                  await sleep(1000);
-                  return checkIfWorkSpaceExists(value);
-                },
-              })}
-            />
+            <div
+              className="d-flex bg-white"
+              style={{
+                borderRadius: "4px",
+                height: "45px",
+                marginBottom: "10px",
+                height: "50px",
+              }}
+            >
+              <input
+                className="auth-input"
+                type="text"
+                placeholder="Task name"
+                name="taskName"
+                value={note}
+                ref={register({
+                  required: true,
+                  validate: async (value) => {
+                    await sleep(1000);
+                    return checkIfWorkSpaceExists(value);
+                  },
+                })}
+                style={{ outline: "none", paddingTop: "4%" }}
+              />
+              <span style={{ color: "black" }} className="my-auto">
+                <SpeechToText
+                  note={note}
+                  setNote={setNote}
+                  width="100%"
+                  micOnly={true}
+                  handleSubmit={() => alert(note)}
+                />
+              </span>
+            </div>
             {errors.taskName && errors.taskName.type === "required" && (
               <p className="warning">This is required</p>
             )}
