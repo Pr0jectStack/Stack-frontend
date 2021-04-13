@@ -63,6 +63,7 @@ const signInReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+        userData: null,
         error: "",
       };
 

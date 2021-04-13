@@ -4,16 +4,11 @@ import { Redirect, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loading from "../../utils/Loading/Loading";
 import "./Auth.css";
+import ForgotPassword from "./ForgotPassword";
 
 const SignIn = (props) => {
   const { register, handleSubmit, errors } = useForm({});
-  const {
-    register: registerEmail,
-    handleSubmit: handleEmailSubmit,
-    errors: emailErrors,
-  } = useForm({});
 
-  const [redirect, setRedirect] = useState(false);
   const [visibility, setVisibilty] = useState(false);
   const [resetPassword, setResetPassword] = useState(false);
 
@@ -34,17 +29,18 @@ const SignIn = (props) => {
   };
 
   const onSubmit = (loginData) => {
-    //TODO: validation submit logic
     props.signInUser(loginData);
   };
 
-  const onEmailSubmit = (email) => {
-    props.forgotUserPassword(email);
-  };
+  if (props.signIn.error) {
+    showToast("ERROR", props.signIn.error);
+    props.removeSignInError();
+  }
 
-  // if (props.data.error) {
-  //   showToast("ERROR", props.data.error);
-  // }
+  if (props.signIn.userData) {
+    showToast("SUCCESS", props.signIn.userData);
+    props.removeSignInError();
+  }
 
   const errorMessage = () => {
     if (props.signIn.error) {
@@ -55,56 +51,11 @@ const SignIn = (props) => {
 
   if (props.data.loading || props.signIn.loading) {
     return <Loading />;
-  } else if (props.data.error) {
-    return <h2>{props.data.error}</h2>;
   } else if (props.data && props.data.userData) {
     return <Redirect to="/dashboard" />;
   } else {
     return resetPassword ? (
-      <div>
-        <form
-          key={2}
-          className="auth-form"
-          onSubmit={handleEmailSubmit(onEmailSubmit)}
-          style={{ width: "90%", marginTop: "100px" }}
-        >
-          <div className="d-flex m-3">
-            <i
-              className="fa fa-arrow-left mt-3 mr-3"
-              onClick={() => setResetPassword(false)}
-              style={{ cursor: "pointer", color: "white" }}
-            />{" "}
-            <h1 className="text-center" style={{ color: "white" }}>
-              Forgot password
-            </h1>
-          </div>
-
-          {/* Email */}
-          <input
-            className="auth-input"
-            type="text"
-            placeholder="Enter Email"
-            name="email"
-            ref={registerEmail({
-              required: true,
-              pattern: email_regex,
-            })}
-          />
-          {emailErrors.email && emailErrors.email.type === "required" && (
-            <p className="warning">This is required</p>
-          )}
-          {emailErrors.email && emailErrors.email.type === "pattern" && (
-            <p className="warning">Not a valid username or email.</p>
-          )}
-
-          {/* Button */}
-          <input
-            className="auth-input"
-            type="submit"
-            style={{ marginTop: "20px" }}
-          />
-        </form>
-      </div>
+      <ForgotPassword props={props} setResetPassword={setResetPassword} />
     ) : (
       <div>
         {errorMessage()}
