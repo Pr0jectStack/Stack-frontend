@@ -38,7 +38,7 @@ const signOutRequest = () => {
           const data = response.data;
   
           if (typeof window !== undefined) {
-            localStorage.removeItem("jwt");
+            localStorage.clear();
           }
   
   
