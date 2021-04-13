@@ -27,6 +27,7 @@ const Backlog = (props) => {
         );
     });
 
+    const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
   return (
     <div>
       <h3 className="text-white mb-3">Backlog</h3>
