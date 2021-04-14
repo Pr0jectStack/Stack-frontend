@@ -7,7 +7,8 @@ import { Badge, Col, Row } from "react-bootstrap";
 const AddNewMembersUtil = (props) => {
   const profile = props.profileData;
   const workspace = props.workspaceData.currentWorkspace;
-  const membersInWorkspace = workspace.members;
+  const membersInWorkspace =
+    workspace && workspace.members ? workspace.members : null;
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
