@@ -86,6 +86,7 @@ const Task = (props) => {
               tasks={props.data}
               tid={props.data.tid}
               moveTask={moveTask}
+              editTask={editTask}
               deleteTask={deleteTask}
               assignMembers={assignMembers}
               hasAuth={hasAuth()}
