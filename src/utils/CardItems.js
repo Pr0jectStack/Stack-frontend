@@ -3,7 +3,8 @@ import { Card, Row, Col, Badge, Modal } from "react-bootstrap";
 import { Progress } from "react-sweet-progress";
 import "react-sweet-progress/lib/style.css";
 import AddNewMembersUtilContainer from "../containers/AddNewMembersUtilContainer";
-import MembersListContainer from '../containers/MembersListContainer'; 
+import MembersListContainer from "../containers/MembersListContainer";
+import { Link } from "react-router-dom";
 
 const CardItems = ({
   demo = false,
@@ -18,21 +19,25 @@ const CardItems = ({
   openItem,
   updateCurrentWorkspace,
   updateCurrentTeam,
-  setShowMembers
+  setShowMembers,
 }) => {
   const [modalShow, setModalShow] = useState(false);
 
-  const handleShowMembers = (id)=>{
-    if(type === "workspace"){
+  const handleShowMembers = (id) => {
+    if (type === "workspace") {
       updateCurrentWorkspace(id);
       setShowMembers(type);
-    }
-    else if(type === "team"){
+    } else if (type === "team") {
       //TODO: updateCurrentTeam(id);
       updateCurrentTeam(id);
       setShowMembers(type);
     }
-  }
+  };
+  const location = (id) => {
+    return {
+      pathname: "/dashboard/" + type + "/" + id,
+    };
+  };
 
   return (
     <div>
@@ -98,14 +103,16 @@ const CardItems = ({
               <br />
             </Card.Text>
           </Card.Body>
-          <p
-            className="btn tbtn-outline btn-info mx-3"
-            onClick={() => openItem(id)}
-          >
+
+          <Link to={location(id)} className="btn tbtn-outline btn-info mx-3 my-1">
+            {" "}
             View
+          </Link>
+
+          <p className="btn text-white" onClick={() => handleShowMembers(id)}>
+            Show Members
           </p>
-          <p className="btn text-white" onClick={() =>handleShowMembers(id)}>Show Members</p>
-         
+
           {/* <Progress
             className="mx-center shadow pb-3 px-3"
             style={{ fontSize: "10px" }}

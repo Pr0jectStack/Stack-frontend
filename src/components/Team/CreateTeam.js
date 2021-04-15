@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
+// import {useHistory} from "history";
 
 const CreateTeam = (props) => {
   /**
@@ -8,11 +9,12 @@ const CreateTeam = (props) => {
    * Match if user is allowed to create team
    * Then call add Team
    */
+  let history = useHistory();
 
   console.log(props);
   const { profileData, workspaceData, addNewTeam } = props;
   const userId = profileData._id;
-  const ownerId =workspaceData.currentWorkspace.owner;
+  const ownerId = workspaceData.currentWorkspace.owner;
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
@@ -22,17 +24,26 @@ const CreateTeam = (props) => {
   const onSubmit = (data) => {
     // data.owner=userId;
     // console.log(data);
-    if(profileData._id === ownerId){
+    let done = false;
+    if (profileData._id === ownerId) {
       data.owner = userId;
       data.wid = workspaceData.currentWorkspace._id;
-      data.inviteLink ="sasaaassa"
+      data.inviteLink = "sasaaassa";
       addNewTeam(data);
-    }
-    else{
+      done = true;
+      if (!workspaceData.loading && done) {
+        setSuccess(true);
+      }
+    } else {
       setError("Not Authorized!");
       // console.log("Not authorize!")
     }
+  };
 
+  const location = (wid) => {
+    return {
+      pathname: "/dashboard/workspace" + "/" + wid,
+    };
   };
 
   const checkIfTeamExists = (value) => {
@@ -42,8 +53,8 @@ const CreateTeam = (props) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
   };
 
-  if (workspaceData.loading) {
-    return <Redirect to="/dashboard" />;
+  if (!workspaceData.loading && success) {
+    return <Redirect to={location(workspaceData.currentWorkspace._id)} />;
   } else if (profileData.error) {
     return <h2>{profileData.error}</h2>;
   } else

@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Backlog from "./components/Backlog";
 import Review from "./components/Review";
 import Completed from "./components/Completed";
 import InProgress from "./components/InProgress";
 import Loading from "../../utils/Loading/Loading";
-
+import { Redirect,useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 const Task = (props) => {
+
+  const { tid } = useParams();
+
+  const[loading,setLoading] = useState(true);
+
+  useEffect(() => {
+    props.updateCurrentTeam(tid);
+    setLoading(false);
+  }, [])
+
+  let history = useHistory();
+
+
   const goBack = () => {
     props.setCurrentPage("Team");
   };
@@ -53,7 +67,7 @@ const Task = (props) => {
     props.assignMembers(taskId, props.data.tid, props.userId, members);
   };
 
-  if (props.data.loading || props.teamData.loading) {
+  if (props.data.loading || props.teamData.loading || loading) {
     return <Loading />;
   } else if (props.data.error) {
     return <h2>{props.data.error}</h2>;
@@ -63,7 +77,7 @@ const Task = (props) => {
         <h3
           className="text-white mt-3"
           style={{ marginLeft: "2.3%" }}
-          onClick={() => goBack()}
+          onClick={history.goBack}
         >
           <i className="fa fa-arrow-left btn text-white" aria-hidden="true"></i>
         </h3>

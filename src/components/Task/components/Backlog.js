@@ -27,7 +27,6 @@ const Backlog = (props) => {
         );
     });
 
-    const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
   return (
     <div>
       <h3 className="text-white mb-3">Backlog</h3>
@@ -36,7 +35,7 @@ const Backlog = (props) => {
         <SpeechToText
           note={note}
           setNote={setNote}
-          width="110%"
+          width="100%"
           handleSubmit={() => alert(note)}
         />
       )}

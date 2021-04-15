@@ -52,6 +52,7 @@ const CreateWorkspace = (props) => {
                 ></i>
                 {"  "}Back
               </Link>
+              
               {/* Description */}
               <input
                 className="auth-input"

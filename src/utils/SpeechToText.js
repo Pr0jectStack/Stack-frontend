@@ -16,7 +16,7 @@ const SpeechToText = (props) => {
    */
   const [isListening, setIsListening] = useState(false);
 
-  const { note, setNote, width = "100", handleSubmit=()=>{} } = props;
+  const { note, setNote, width, handleSubmit=()=>{},micOnly=false } = props;
 
   useEffect(() => {
     handleListen();
@@ -53,8 +53,27 @@ const SpeechToText = (props) => {
     };
   };
 
+  const onlyMic = () =>{
+    return(
+      <i
+      className={
+        isListening
+          ? "fa fa-microphone text-danger btn text-lg mic-on"
+          : "fa fa-microphone text-dark btn"
+      }
+      style={{float:"right"}}
+      aria-hidden="true"
+      onClick={() => setIsListening(!isListening)}
+    ></i>
+    )
+  }
+
+  if(micOnly){
+    return onlyMic();
+  }
+  else
   return (
-    <div className="container mb-1" style={{ width: width,marginLeft:"-15px"}}>
+    <div className=" mb-1" style={{ width: width}}>
       <div className="mic-box">
         <div className="row">
           <div className="col-2">
@@ -73,9 +92,9 @@ const SpeechToText = (props) => {
             {" "}
             <span className="text-white">{note}</span>
           </div>
-          <div className="col-2">
+          {/* <div className="col-2">
             <i class="fa fa-plus-circle text-white" aria-hidden="true" onClick={()=>handleSubmit()}></i>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
