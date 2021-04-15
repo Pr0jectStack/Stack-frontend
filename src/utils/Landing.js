@@ -3,6 +3,7 @@ import { Row, Col } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import CardItems from "./CardItems";
 import "./Landing.css";
+import { useHistory } from "react-router-dom";
 const Landing = ({
   heading,
   type,
@@ -17,6 +18,8 @@ const Landing = ({
   showMembers,
   setShowMembers,
 }) => {
+
+  let history = useHistory();
   const [redirect, setRedirect] = useState(false);
 
   const redirectToForm = () => {
@@ -83,7 +86,7 @@ const Landing = ({
             <h3
               className="text-white mt-3"
               style={{ marginLeft: "10%" }}
-              onClick={() => goBack()}
+              onClick={history.goBack}
             >
               <i
                 className="fa fa-arrow-left btn text-white"

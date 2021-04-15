@@ -1,18 +1,23 @@
-import React from "react";
-import { Redirect } from "react-router-dom";
+import React,{useEffect} from "react";
+import { Redirect,useParams } from "react-router-dom";
 import LandingContainer from "../../containers/LandingContainer";
 import TeamContainer from "../../containers/TeamContainer";
 const Workspace = (props) => {
 
+  const { wid } = useParams();
   const workspaces = props.data.workspaces;
   const userId = props.data._id;
+
+  useEffect(() => {
+    props.updateCurrentWorkspace(wid);
+  }, [])
   
 
-  const openWorkspace = (wid)=>{
-    props.updateCurrentWorkspace(wid);
-    // return <Redirect to="/dashboard/team"/>
-    props.setCurrentPage("Team");
-  }
+  // const openWorkspace = (wid)=>{
+  //   props.updateCurrentWorkspace(wid);
+  //   return <Redirect to="/dashboard/team"/>
+  //   // props.setCurrentPage("Team");
+  // }
 
   return (
     <div>
@@ -21,7 +26,7 @@ const Workspace = (props) => {
         type="workspace"
         data={workspaces}
         userId={userId}
-        openItem={openWorkspace}
+        // openItem={openWorkspace}
         showMembers={props.showMembers}
         setShowMembers={props.setShowMembers}
       />

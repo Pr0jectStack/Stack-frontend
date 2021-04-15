@@ -17,6 +17,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import EmailActivation from "./components/Auth/EmailActivation";
 import ResetPassword from "./components/Auth/ResetPassword";
+import WorkspaceContainer from "./containers/WorkspaceContainer";
+import { createBrowserHistory  } from 'history';
+import TaskContainer from "./containers/TaskContainer";
 
 const App = () => {
   return (
@@ -30,7 +33,7 @@ const App = () => {
         draggable
         pauseOnHover
       />
-      <Router>
+      <Router history={createBrowserHistory()}>
         <NavigationContainer />
         <Switch>
           {/* Public Routes */}
@@ -50,6 +53,16 @@ const App = () => {
             path="/dashboard"
             exact
             component={DashboardContainer}
+          />
+          <PrivateRoute
+            path="/dashboard/workspace/:wid"
+            exact
+            component={TeamContainer}
+          />
+          <PrivateRoute
+            path="/dashboard/team/:tid"
+            exact
+            component={TaskContainer}
           />
           <PrivateRoute
             path="/dashboard/team/"
