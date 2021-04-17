@@ -6,6 +6,7 @@ import {
   deleteTask,
   editTask,
   moveTask,
+  setTasks,
 } from "../redux/task/taskActions";
 import { updateCurrentTeam } from "../redux/team/teamActions";
 
@@ -16,7 +17,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  updateCurrentTeam: (data) => dispatch(updateCurrentTeam(data)),
+  setTasks: (tasks, tid, owner, teamLeader) =>
+    dispatch(setTasks(tasks, tid, owner, teamLeader)),
+  updateCurrentTeam: (tid) => dispatch(updateCurrentTeam(tid)),
   addTask: (task, tid, userId) => dispatch(addNewTask(task, tid, userId)),
   deleteTask: (taskId, tid, userId) =>
     dispatch(deleteTask(taskId, tid, userId)),

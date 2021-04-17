@@ -126,11 +126,11 @@ export const addMembersToTeam = (data) => {
   };
 };
 
-export const updateCurrentTeam = (data) => {
+export const updateCurrentTeam = (tid) => {
   return (dispatch) => {
     dispatch(updateCurrentTeamRequest());
     axios
-      .get(`${API}/db/getTeamById?tid=${data}`, {
+      .get(`${API}/db/getTeamById?tid=${tid}`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

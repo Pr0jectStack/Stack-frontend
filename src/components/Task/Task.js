@@ -7,12 +7,14 @@ import Loading from "../../utils/Loading/Loading";
 import { Redirect, useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import socketIOClient from "socket.io-client";
+import { API } from "../../backend";
+
+// Open a socket connection to the backend
+const socket = socketIOClient(API, {
+  autoConnect: false,
+});
 
 const Task = (props) => {
-  const socket = socketIOClient("http://localhost:5000", {
-    autoConnect: false,
-  });
-
   const { tid } = useParams();
 
   const [loading, setLoading] = useState(true);
@@ -21,13 +23,13 @@ const Task = (props) => {
     socket.connect();
     socket.on("connect", () => {
       console.log("Task connected!");
-      socket.emit("join", props.userId, tid);
+      socket.emit("join", tid);
     });
     props.updateCurrentTeam(tid);
     setLoading(false);
 
-    socket.on(tid, (team) => {
-      props.updateCurrentTeam(team._id);
+    socket.on("tasks", (team) => {
+      props.setTasks(team.tasks, team._id, team.owner, team.teamLeader);
     });
   }, []);
 
