@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Row,
@@ -15,6 +15,11 @@ import default_image from "./default_image.jpg";
 import "./Profile.css";
 import { Redirect } from "react-router-dom";
 import Loading from "../../utils/Loading/Loading";
+import socketIOClient from "socket.io-client";
+
+const socket = socketIOClient("http://localhost:5000", {
+  autoConnect: true,
+});
 
 const Profile = (props) => {
   const {
@@ -31,6 +36,13 @@ const Profile = (props) => {
   } = (props.data && props.data.userData) || {};
 
   const { github, twitter, instagram, website } = socialMediaHandles || {};
+
+  useEffect(() => {
+    socket.connect();
+    socket.on("connect", () => {
+      console.log("Connected");
+    });
+  }, []);
 
   // Convert Buffer to base64 string.
   const bufferToBase64 = (data) => {

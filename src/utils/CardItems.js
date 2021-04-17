@@ -32,6 +32,7 @@ const CardItems = ({
       updateCurrentTeam(id);
       setShowMembers(type);
     }
+    setShowMembers(type);
   };
   const location = (id) => {
     return {
@@ -104,7 +105,10 @@ const CardItems = ({
             </Card.Text>
           </Card.Body>
 
-          <Link to={location(id)} className="btn tbtn-outline btn-info mx-3 my-1">
+          <Link
+            to={location(id)}
+            className="btn tbtn-outline btn-info mx-3 my-1"
+          >
             {" "}
             View
           </Link>

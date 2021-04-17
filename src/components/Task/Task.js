@@ -1,24 +1,37 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Backlog from "./components/Backlog";
 import Review from "./components/Review";
 import Completed from "./components/Completed";
 import InProgress from "./components/InProgress";
 import Loading from "../../utils/Loading/Loading";
-import { Redirect,useParams } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import socketIOClient from "socket.io-client";
+
 const Task = (props) => {
+  const socket = socketIOClient("http://localhost:5000", {
+    autoConnect: false,
+  });
 
   const { tid } = useParams();
 
-  const[loading,setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    socket.connect();
+    socket.on("connect", () => {
+      console.log("Task connected!");
+      socket.emit("join", props.userId, tid);
+    });
     props.updateCurrentTeam(tid);
     setLoading(false);
-  }, [])
+
+    socket.on(tid, (team) => {
+      props.updateCurrentTeam(team._id);
+    });
+  }, []);
 
   let history = useHistory();
-
 
   const goBack = () => {
     props.setCurrentPage("Team");
