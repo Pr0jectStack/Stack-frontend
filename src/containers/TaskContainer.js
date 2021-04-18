@@ -9,6 +9,7 @@ import {
   setTasks,
 } from "../redux/task/taskActions";
 import { updateCurrentTeam } from "../redux/team/teamActions";
+import { toggleChat } from "../redux/chat/chatActions";
 
 const mapStateToProps = (state) => ({
   data: state.task,
@@ -28,6 +29,7 @@ const mapDispatchToProps = (dispatch) => ({
   editTask: (task, tid, userId) => dispatch(editTask(task, tid, userId)),
   assignMembers: (taskId, tid, userId, members) =>
     dispatch(assignMembersToTask(taskId, tid, userId, members)),
+  toggleChatView: (toggleView) => dispatch(toggleChat(toggleView)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Task);

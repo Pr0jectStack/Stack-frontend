@@ -4,6 +4,8 @@ import Review from "./components/Review";
 import Completed from "./components/Completed";
 import InProgress from "./components/InProgress";
 import Loading from "../../utils/Loading/Loading";
+import ChatContainer from "../../containers/ChatContainer";
+
 import { Redirect, useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import socketIOClient from "socket.io-client";
@@ -89,14 +91,23 @@ const Task = (props) => {
   } else {
     return (
       <div className="" style={{ marginInline: "8%" }}>
+        <ChatContainer />
         <h3
           className="text-white mt-3"
           style={{ marginLeft: "2.3%" }}
           onClick={history.goBack}
         >
-          <i className="fa fa-arrow-left btn text-white" aria-hidden="true"></i>
+          <i className="fa fa-arrow-left btn text-white" aria-hidden="true" />
         </h3>
-        <h1 className="landing-h1 mt-2">{props.teamData.currentTeam.name}</h1>;
+        <h1 className="landing-h1 mt-2">
+          {props.teamData.currentTeam.name}
+          <i
+            className="fa fa-comment btn text-white"
+            aria-hidden="true"
+            onClick={() => props.toggleChatView(true)}
+          />
+        </h1>
+        ;
         <div className="row" style={{ marginTop: "4%" }}>
           <div className="col-md-3 mx-auto">
             <Backlog

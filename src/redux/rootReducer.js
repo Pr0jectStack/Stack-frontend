@@ -9,6 +9,7 @@ import workspaceReducer from "./workspace/workspaceReducer";
 import guestProfileReducer from "./guestProfile/guestProfileReducer";
 import taskReducer from "./task/taskReducer";
 import teamReducer from "./team/teamReducer";
+import chatReducer from "./chat/chatReducer";
 
 const persistConfig = {
   key: "root",
@@ -17,14 +18,15 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
+  team: teamReducer,
+  task: taskReducer,
+  chat: chatReducer,
   signIn: signInReducer,
   signUp: signUpReducer,
   profile: profileReducer,
   settings: settingsReducer,
   workspace: workspaceReducer,
   guestProfile: guestProfileReducer,
-  team:teamReducer,
-  task: taskReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer); // Persisted Reducers
