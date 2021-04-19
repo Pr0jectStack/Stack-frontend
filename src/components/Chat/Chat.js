@@ -60,7 +60,7 @@ const Chat = (props) => {
         id="chat-messages"
         style={{ height: "85%", width: "100%" }}
       >
-        <ScrollableFeed>
+        <ScrollableFeed forceScroll={"true"}>
           {props.data.chatMessages &&
             props.data.chatMessages.map((chat) => {
               return (
