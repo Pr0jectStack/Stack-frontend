@@ -13,7 +13,7 @@ import { API } from "../../backend";
 
 // Open a socket connection to the backend
 const socket = socketIOClient(API, {
-  autoConnect: false,
+  autoConnect: true,
 });
 
 const Task = (props) => {
