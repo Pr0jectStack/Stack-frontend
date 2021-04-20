@@ -9,7 +9,7 @@ import "./Chat.css";
 
 // Open a socket connection to the backend
 const socket = socketIOClient(API, {
-  autoConnect: true,
+  autoConnect: false,
 });
 
 const Chat = (props) => {
