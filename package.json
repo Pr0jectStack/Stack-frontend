@@ -17,6 +17,7 @@
     "react-bootstrap": "^1.5.1",
     "react-burger-menu": "^3.0.3",
     "react-calendar-heatmap": "^1.8.1",
+    "react-confirm-alert": "^2.7.0",
     "react-datepicker": "^3.6.0",
     "react-dom": "^17.0.1",
     "react-hook-form": "^6.15.4",
