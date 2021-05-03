@@ -20,6 +20,7 @@ import ResetPassword from "./components/Auth/ResetPassword";
 import WorkspaceContainer from "./containers/WorkspaceContainer";
 import { createBrowserHistory  } from 'history';
 import TaskContainer from "./containers/TaskContainer";
+import Automation from "./utils/Automation/Automation";
 
 const App = () => {
   return (
@@ -40,7 +41,7 @@ const App = () => {
           <GuestRoute path="/signup" exact component={SignUpContainer} />
           <GuestRoute path="/signin" exact component={SignInContainer} />
           <GuestRoute path="/" exact component={SignInContainer} />
-          <GuestRoute path="/test" exact component={Task} />
+          {/* <GuestRoute path="/test" exact component={Automation} /> */}
           <GuestRoute path="/speech" exact component={SpeechToText} />
 
           {/* Private Routes */}
