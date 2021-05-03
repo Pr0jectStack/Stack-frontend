@@ -134,7 +134,9 @@ const assignMembersToTaskFailure = (errorMsg) => {
 /**
  * Set Task fetched from teams.
  * @param {Object} tasks - Task Object
- * @param {string} tid - CurrentTeam ID
+ * @param {string} tid - Current Team ID
+ * @param {string} owner - Current Team Onwer Id
+ * @param {string} teamLeader - Current Team Leader Id
  * @returns void
  */
 export const setTasks = (tasks, tid, owner, teamLeader) => {
