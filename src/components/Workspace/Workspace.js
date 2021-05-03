@@ -13,11 +13,6 @@ const Workspace = (props) => {
   }, [])
   
 
-  // const openWorkspace = (wid)=>{
-  //   props.updateCurrentWorkspace(wid);
-  //   return <Redirect to="/dashboard/team"/>
-  //   // props.setCurrentPage("Team");
-  // }
 
   return (
     <div>
@@ -26,7 +21,6 @@ const Workspace = (props) => {
         type="workspace"
         data={workspaces}
         userId={userId}
-        // openItem={openWorkspace}
         showMembers={props.showMembers}
         setShowMembers={props.setShowMembers}
       />

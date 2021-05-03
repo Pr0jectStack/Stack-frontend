@@ -17,8 +17,6 @@ const Automation = (props) => {
   });
   const [deleteTask, setDeleteTask] = useState("");
 
-  console.warn(tasks);
-
   const [task, setTask] = useState("");
   const commands = [
     {
