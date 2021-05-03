@@ -10,6 +10,7 @@ import { Redirect, useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import socketIOClient from "socket.io-client";
 import { API } from "../../backend";
+import Automation from "../../utils/Automation/Automation";
 
 // Open a socket connection to the backend
 const socket = socketIOClient(API, {
@@ -107,7 +108,12 @@ const Task = (props) => {
             onClick={() => props.toggleChatView(true)}
           />
         </h1>
-        ;
+        <Automation
+           moveTask={moveTask}
+           tasks={props.data}
+           deleteTask={deleteTask}
+           hasAuth={hasAuth()}
+        />
         <div className="row" style={{ marginTop: "4%" }}>
           <div className="col-md-3 mx-auto">
             <Backlog
