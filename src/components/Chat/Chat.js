@@ -9,7 +9,7 @@ import "./Chat.css";
 
 // Open a socket connection to the backend
 const socket = socketIOClient(API, {
-  autoConnect: true,
+  autoConnect: false,
 });
 
 const Chat = (props) => {
@@ -60,7 +60,7 @@ const Chat = (props) => {
         id="chat-messages"
         style={{ height: "85%", width: "100%" }}
       >
-        <ScrollableFeed>
+        <ScrollableFeed forceScroll={"true"}>
           {props.data.chatMessages &&
             props.data.chatMessages.map((chat) => {
               return (
