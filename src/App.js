@@ -21,6 +21,9 @@ import WorkspaceContainer from "./containers/WorkspaceContainer";
 import { createBrowserHistory  } from 'history';
 import TaskContainer from "./containers/TaskContainer";
 import Automation from "./utils/Automation/Automation";
+import Footer from "./components/Footer/Footer";
+import TermsAndConditions from './components/Others/TermsAndConditions';
+import About from './components/About/About';
 
 const App = () => {
   return (
@@ -93,8 +96,19 @@ const App = () => {
             path="/reset/password/:resetLink"
             component={ResetPassword}
           />
+          <Route
+              exact
+              path="/termsandconditions"
+              component={TermsAndConditions}
+          />
+           <Route 
+            path="/about" 
+            exact 
+            component={About} 
+          />
         </Switch>
       </Router>
+      <Footer/>
     </>
   );
 };

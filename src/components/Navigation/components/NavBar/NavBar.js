@@ -27,7 +27,7 @@ const NavBar = ({ image, username, logOutUser }) => {
   return (
     <>
       <Navbar className="navbar" collapseOnSelect expand="md" variant="dark">
-        <Navbar.Brand href="/dashboard">
+        <Navbar.Brand href="/">
           <h3 style={{ paddingLeft: "40px", fontSize: "160%" }}>Collab</h3>
         </Navbar.Brand>
         <Navbar.Toggle
