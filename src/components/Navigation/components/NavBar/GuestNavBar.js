@@ -6,7 +6,7 @@ import "./NavBar.css";
 const GuestNavBar = () => {
   return (
     <Navbar className="navbar" collapseOnSelect expand="md" variant="dark">
-      <Navbar.Brand href="#">
+      <Navbar.Brand href="/">
         <h3>Collab</h3>
       </Navbar.Brand>
       <Navbar.Toggle
