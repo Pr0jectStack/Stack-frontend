@@ -31,7 +31,7 @@ const SignUp = (props) => {
   const checkIfUserExists = (value) => {
     checkUserExists(value).then((data) => {
       if (!data || data.error) {
-        console.log("False must be returned");
+        // console.log("False must be returned");
         return false;
       } else {
         return true;
