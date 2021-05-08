@@ -1,8 +1,9 @@
-import React from 'react'
+import React from "react";
 
-const Footer = () =>{
-    return (
-        <footer className="mainfooter mt-5" role="contentinfo">
+const Footer = () => {
+  return (
+    <footer className="mainfooter mt-5" role="contentinfo">
+      <hr />
       <div className="footer-middle">
         <div className="container">
           <div className="row mb-3 mx-auto d-flex justify-content-center">
@@ -17,10 +18,12 @@ const Footer = () =>{
                 <a href="/">Contact</a>
               </div>
             </div>
-            
           </div>
         </div>
-        <p className="text-center font-italic text-light"> projectstack.dev@gmail.com</p>
+        {/* <p className="text-center font-italic text-light">
+          {" "}
+          projectstack.dev@gmail.com
+        </p> */}
         <div className="row">
           <div className="col-md-12 copy">
             <p className="text-center text-white">
@@ -30,7 +33,7 @@ const Footer = () =>{
         </div>
       </div>
     </footer>
-    )
-}
+  );
+};
 
 export default Footer;
