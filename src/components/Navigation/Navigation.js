@@ -5,13 +5,19 @@ import SideBar from "./components/SideBar/SideBar";
 import _ from "lodash";
 
 const Navigation = (props) => {
-  const { data, signOutUser } = props;
+  const { data, signOutUser,signOutData } = props;
   const logOutUser = () => {
     signOutUser();
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 1000);
   };
+  if(signOutData.signOutSuccess){
+     if (typeof window !== undefined) {
+            localStorage.clear();
+    }
+    window.location.reload();
+  }
   return (
     <div>
       {data.userData === null ? (

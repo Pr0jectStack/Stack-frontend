@@ -1,9 +1,10 @@
-import { SIGN_OUT_REQUEST, SIGN_OUT_SUCCESS, SIGN_OUT_FAILURE } from "./authTypes";
+import { SIGN_OUT_REQUEST, SIGN_OUT_SUCCESS, SIGN_OUT_FAILURE,SIGN_IN_REQUEST } from "./authTypes";
 
 const initialState = {
   loading: false,
   userData: null,
   error: "",
+  signOutSuccess:false
 };
 
 const signoutReducer = (state = initialState, action) => {
@@ -21,6 +22,7 @@ const signoutReducer = (state = initialState, action) => {
         loading: false,
         userData:null,
         error: "",
+        signOutSuccess:true
       };
     case SIGN_OUT_FAILURE:
       return {
@@ -28,6 +30,11 @@ const signoutReducer = (state = initialState, action) => {
         loading: false,
         userData: null,
         error: action.payload,
+      };
+    case SIGN_IN_REQUEST:
+      return {
+          ...state,
+        signOutSuccess:false
       };
     
     default:

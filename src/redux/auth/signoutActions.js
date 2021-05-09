@@ -37,9 +37,9 @@ const signOutRequest = () => {
         .then((response) => {
           const data = response.data;
   
-          if (typeof window !== undefined) {
-            localStorage.clear();
-          }
+          // if (typeof window !== undefined) {
+          //   localStorage.clear();
+          // }
   
   
           dispatch(signOutSuccess(data.message));
