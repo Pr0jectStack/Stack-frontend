@@ -10,6 +10,7 @@ import guestProfileReducer from "./guestProfile/guestProfileReducer";
 import taskReducer from "./task/taskReducer";
 import teamReducer from "./team/teamReducer";
 import chatReducer from "./chat/chatReducer";
+import signoutReducer from "./auth/signoutReducer";
 
 const persistConfig = {
   key: "root",
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   chat: chatReducer,
   signIn: signInReducer,
   signUp: signUpReducer,
+  signOut: signoutReducer,
   profile: profileReducer,
   settings: settingsReducer,
   workspace: workspaceReducer,
