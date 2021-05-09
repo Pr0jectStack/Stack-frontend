@@ -18,12 +18,14 @@ import "react-toastify/dist/ReactToastify.min.css";
 import EmailActivation from "./components/Auth/EmailActivation";
 import ResetPassword from "./components/Auth/ResetPassword";
 import WorkspaceContainer from "./containers/WorkspaceContainer";
-import { createBrowserHistory  } from 'history';
+import { createBrowserHistory } from "history";
 import TaskContainer from "./containers/TaskContainer";
 import Automation from "./utils/Automation/Automation";
 import Footer from "./components/Footer/Footer";
-import TermsAndConditions from './components/Others/TermsAndConditions';
-import About from './components/About/About';
+import TermsAndConditions from "./components/Others/TermsAndConditions";
+import About from "./components/About/About";
+
+import swDev from "./main";
 
 const App = () => {
   return (
@@ -97,20 +99,16 @@ const App = () => {
             component={ResetPassword}
           />
           <Route
-              exact
-              path="/termsandconditions"
-              component={TermsAndConditions}
+            exact
+            path="/termsandconditions"
+            component={TermsAndConditions}
           />
-           <Route 
-            path="/about" 
-            exact 
-            component={About} 
-          />
+          <Route path="/about" exact component={About} />
         </Switch>
       </Router>
-      <Footer/>
+      <Footer />
     </>
   );
 };
-
+swDev();
 export default App;

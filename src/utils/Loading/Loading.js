@@ -5,7 +5,7 @@ import "./Loading.css";
 const Loading = () => {
   return (
     <div className="loading text-center my-auto" style={{}}>
-      <PropagateLoader color={"#f59b42"} loading size={"30"} />
+      <PropagateLoader color={"#f59b42"} loading size={"30px"} />
     </div>
   );
 };

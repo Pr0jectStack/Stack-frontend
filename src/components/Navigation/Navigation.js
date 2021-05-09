@@ -10,7 +10,7 @@ const Navigation = (props) => {
     signOutUser();
     setTimeout(() => {
       window.location.reload();
-    }, 20);
+    }, 1000);
   };
   return (
     <div>
