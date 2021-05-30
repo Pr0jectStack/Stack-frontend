@@ -11,6 +11,7 @@ import { useHistory } from "react-router-dom";
 import socketIOClient from "socket.io-client";
 import { API } from "../../backend";
 import Automation from "../../utils/Automation/Automation";
+import { confirmAlert } from "react-confirm-alert";
 
 // Open a socket connection to the backend
 const socket = socketIOClient(API, {
@@ -85,6 +86,23 @@ const Task = (props) => {
     props.assignMembers(taskId, props.data.tid, props.userId, members);
   };
 
+  const onConfirm = () => {
+    confirmAlert({
+      title: "Confirm to Delete",
+      message: `Are you sure to do delete ${props.teamData.name}`,
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => alert("Deleting..."),
+        },
+        {
+          label: "No",
+          onClick: () => alert("Cancelled.."),
+        },
+      ],
+    });
+  };
+
   if (props.data.loading || props.teamData.loading || loading) {
     return <Loading />;
   } else if (props.data.error) {
@@ -93,6 +111,7 @@ const Task = (props) => {
     return (
       <div className="" style={{ marginInline: "8%" }}>
         <ChatContainer />
+        <div className="d-flex justify-content-between">
         <h3
           className="text-white mt-3"
           style={{ marginLeft: "2.3%" }}
@@ -100,6 +119,20 @@ const Task = (props) => {
         >
           <i className="fa fa-arrow-left btn text-white" aria-hidden="true" />
         </h3>
+        { props.data.owner &&
+           props.userId.toString()  && (
+              <p
+                className="text-white mt-4 btn btn-danger"
+                style={{ marginRight: "10%", float: "right" }}
+                onClick={() => onConfirm()}
+              >
+                <i className="fa fa-trash " aria-hidden="true"></i>
+                <span id="delete-word" className="pl-2">
+                  Delete
+                </span>
+              </p>
+            )}
+        </div>
         <h1 className="landing-h1 mt-2">
           {props.teamData.currentTeam.name}
           <i

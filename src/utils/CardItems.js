@@ -5,21 +5,24 @@ import "react-sweet-progress/lib/style.css";
 import AddNewMembersUtilContainer from "../containers/AddNewMembersUtilContainer";
 import MembersListContainer from "../containers/MembersListContainer";
 import { Link } from "react-router-dom";
-
+import { confirmAlert } from "react-confirm-alert";
+import { deleteWorkspace } from "../redux/workspace/workspaceActions";
 const CardItems = ({
   demo = false,
   type,
   title,
   subtitle,
   description,
-  teamLeader,
+  teamLeaderId,
   members,
-  owner,
+  ownerId,
+  userId,
   id,
   openItem,
   updateCurrentWorkspace,
   updateCurrentTeam,
   setShowMembers,
+  deleteWorkspace
 }) => {
   const [modalShow, setModalShow] = useState(false);
 
@@ -28,7 +31,7 @@ const CardItems = ({
       updateCurrentWorkspace(id);
       setShowMembers(type);
     } else if (type === "team") {
-      //TODO: updateCurrentTeam(id);
+      // TODO: updateCurrentTeam(id);
       updateCurrentTeam(id);
       setShowMembers(type);
     }
@@ -38,6 +41,23 @@ const CardItems = ({
     return {
       pathname: "/dashboard/" + type + "/" + id,
     };
+  };
+
+  const onConfirm = () => {
+    confirmAlert({
+      title: "Confirm to Delete",
+      message: `Are you sure to do delete ${title}`,
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => deleteWorkspace(),
+        },
+        {
+          label: "No",
+          onClick: () => alert("Cancelled.."),
+        },
+      ],
+    });
   };
 
   return (
@@ -89,18 +109,24 @@ const CardItems = ({
           <Card.Body>
             <Card.Title style={{ color: "#008ecc" }}>
               {title}
-              <i
+              {userId == ownerId && <i
+                  onClick={() => onConfirm()}
+                style={{ float: "right", backgroundColor: "#0e101c" }}
+                className="fa fa-trash btn btn-danger btn-oultine btn-sm mx-1"
+                aria-hidden="true"
+              ></i>}
+              {(userId == ownerId || (type == "team" && userId == teamLeaderId)) &&<i
                 onClick={() => setModalShow(true)}
                 style={{ float: "right", backgroundColor: "#0e101c" }}
-                className="fa fa-user-plus btn text-light"
+                className="fa fa-user-plus btn text-light btn-info btn-sm"
                 aria-hidden="true"
-              ></i>
+              ></i>}
             </Card.Title>
             <Card.Subtitle className="mb-3" style={{ color: "grey" }}>
               {subtitle}
             </Card.Subtitle>
             <Card.Text className="mb-5 text-white">
-              {description}
+              {description.length>70?description.substring(0,70)+"...":description}
               <br />
             </Card.Text>
           </Card.Body>

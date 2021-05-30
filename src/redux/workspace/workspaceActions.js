@@ -5,6 +5,9 @@ import {
   ADD_WORKSPACE_SUCCESS,
   ADD_WORKSPACE_REQUEST,
   ADD_WORKSPACE_FAILURE,
+  DELETE_WORKSPACE_SUCCESS,
+  DELETE_WORKSPACE_REQUEST,
+  DELETE_WORKSPACE_FAILURE,
   UPDATE_CURRENT_WORKSPACE_SUCCESS,
   UPDATE_CURRENT_WORKSPACE_REQUEST,
   UPDATE_CURRENT_WORKSPACE_FAILURE,
@@ -29,6 +32,26 @@ const addWorkspaceSuccess = (newWorkspace) => {
 const addWorkspaceFailure = (errorMsg) => {
   return {
     type: ADD_WORKSPACE_FAILURE,
+    payload: errorMsg,
+  };
+};
+
+const deleteWorkspaceRequest = () => {
+  return {
+    type: DELETE_WORKSPACE_REQUEST,
+  };
+};
+
+const deleteWorkspaceSuccess = (data) => {
+  return {
+    type: DELETE_WORKSPACE_SUCCESS,
+    payload: data,
+  };
+};
+
+const deleteWorkspaceFailure = (errorMsg) => {
+  return {
+    type: DELETE_WORKSPACE_FAILURE,
     payload: errorMsg,
   };
 };
@@ -153,4 +176,29 @@ export const addMembersToWorkspace = (data) =>{
   }
 }
 
+export const deleteWorkspace = (data) => {
+  return (dispatch) => {
+    dispatch(deleteWorkspaceRequest());
+    axios
+      .delete(`${API}/db/deleteWorkspace`, JSON.stringify(data), {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+
+        if (data.error) {
+          return dispatch(deleteWorkspaceFailure(data.error));
+        } else {
+          dispatch(deleteWorkspaceSuccess(data.user));
+        }
+      })
+      .catch((error) => {
+        const errorMsg = error.message;
+        dispatch(deleteWorkspaceFailure(errorMsg));
+      });
+  };
+};
 
