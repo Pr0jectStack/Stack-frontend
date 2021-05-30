@@ -2,6 +2,9 @@ import {
   ADD_WORKSPACE_FAILURE,
   ADD_WORKSPACE_REQUEST,
   ADD_WORKSPACE_SUCCESS,
+  DELETE_WORKSPACE_FAILURE,
+  DELETE_WORKSPACE_REQUEST,
+  DELETE_WORKSPACE_SUCCESS,
 } from "../workspace/workspaceTypes";
 import {
   EDIT_USER_PROFILE_REQUEST,
@@ -58,6 +61,25 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.payload,
+      };
+    case DELETE_WORKSPACE_SUCCESS:
+      return{
+        ...state,
+        loading:false,
+        userData:action.payload,
+        error:""
+      };
+    case DELETE_WORKSPACE_FAILURE:
+      return{
+        ...state,
+        loading:false,
+        error:action.payload
+      };
+    case DELETE_WORKSPACE_REQUEST:
+      return{
+        ...state,
+        loading:true,
+        error:""
       };
     default:
       return state;

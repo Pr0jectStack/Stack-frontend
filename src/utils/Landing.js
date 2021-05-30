@@ -4,6 +4,8 @@ import { Redirect } from "react-router-dom";
 import CardItems from "./CardItems";
 import "./Landing.css";
 import { useHistory } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert";
+
 const Landing = ({
   heading,
   type,
@@ -13,12 +15,13 @@ const Landing = ({
   openItem,
   goBack,
   ownerId = "",
+  teamLeader="",
   updateCurrentWorkspace,
   updateCurrentTeam,
   showMembers,
   setShowMembers,
+  deleteWorkspace
 }) => {
-
   let history = useHistory();
   const [redirect, setRedirect] = useState(false);
 
@@ -43,13 +46,15 @@ const Landing = ({
             title={name}
             type={type}
             description={description}
-            owner={owner}
+            ownerId={owner}
             members={members}
             id={_id}
             openItem={openItem}
             updateCurrentWorkspace={updateCurrentWorkspace}
             showMembers={showMembers}
             setShowMembers={setShowMembers}
+            userId={userId}
+            deleteWorkspace={deleteWorkspace}
           />
         </Col>
       );
@@ -65,7 +70,8 @@ const Landing = ({
             title={name}
             type={type}
             description={""}
-            owner={owner}
+            ownerId={owner}
+            teamLeaderId={teamLeader}
             members={members}
             id={_id}
             openItem={openItem}
@@ -73,6 +79,8 @@ const Landing = ({
             showMembers={showMembers}
             updateCurrentTeam={updateCurrentTeam}
             setShowMembers={setShowMembers}
+            userId={userId}
+
           />
         </Col>
       );
@@ -81,8 +89,8 @@ const Landing = ({
   const showHeading = () => {
     if (type === "team") {
       return (
-        <div className="">
-          <div>
+        <div>
+          <div className="d-flex justify-content-between">
             <h3
               className="text-white mt-3"
               style={{ marginLeft: "10%" }}
@@ -93,6 +101,18 @@ const Landing = ({
                 aria-hidden="true"
               ></i>
             </h3>
+            {/* {userId === ownerId && (
+              <p
+                className="text-white mt-4 btn btn-danger"
+                style={{ marginRight: "10%", float: "right" }}
+                onClick={() => onConfirm()}
+              >
+                <i className="fa fa-trash " aria-hidden="true"></i>
+                <span id="delete-word" className="pl-2">
+                  Delete
+                </span>
+              </p>
+            )} */}
           </div>
           <div>
             <h1 className="landing-h1 mt-2">{heading}</h1>
@@ -103,6 +123,8 @@ const Landing = ({
       return <h1 className="landing-h1 mt-5">{heading}</h1>;
     }
   };
+
+  
 
   return (
     <div>
