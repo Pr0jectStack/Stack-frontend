@@ -23,7 +23,15 @@ const CreateTeam = (props) => {
 
   const onSubmit = (data) => {
     // data.owner=userId;
-    // console.log(data);
+
+    // Extract Team leader information from currentWorkspace
+    const teamLeader = props.workspaceData.currentWorkspace.members.filter(
+      (m) => m.username === data.teamLeader || m.email === data.teamLeader
+    );
+    data.teamLeader = teamLeader.length > 0 ? teamLeader[0]._id : "";
+
+    console.log(data);
+
     let done = false;
     if (profileData._id === ownerId) {
       data.owner = userId;
@@ -51,6 +59,16 @@ const CreateTeam = (props) => {
   };
   const sleep = (milliseconds) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
+  };
+
+  const memberExists = (member) => {
+    return (
+      member === null ||
+      member.length === 0 ||
+      props.workspaceData.currentWorkspace.members.filter(
+        (m) => m.username === member || m.email === member
+      ).length > 0
+    );
   };
 
   if (!workspaceData.loading && success) {
@@ -114,6 +132,20 @@ const CreateTeam = (props) => {
               )}
               {errors.name && errors.name.type === "validate" && (
                 <p className="warning">Team already exists.</p>
+              )}
+
+              {/* Team Leader */}
+              <input
+                className="auth-input"
+                type="text"
+                placeholder="Team Leader"
+                name="teamLeader"
+                ref={register({
+                  validate: memberExists,
+                })}
+              />
+              {errors.teamLeader && errors.teamLeader.type === "validate" && (
+                <p className="warning">User is not a part of this workspace.</p>
               )}
 
               {/* Invite Link */}
