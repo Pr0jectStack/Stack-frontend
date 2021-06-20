@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { push as Menu } from "react-burger-menu";
 import Loading from "./Loading/Loading";
 const MembersList = (props) => {

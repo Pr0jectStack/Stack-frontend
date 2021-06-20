@@ -1,6 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 // import {useHistory} from "history";
 
 const CreateTeam = (props) => {
@@ -9,9 +9,9 @@ const CreateTeam = (props) => {
    * Match if user is allowed to create team
    * Then call add Team
    */
-  let history = useHistory();
+  // let history = useHistory();
 
-  console.log(props);
+  // console.log(props);
   const { profileData, workspaceData, addNewTeam } = props;
   const userId = profileData._id;
   const ownerId = workspaceData.currentWorkspace.owner;
@@ -19,7 +19,7 @@ const CreateTeam = (props) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const { register, handleSubmit, errors, watch } = useForm({});
+  const { register, handleSubmit, errors } = useForm({});
 
   const onSubmit = (data) => {
     // data.owner=userId;
@@ -30,7 +30,7 @@ const CreateTeam = (props) => {
     );
     data.teamLeader = teamLeader.length > 0 ? teamLeader[0]._id : "";
 
-    console.log(data);
+    // console.log(data);
 
     let done = false;
     if (profileData._id === ownerId) {
@@ -50,7 +50,7 @@ const CreateTeam = (props) => {
 
   const location = (wid) => {
     return {
-      pathname: "/dashboard/workspace" + "/" + wid,
+      pathname: "/dashboard/workspace/" + wid,
     };
   };
 
