@@ -1,7 +1,7 @@
 import {
-  UPDATE_CURRENT_WORKSPACE_FAILURE,
-  UPDATE_CURRENT_WORKSPACE_REQUEST,
-  UPDATE_CURRENT_WORKSPACE_SUCCESS,
+  FETCH_WORKSPACE_FAILURE,
+  FETCH_WORKSPACE_REQUEST,
+  FETCH_WORKSPACE_SUCCESS,
   ADD_MEMBERS_TO_WORKSPACE_FAILURE,
   ADD_MEMBERS_TO_WORKSPACE_REQUEST,
   ADD_MEMBERS_TO_WORKSPACE_SUCCESS,
@@ -26,21 +26,21 @@ const initialState = {
 
 const workspaceReducer = (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE_CURRENT_WORKSPACE_REQUEST:
+    case FETCH_WORKSPACE_REQUEST:
       return {
         ...state,
         loading: true,
         currentWorkspace: null,
         error: "",
       };
-    case UPDATE_CURRENT_WORKSPACE_SUCCESS:
+    case FETCH_WORKSPACE_SUCCESS:
       return {
         ...state,
         loading: false,
         currentWorkspace: action.payload,
         error: "",
       };
-    case UPDATE_CURRENT_WORKSPACE_FAILURE:
+    case FETCH_WORKSPACE_FAILURE:
       return {
         ...state,
         loading: false,
@@ -97,7 +97,7 @@ const workspaceReducer = (state = initialState, action) => {
        */
       let currentWorkspaceUpdated = state.currentWorkspace;
       for(let i=0;i<currentWorkspaceUpdated.teams.length;i++){
-        if(currentWorkspaceUpdated.teams[i]._id == updatedTeam._id){
+        if(currentWorkspaceUpdated.teams[i]._id === updatedTeam._id){
           currentWorkspaceUpdated.teams[i] = updatedTeam;
           break;
         }

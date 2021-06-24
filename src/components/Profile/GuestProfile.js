@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { push as Menu } from "react-burger-menu";
 import { Image, Row } from "react-bootstrap";
-
-import default_image from "./default_image.jpg";
+import { convertBufferToImage } from "../../utils/helper_functions";
 import "./GuestProfile.css";
 
 const GuestProfile = (props) => {
@@ -34,7 +33,7 @@ const GuestProfile = (props) => {
     >
       <Image
         className="mx-auto mt-5 mb-4"
-        src={image ? image : default_image}
+        src={convertBufferToImage(image)}
         style={{
           width: "220px",
           height: "220px",

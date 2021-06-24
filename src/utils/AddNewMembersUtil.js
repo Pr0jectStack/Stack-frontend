@@ -141,7 +141,6 @@ const AddNewMembersUtil = (props) => {
               className="d-flex bg-white"
               style={{
                 borderRadius: "4px",
-                height: "45px",
                 marginBottom: "10px",
                 height: "50px",
               }}

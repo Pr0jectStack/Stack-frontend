@@ -1,18 +1,24 @@
-import React,{useState} from "react";
+import React from "react";
 import { push as Menu } from "react-burger-menu";
 import Loading from "./Loading/Loading";
 const MembersList = (props) => {
-  
-  let { type, workspaceData, teamData, owner = "", teamLeader = "",showMembers,setShowMembers } = props;
-  
+  let {
+    workspaceData,
+    teamData,
+    owner = "",
+    teamLeader = "",
+    showMembers,
+    setShowMembers,
+  } = props;
 
   const handleOnClose = () => {
     setShowMembers("");
   };
 
-    owner = workspaceData.currentWorkspace && workspaceData.currentWorkspace.owner;
-    return (
-      <Menu
+  owner =
+    workspaceData.currentWorkspace && workspaceData.currentWorkspace.owner;
+  return (
+    <Menu
       pageWrapId={"page-wrap"}
       outerContainerId={"outer-container"}
       right
@@ -22,48 +28,57 @@ const MembersList = (props) => {
       className=""
       width={"320px"}
     >
-      {(showMembers === "workspace" && workspaceData.loading)||(showMembers === "team" && teamData.loading)?(
-        <Loading/>
-      ):(
-      <div className="text-white">
-        <h2>Members</h2>
-        <hr/>
-        <span style={{marginTop:"10%"}}>
-        {showMembers === "workspace" && workspaceData.currentWorkspace.members.map((member) => {
-          return (
-            <p>
-              <i class="fa fa-user" aria-hidden="true"></i>{'  '}
-              {member.username} 
-              <small style={{float:"right"}}>{member._id == owner
-                ? <span style={{color:"orange"}}>  owner</span>
-                : member.id == teamLeader
-                ? <span style={{color:"yellow"}}>  TL</span>
-                : "member"}
-              
-              </small>
-            </p>
-          );
-        })}
-        {showMembers === "team" && teamData.currentTeam.members.map((member) => {
-          return (
-            <p>
-              <i class="fa fa-user" aria-hidden="true"></i>{'  '}
-              {member.username} 
-              <small style={{float:"right"}}>{member._id == owner
-                ? <span style={{color:"orange"}}>  owner</span>
-                : member.id == teamLeader
-                ? <span style={{color:"yellow"}}>  TL</span>
-                : "member"}
-              
-              </small>
-            </p>
-          );
-        })}
-        </span>
-      </div>
+      {(showMembers === "workspace" && workspaceData.loading) ||
+      (showMembers === "team" && teamData.loading) ? (
+        <Loading />
+      ) : (
+        <div className="text-white">
+          <h2>Members</h2>
+          <hr />
+          <span style={{ marginTop: "10%" }}>
+            {showMembers === "workspace" &&
+              workspaceData.currentWorkspace.members.map((member) => {
+                return (
+                  <p>
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    {"  "}
+                    {member.username}
+                    <small style={{ float: "right" }}>
+                      {member._id === owner ? (
+                        <span style={{ color: "orange" }}> owner</span>
+                      ) : member.id === teamLeader ? (
+                        <span style={{ color: "yellow" }}> TL</span>
+                      ) : (
+                        "member"
+                      )}
+                    </small>
+                  </p>
+                );
+              })}
+            {showMembers === "team" &&
+              teamData.currentTeam.members.map((member) => {
+                return (
+                  <p>
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    {"  "}
+                    {member.username}
+                    <small style={{ float: "right" }}>
+                      {member._id === owner ? (
+                        <span style={{ color: "orange" }}> owner</span>
+                      ) : member.id === teamLeader ? (
+                        <span style={{ color: "yellow" }}> TL</span>
+                      ) : (
+                        "member"
+                      )}
+                    </small>
+                  </p>
+                );
+              })}
+          </span>
+        </div>
       )}
-      </Menu>
-    );
-  }
+    </Menu>
+  );
+};
 
 export default MembersList;

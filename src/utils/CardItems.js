@@ -19,8 +19,8 @@ const CardItems = ({
   userId,
   id,
   openItem,
-  updateCurrentWorkspace,
-  updateCurrentTeam,
+  getWorkspaceById,
+  getTeamById,
   setShowMembers,
   deleteWorkspace
 }) => {
@@ -28,11 +28,11 @@ const CardItems = ({
 
   const handleShowMembers = (id) => {
     if (type === "workspace") {
-      updateCurrentWorkspace(id);
+      getWorkspaceById(id);
       setShowMembers(type);
     } else if (type === "team") {
-      // TODO: updateCurrentTeam(id);
-      updateCurrentTeam(id);
+      // TODO: getTeamById(id);
+      getTeamById(id);
       setShowMembers(type);
     }
     setShowMembers(type);

@@ -2,7 +2,7 @@ import MembersList from "../utils/MembersList";
 import { connect } from "react-redux";
 import {
   addNewWorkspace,
-  updateCurrentWorkspace,
+  getWorkspaceById,
 } from "../redux/workspace/workspaceActions";
 
 const mapStateToProps = (state) => ({
@@ -12,7 +12,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  updateCurrentWorkspace: (data) => dispatch(updateCurrentWorkspace(data))
+  getWorkspaceById: (data) => dispatch(getWorkspaceById(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MembersList);
