@@ -10,7 +10,7 @@ import AllTeamsComponent from "./components/AllTeamsComponent";
 import "./WorkspaceSettings.css";
 
 const WorkspaceSettings = (props) => {
-  const { loading, currentWorkspace } = props.data || null;
+  const { loading, currentWorkspace, addingMembers } = props.data || null;
   const [itemSelected, setItemSelected] = useState(0);
 
   const { wid } = useParams();
@@ -20,7 +20,7 @@ const WorkspaceSettings = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (loading || !currentWorkspace) {
+  if (loading || !currentWorkspace || addingMembers) {
     return <Loading />;
   } else {
     return (
@@ -49,7 +49,11 @@ const WorkspaceSettings = (props) => {
               Members
             </h3>
             <hr />
-            <WorkspaceMembersComponent members={currentWorkspace.members} />
+            <WorkspaceMembersComponent
+              wid={wid}
+              name={currentWorkspace.name}
+              members={currentWorkspace.members}
+            />
           </Col>
           <Col md={6} lg={7} id={itemSelected === 2 ? "" : "inactive"}>
             <h3 className="heading" style={{ marginLeft: "1%" }}>

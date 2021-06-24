@@ -48,7 +48,11 @@ const TeamSettings = (props) => {
               Members
             </h3>
             <hr />
-            <TeamMembersComponent members={currentTeam.members} />
+            <TeamMembersComponent
+              tid={tid}
+              name={currentTeam.name}
+              members={currentTeam.members}
+            />
           </Col>
         </Row>
       </div>

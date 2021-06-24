@@ -1,14 +1,23 @@
-import React from "react";
-import { Row, Image } from "react-bootstrap";
+import React, { useState } from "react";
+import { Row, Image, Button } from "react-bootstrap";
 import { convertBufferToImage } from "../../../utils/helper_functions";
+import AddNewMemberModal from "../../../utils/AddNewMemberModal";
+import "./WorkspaceMembersComponent.css";
 
-const WorkspaceMembersComponent = ({ members }) => {
+const WorkspaceMembersComponent = ({ wid, name, members }) => {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div>
+      <Row>
+        <Button onClick={() => setShowModal(true)} id="add-new-member">
+          + Add new member
+        </Button>
+      </Row>
       {members &&
         members.map((member) => {
           return (
-            <Row className="my-4">
+            <Row key={member._id} className="my-3">
               <Image
                 src={convertBufferToImage(member.image)}
                 className="ml-3"
@@ -19,6 +28,13 @@ const WorkspaceMembersComponent = ({ members }) => {
             </Row>
           );
         })}
+      <AddNewMemberModal
+        show={showModal}
+        type={"workspace"}
+        id={wid}
+        title={name}
+        onHide={() => setShowModal(false)}
+      />
     </div>
   );
 };

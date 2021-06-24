@@ -147,6 +147,11 @@ export const getWorkspaceById = (wid) => {
   };
 };
 
+/**
+ * Add members to workspace
+ * @param {onject} data - Object containing Array of userIds to be added, wid, userId
+ * @returns Redux.Action
+ */
 export const addMembersToWorkspace = (data) => {
   return (dispatch) => {
     dispatch(addMembersToWorkspaceRequest());

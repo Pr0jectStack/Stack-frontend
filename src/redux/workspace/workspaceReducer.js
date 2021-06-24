@@ -20,8 +20,8 @@ const initialState = {
   error: "",
   addingMembers: false,
   addingMembersError: "",
-  addingMembersToTeam:false,
-  addingMembersToTeamError:""
+  addingMembersToTeam: false,
+  addingMembersToTeamError: "",
 };
 
 const workspaceReducer = (state = initialState, action) => {
@@ -68,16 +68,18 @@ const workspaceReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
-    case ADD_MEMBERS_TO_WORKSPACE_SUCCESS:
-      return {
-        ...state,
-        addingMembers: false,
-        addingMembersError: "",
-      };
+
     case ADD_MEMBERS_TO_WORKSPACE_REQUEST:
       return {
         ...state,
         addingMembers: true,
+        addingMembersError: "",
+      };
+    case ADD_MEMBERS_TO_WORKSPACE_SUCCESS:
+      return {
+        ...state,
+        currentWorkspace: action.payload,
+        addingMembers: false,
         addingMembersError: "",
       };
     case ADD_MEMBERS_TO_WORKSPACE_FAILURE:
@@ -88,7 +90,7 @@ const workspaceReducer = (state = initialState, action) => {
       };
 
     case ADD_MEMBERS_TO_TEAM_SUCCESS:
-      let updatedTeam =action.payload;
+      let updatedTeam = action.payload;
       /**
        * Go through teams of current workspace
        * Find the team whose id === updateTeam._id
@@ -96,15 +98,15 @@ const workspaceReducer = (state = initialState, action) => {
        * Insert updatedTeam at that position
        */
       let currentWorkspaceUpdated = state.currentWorkspace;
-      for(let i=0;i<currentWorkspaceUpdated.teams.length;i++){
-        if(currentWorkspaceUpdated.teams[i]._id === updatedTeam._id){
+      for (let i = 0; i < currentWorkspaceUpdated.teams.length; i++) {
+        if (currentWorkspaceUpdated.teams[i]._id === updatedTeam._id) {
           currentWorkspaceUpdated.teams[i] = updatedTeam;
           break;
         }
       }
       return {
         ...state,
-        currentWorkspace:currentWorkspaceUpdated,
+        currentWorkspace: currentWorkspaceUpdated,
         addingMembersToTeam: false,
         addingMembersToTeamError: "",
       };
