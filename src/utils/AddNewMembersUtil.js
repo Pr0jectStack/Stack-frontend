@@ -20,7 +20,6 @@ const AddNewMembersUtil = (props) => {
       data.members = members;
       data.userId = profile._id;
       data.wid = props.id;
-      console.log("DATA: ", data);
       props.addMembersToWorkspace(data);
     }
     if (members.length > 0 && props.type === "team") {
