@@ -7,3 +7,27 @@
   border-radius: 10px;
   padding: 8px;
 }
+
+#owner-label {
+  color: orange;
+}
+
+#tl-label {
+  color: yellow;
+}
+
+#member-label {
+  color: lightgrey;
+  margin-left: 10px;
+}
+
+#make-tl-button {
+  color: rgba(255, 255, 255, 0.658);
+  background-color: rgb(36, 35, 35);
+  border: 0px;
+  margin: 0px;
+}
+
+#make-tl-button:hover {
+  border: 1px solid lightgrey;
+}

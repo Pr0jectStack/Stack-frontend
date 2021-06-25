@@ -8,6 +8,9 @@ import {
   FETCH_TEAM_FAILURE,
   FETCH_TEAM_REQUEST,
   FETCH_TEAM_SUCCESS,
+  MAKE_TEAM_LEADER_FAILURE,
+  MAKE_TEAM_LEADER_REQUEST,
+  MAKE_TEAM_LEADER_SUCCESS,
 } from "../team/teamTypes";
 
 const initialState = {
@@ -41,6 +44,7 @@ const teamReducer = (state = initialState, action) => {
       };
     case ADD_TEAM_REQUEST:
     case ADD_MEMBERS_TO_TEAM_REQUEST:
+    case MAKE_TEAM_LEADER_REQUEST:
       return {
         ...state,
         loading: true,
@@ -48,6 +52,7 @@ const teamReducer = (state = initialState, action) => {
       };
     case ADD_TEAM_SUCCESS:
     case ADD_MEMBERS_TO_TEAM_SUCCESS:
+    case MAKE_TEAM_LEADER_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -56,6 +61,7 @@ const teamReducer = (state = initialState, action) => {
       };
     case ADD_TEAM_FAILURE:
     case ADD_MEMBERS_TO_TEAM_FAILURE:
+    case MAKE_TEAM_LEADER_FAILURE:
       return {
         ...state,
         loading: false,

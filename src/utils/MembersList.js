@@ -46,7 +46,7 @@ const MembersList = (props) => {
                     <small style={{ float: "right" }}>
                       {member._id === owner ? (
                         <span style={{ color: "orange" }}> owner</span>
-                      ) : member.id === teamLeader ? (
+                      ) : member._id === teamLeader ? (
                         <span style={{ color: "yellow" }}> TL</span>
                       ) : (
                         "member"
@@ -65,7 +65,7 @@ const MembersList = (props) => {
                     <small style={{ float: "right" }}>
                       {member._id === owner ? (
                         <span style={{ color: "orange" }}> owner</span>
-                      ) : member.id === teamLeader ? (
+                      ) : member._id === teamLeader ? (
                         <span style={{ color: "yellow" }}> TL</span>
                       ) : (
                         "member"

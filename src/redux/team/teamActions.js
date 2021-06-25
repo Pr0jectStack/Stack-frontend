@@ -2,15 +2,18 @@ import axios from "axios";
 import { API } from "../../backend";
 import { setTasks } from "../task/taskActions";
 import {
-  ADD_TEAM_SUCCESS,
   ADD_TEAM_REQUEST,
+  ADD_TEAM_SUCCESS,
   ADD_TEAM_FAILURE,
-  FETCH_TEAM_SUCCESS,
   FETCH_TEAM_REQUEST,
+  FETCH_TEAM_SUCCESS,
   FETCH_TEAM_FAILURE,
-  ADD_MEMBERS_TO_TEAM_FAILURE,
-  ADD_MEMBERS_TO_TEAM_SUCCESS,
   ADD_MEMBERS_TO_TEAM_REQUEST,
+  ADD_MEMBERS_TO_TEAM_SUCCESS,
+  ADD_MEMBERS_TO_TEAM_FAILURE,
+  MAKE_TEAM_LEADER_REQUEST,
+  MAKE_TEAM_LEADER_SUCCESS,
+  MAKE_TEAM_LEADER_FAILURE,
 } from "./teamTypes";
 
 const addTeamRequest = () => {
@@ -73,6 +76,26 @@ const fetchTeamFailure = (errorMsg) => {
   };
 };
 
+const makeTeamLeaderRequest = () => {
+  return {
+    type: MAKE_TEAM_LEADER_REQUEST,
+  };
+};
+
+const makeTeamLeaderSuccess = (updatedTeam) => {
+  return {
+    type: MAKE_TEAM_LEADER_SUCCESS,
+    payload: updatedTeam,
+  };
+};
+
+const makeTeamLeaderFailure = (errorMsg) => {
+  return {
+    type: MAKE_TEAM_LEADER_FAILURE,
+    payload: errorMsg,
+  };
+};
+
 export const addNewTeam = (data) => {
   return (dispatch) => {
     dispatch(addTeamRequest());
@@ -125,6 +148,11 @@ export const addMembersToTeam = (data) => {
   };
 };
 
+/**
+ * Fetch team by ID.
+ * @param {string} tid - Team ID
+ * @returns Redux.Action
+ */
 export const getTeamById = (tid) => {
   return (dispatch) => {
     dispatch(fetchTeamRequest());
@@ -155,6 +183,36 @@ export const getTeamById = (tid) => {
       .catch((error) => {
         const errorMsg = error.message;
         dispatch(fetchTeamFailure(errorMsg));
+      });
+  };
+};
+
+/**
+ * Make API call to change a member from Member to Team Leader, if possible.
+ * @param {Object} data - {tid: String, memberId: String}
+ * @returns Redux.Action
+ */
+export const makeTeamLeader = (data) => {
+  return (dispatch) => {
+    dispatch(makeTeamLeaderRequest());
+    axios
+      .put(`${API}/db/makeTeamLeader`, JSON.stringify(data), {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        if (data.error) {
+          return dispatch(makeTeamLeaderFailure(data.error));
+        } else {
+          dispatch(makeTeamLeaderSuccess(data.team));
+        }
+      })
+      .catch((err) => {
+        const errorMsg = err.message;
+        dispatch(makeTeamLeaderFailure(errorMsg));
       });
   };
 };

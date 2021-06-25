@@ -19,6 +19,8 @@ const TeamSettings = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // TODO: Add Toasts for errors.
+
   if (loading || !currentTeam) {
     return <Loading />;
   } else {
@@ -49,9 +51,8 @@ const TeamSettings = (props) => {
             </h3>
             <hr />
             <TeamMembersComponent
-              tid={tid}
-              name={currentTeam.name}
-              members={currentTeam.members}
+              team={currentTeam}
+              makeTeamLeader={props.makeTeamLeader}
             />
           </Col>
         </Row>
