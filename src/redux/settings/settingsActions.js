@@ -54,7 +54,6 @@ export const changeOtherSettings = (changedData) => {
   };
 };
 
-// ! TODO: Complete the functions
 export const changeImage = (userId, changedImage) => {
   const formData = new FormData();
   formData.append("image", changedImage);

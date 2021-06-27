@@ -1,7 +1,7 @@
 import {
-  UPDATE_CURRENT_WORKSPACE_FAILURE,
-  UPDATE_CURRENT_WORKSPACE_REQUEST,
-  UPDATE_CURRENT_WORKSPACE_SUCCESS,
+  FETCH_WORKSPACE_FAILURE,
+  FETCH_WORKSPACE_REQUEST,
+  FETCH_WORKSPACE_SUCCESS,
   ADD_MEMBERS_TO_WORKSPACE_FAILURE,
   ADD_MEMBERS_TO_WORKSPACE_REQUEST,
   ADD_MEMBERS_TO_WORKSPACE_SUCCESS,
@@ -20,27 +20,27 @@ const initialState = {
   error: "",
   addingMembers: false,
   addingMembersError: "",
-  addingMembersToTeam:false,
-  addingMembersToTeamError:""
+  addingMembersToTeam: false,
+  addingMembersToTeamError: "",
 };
 
 const workspaceReducer = (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE_CURRENT_WORKSPACE_REQUEST:
+    case FETCH_WORKSPACE_REQUEST:
       return {
         ...state,
         loading: true,
         currentWorkspace: null,
         error: "",
       };
-    case UPDATE_CURRENT_WORKSPACE_SUCCESS:
+    case FETCH_WORKSPACE_SUCCESS:
       return {
         ...state,
         loading: false,
         currentWorkspace: action.payload,
         error: "",
       };
-    case UPDATE_CURRENT_WORKSPACE_FAILURE:
+    case FETCH_WORKSPACE_FAILURE:
       return {
         ...state,
         loading: false,
@@ -68,16 +68,18 @@ const workspaceReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
-    case ADD_MEMBERS_TO_WORKSPACE_SUCCESS:
-      return {
-        ...state,
-        addingMembers: false,
-        addingMembersError: "",
-      };
+
     case ADD_MEMBERS_TO_WORKSPACE_REQUEST:
       return {
         ...state,
         addingMembers: true,
+        addingMembersError: "",
+      };
+    case ADD_MEMBERS_TO_WORKSPACE_SUCCESS:
+      return {
+        ...state,
+        currentWorkspace: action.payload,
+        addingMembers: false,
         addingMembersError: "",
       };
     case ADD_MEMBERS_TO_WORKSPACE_FAILURE:
@@ -88,7 +90,7 @@ const workspaceReducer = (state = initialState, action) => {
       };
 
     case ADD_MEMBERS_TO_TEAM_SUCCESS:
-      let updatedTeam =action.payload;
+      let updatedTeam = action.payload;
       /**
        * Go through teams of current workspace
        * Find the team whose id === updateTeam._id
@@ -96,15 +98,15 @@ const workspaceReducer = (state = initialState, action) => {
        * Insert updatedTeam at that position
        */
       let currentWorkspaceUpdated = state.currentWorkspace;
-      for(let i=0;i<currentWorkspaceUpdated.teams.length;i++){
-        if(currentWorkspaceUpdated.teams[i]._id == updatedTeam._id){
+      for (let i = 0; i < currentWorkspaceUpdated.teams.length; i++) {
+        if (currentWorkspaceUpdated.teams[i]._id === updatedTeam._id) {
           currentWorkspaceUpdated.teams[i] = updatedTeam;
           break;
         }
       }
       return {
         ...state,
-        currentWorkspace:currentWorkspaceUpdated,
+        currentWorkspace: currentWorkspaceUpdated,
         addingMembersToTeam: false,
         addingMembersToTeamError: "",
       };

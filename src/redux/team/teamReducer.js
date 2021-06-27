@@ -1,8 +1,18 @@
 import {
-  UPDATE_CURRENT_TEAM_FAILURE,
-  UPDATE_CURRENT_TEAM_REQUEST,
-  UPDATE_CURRENT_TEAM_SUCCESS,
+  ADD_MEMBERS_TO_TEAM_FAILURE,
+  ADD_MEMBERS_TO_TEAM_REQUEST,
+  ADD_MEMBERS_TO_TEAM_SUCCESS,
+  ADD_TEAM_FAILURE,
+  ADD_TEAM_REQUEST,
+  ADD_TEAM_SUCCESS,
+  FETCH_TEAM_FAILURE,
+  FETCH_TEAM_REQUEST,
+  FETCH_TEAM_SUCCESS,
+  MAKE_TEAM_LEADER_FAILURE,
+  MAKE_TEAM_LEADER_REQUEST,
+  MAKE_TEAM_LEADER_SUCCESS,
 } from "../team/teamTypes";
+
 const initialState = {
   loading: false,
   currentTeam: null,
@@ -11,25 +21,50 @@ const initialState = {
 
 const teamReducer = (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE_CURRENT_TEAM_REQUEST:
+    case FETCH_TEAM_REQUEST:
       return {
         ...state,
         loading: true,
         currentTeam: null,
         error: "",
       };
-    case UPDATE_CURRENT_TEAM_SUCCESS:
+    case FETCH_TEAM_SUCCESS:
       return {
         ...state,
         loading: false,
         currentTeam: action.payload,
         error: "",
       };
-    case UPDATE_CURRENT_TEAM_FAILURE:
+    case FETCH_TEAM_FAILURE:
       return {
         ...state,
         loading: false,
         currentTeam: null,
+        error: action.payload,
+      };
+    case ADD_TEAM_REQUEST:
+    case ADD_MEMBERS_TO_TEAM_REQUEST:
+    case MAKE_TEAM_LEADER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: "",
+      };
+    case ADD_TEAM_SUCCESS:
+    case ADD_MEMBERS_TO_TEAM_SUCCESS:
+    case MAKE_TEAM_LEADER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        currentTeam: action.payload,
+        error: "",
+      };
+    case ADD_TEAM_FAILURE:
+    case ADD_MEMBERS_TO_TEAM_FAILURE:
+    case MAKE_TEAM_LEADER_FAILURE:
+      return {
+        ...state,
+        loading: false,
         error: action.payload,
       };
     default:
