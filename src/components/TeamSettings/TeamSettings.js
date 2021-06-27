@@ -42,9 +42,11 @@ const TeamSettings = (props) => {
             <hr />
             <GeneralSettingsComponent
               tid={tid}
+              userId={props.userId}
               name={currentTeam.name}
               description={currentTeam.description}
               updateTeamDetails={props.updateTeamDetails}
+              deleteTeam={props.deleteTeam}
             />
           </Col>
           <Col md={6} lg={7} id={itemSelected === 1 ? "" : "inactive"}>

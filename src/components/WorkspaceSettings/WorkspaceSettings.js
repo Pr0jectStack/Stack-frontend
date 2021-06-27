@@ -43,9 +43,11 @@ const WorkspaceSettings = (props) => {
             <hr />
             <GeneralSettingsComponent
               wid={wid}
+              userId={props.userId}
               name={currentWorkspace.name}
               description={currentWorkspace.description}
               updateWorkspaceDetails={props.updateWorkspaceDetails}
+              deleteWorkspace={props.deleteWorkspace}
             />
           </Col>
           <Col md={6} lg={7} id={itemSelected === 1 ? "" : "inactive"}>

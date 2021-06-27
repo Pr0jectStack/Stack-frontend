@@ -2,10 +2,11 @@ import React from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { confirmAlert } from "react-confirm-alert";
 import { useForm } from "react-hook-form";
+import "react-confirm-alert/src/react-confirm-alert.css";
 import "./GeneralSettingsComponent.css";
 
 const GeneralSettingsComponent = (props) => {
-  const { tid, name } = props;
+  const { tid, name, userId } = props;
   const { register, handleSubmit, errors } = useForm({
     defaultValues: {
       team_name: name,
@@ -21,17 +22,23 @@ const GeneralSettingsComponent = (props) => {
   };
 
   const onDelete = () => {
+    const data = { tid: tid, userId: userId };
+    props.deleteTeam(data);
+    // TODO: Redirect page after deleting
+  };
+
+  const onClickDelete = () => {
     confirmAlert({
       title: "Confirm to Delete",
       message: `Are you sure to do delete "${name}" ?`,
       buttons: [
         {
           label: "Yes",
-          onClick: () => alert("Delete..."),
+          onClick: () => onDelete(),
         },
         {
           label: "No",
-          onClick: () => alert("Cancelled.."),
+          onClick: () => {},
         },
       ],
     });
@@ -81,7 +88,7 @@ const GeneralSettingsComponent = (props) => {
               This action will permanently delete the team.
             </h6>
           </Col>
-          <Button variant="danger" id="delete-button" onClick={onDelete}>
+          <Button variant="danger" id="delete-button" onClick={onClickDelete}>
             Delete
           </Button>
         </Row>

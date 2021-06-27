@@ -14,6 +14,9 @@ import {
   UDPATE_TEAM_DETAILS_REQUEST,
   UDPATE_TEAM_DETAILS_SUCCESS,
   UDPATE_TEAM_DETAILS_FAILURE,
+  DELETE_TEAM_REQUEST,
+  DELETE_TEAM_SUCCESS,
+  DELETE_TEAM_FAILURE,
 } from "../team/teamTypes";
 
 const initialState = {
@@ -49,6 +52,7 @@ const teamReducer = (state = initialState, action) => {
     case ADD_MEMBERS_TO_TEAM_REQUEST:
     case MAKE_TEAM_LEADER_REQUEST:
     case UDPATE_TEAM_DETAILS_REQUEST:
+    case DELETE_TEAM_REQUEST:
       return {
         ...state,
         loading: true,
@@ -58,6 +62,7 @@ const teamReducer = (state = initialState, action) => {
     case ADD_MEMBERS_TO_TEAM_SUCCESS:
     case MAKE_TEAM_LEADER_SUCCESS:
     case UDPATE_TEAM_DETAILS_SUCCESS:
+    case DELETE_TEAM_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -68,6 +73,7 @@ const teamReducer = (state = initialState, action) => {
     case ADD_MEMBERS_TO_TEAM_FAILURE:
     case MAKE_TEAM_LEADER_FAILURE:
     case UDPATE_TEAM_DETAILS_FAILURE:
+    case DELETE_TEAM_FAILURE:
       return {
         ...state,
         loading: false,

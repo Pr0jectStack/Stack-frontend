@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import "./GeneralSettingsComponent.css";
 
 const GeneralSettingsComponent = (props) => {
-  const { wid, name, description } = props;
+  const { wid, userId, name, description } = props;
   const { register, handleSubmit, errors } = useForm({
     defaultValues: {
       workspace_name: name,
@@ -26,17 +26,26 @@ const GeneralSettingsComponent = (props) => {
   };
 
   const onDelete = () => {
+    const data = {
+      wid: wid,
+      userId: userId,
+    };
+    // TODO: Redirect once deleted
+    props.deleteWorkspace(data);
+  };
+
+  const onClickDelete = () => {
     confirmAlert({
       title: "Confirm to Delete",
       message: `Are you sure to do delete "${name}" ?`,
       buttons: [
         {
           label: "Yes",
-          onClick: () => alert("Delete..."),
+          onClick: () => onDelete(),
         },
         {
           label: "No",
-          onClick: () => alert("Cancelled.."),
+          onClick: () => {},
         },
       ],
     });
@@ -96,7 +105,7 @@ const GeneralSettingsComponent = (props) => {
               This action will permanently delete the workspace.
             </h6>
           </Col>
-          <Button variant="danger" id="delete-button" onClick={onDelete}>
+          <Button variant="danger" id="delete-button" onClick={onClickDelete}>
             Delete
           </Button>
         </Row>

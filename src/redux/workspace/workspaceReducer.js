@@ -8,6 +8,9 @@ import {
   UDPATE_WORKSPACE_DETAILS_REQUEST,
   UDPATE_WORKSPACE_DETAILS_SUCCESS,
   UDPATE_WORKSPACE_DETAILS_FAILURE,
+  DELETE_WORKSPACE_REQUEST,
+  DELETE_WORKSPACE_SUCCESS,
+  DELETE_WORKSPACE_FAILURE,
 } from "../workspace/workspaceTypes";
 import {
   ADD_TEAM_FAILURE,
@@ -129,12 +132,14 @@ const workspaceReducer = (state = initialState, action) => {
       };
 
     case UDPATE_WORKSPACE_DETAILS_REQUEST:
+    case DELETE_WORKSPACE_REQUEST:
       return {
         ...state,
         loading: true,
         error: "",
       };
     case UDPATE_WORKSPACE_DETAILS_SUCCESS:
+    case DELETE_WORKSPACE_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -142,6 +147,7 @@ const workspaceReducer = (state = initialState, action) => {
         error: "",
       };
     case UDPATE_WORKSPACE_DETAILS_FAILURE:
+    case DELETE_WORKSPACE_FAILURE:
       return {
         ...state,
         loading: false,

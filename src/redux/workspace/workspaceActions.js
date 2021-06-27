@@ -230,7 +230,7 @@ export const deleteWorkspace = (data) => {
   return (dispatch) => {
     dispatch(deleteWorkspaceRequest());
     axios
-      .delete(`${API}/db/deleteWorkspace`, JSON.stringify(data), {
+      .post(`${API}/db/deleteWorkspace`, JSON.stringify(data), {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -242,7 +242,7 @@ export const deleteWorkspace = (data) => {
         if (data.error) {
           return dispatch(deleteWorkspaceFailure(data.error));
         } else {
-          dispatch(deleteWorkspaceSuccess(data.user));
+          dispatch(deleteWorkspaceSuccess(data.workspace));
         }
       })
       .catch((error) => {

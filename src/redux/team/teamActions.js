@@ -17,6 +17,9 @@ import {
   UDPATE_TEAM_DETAILS_REQUEST,
   UDPATE_TEAM_DETAILS_SUCCESS,
   UDPATE_TEAM_DETAILS_FAILURE,
+  DELETE_TEAM_REQUEST,
+  DELETE_TEAM_SUCCESS,
+  DELETE_TEAM_FAILURE,
 } from "./teamTypes";
 
 const addTeamRequest = () => {
@@ -115,6 +118,26 @@ const updateTeamDetailsSuccess = (data) => {
 const updateTeamDetailsFailure = (errorMsg) => {
   return {
     type: UDPATE_TEAM_DETAILS_FAILURE,
+    payload: errorMsg,
+  };
+};
+
+const deleteTeamRequest = () => {
+  return {
+    type: DELETE_TEAM_REQUEST,
+  };
+};
+
+const deleteTeamSuccess = (data) => {
+  return {
+    type: DELETE_TEAM_SUCCESS,
+    payload: data,
+  };
+};
+
+const deleteTeamFailure = (errorMsg) => {
+  return {
+    type: DELETE_TEAM_FAILURE,
     payload: errorMsg,
   };
 };
@@ -261,6 +284,31 @@ export const updateTeamDetails = (data) => {
       .catch((err) => {
         const errorMsg = err.message;
         dispatch(updateTeamDetailsFailure(errorMsg));
+      });
+  };
+};
+
+export const deleteTeam = (data) => {
+  return (dispatch) => {
+    dispatch(deleteTeamRequest());
+    axios
+      .post(`${API}/db/deleteTeam`, JSON.stringify(data), {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        if (data.error) {
+          return dispatch(deleteTeamFailure(data.error));
+        } else {
+          dispatch(deleteTeamSuccess(data.team));
+        }
+      })
+      .catch((err) => {
+        const errorMsg = err.message;
+        dispatch(deleteTeamFailure(errorMsg));
       });
   };
 };
