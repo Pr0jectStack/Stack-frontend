@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import WorkspaceContainer from "../../containers/WorkspaceContainer";
-import GuestProfileContainer from "../../containers/GuestProfileContainer";
 import TeamContainer from "../../containers/TeamContainer";
 import TaskContainer from "../../containers/TaskContainer";
 import MembersListContainer from "../../containers/MembersListContainer";
@@ -11,6 +10,11 @@ import { toast } from "react-toastify";
 const Dashboard = (props) => {
   const [currentPage, setCurrentPage] = useState("Workspace");
   const [showMembers, setShowMembers] = useState("");
+
+  useEffect(() => {
+    props.getUserById(props.data.userData._id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   /**
    * Display a 3s Toast on the top right corner of the screen
@@ -33,10 +37,6 @@ const Dashboard = (props) => {
   } else
     return (
       <div className="mx-auto" id="outer-container">
-        <GuestProfileContainer
-          isOpen={false}
-          userId={props.data.userData._id}
-        />
         {showMembers && (
           <MembersListContainer
             showMembers={showMembers}

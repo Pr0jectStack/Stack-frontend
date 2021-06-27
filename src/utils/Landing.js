@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { Row, Col } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import CardItems from "./CardItems";
 import "./Landing.css";
-import { useHistory } from "react-router-dom";
-import { confirmAlert } from "react-confirm-alert";
 
 const Landing = ({
   heading,
@@ -15,12 +13,12 @@ const Landing = ({
   openItem,
   goBack,
   ownerId = "",
-  teamLeader="",
+  teamLeader = "",
   getWorkspaceById,
   getTeamById,
   showMembers,
   setShowMembers,
-  deleteWorkspace
+  deleteWorkspace,
 }) => {
   let history = useHistory();
   const [redirect, setRedirect] = useState(false);
@@ -37,6 +35,7 @@ const Landing = ({
   };
 
   const showWorkspaces =
+    data &&
     data.length > 0 &&
     data.map((workspace) => {
       let { owner, description, members, teams, name, _id } = workspace;
@@ -61,6 +60,7 @@ const Landing = ({
     });
 
   const showTeams =
+    data &&
     data.length > 0 &&
     data.map((workspace) => {
       let { owner, inviteLink, members, tasks, name, _id } = workspace;
@@ -80,7 +80,6 @@ const Landing = ({
             getTeamById={getTeamById}
             setShowMembers={setShowMembers}
             userId={userId}
-
           />
         </Col>
       );
@@ -123,8 +122,6 @@ const Landing = ({
       return <h1 className="landing-h1 mt-5">{heading}</h1>;
     }
   };
-
-  
 
   return (
     <div>
