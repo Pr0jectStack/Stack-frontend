@@ -119,11 +119,11 @@ const Task = (props) => {
         >
           <i className="fa fa-arrow-left btn text-white" aria-hidden="true" />
         </h3>
-        { props.data.owner &&
+        {/* { props.data.owner &&
            props.userId.toString()  && (
               <p
                 className="text-white mt-4 btn btn-danger"
-                style={{ marginRight: "10%", float: "right" }}
+                style={{ marginRight: "50%", float: "right" }}
                 onClick={() => onConfirm()}
               >
                 <i className="fa fa-trash " aria-hidden="true"></i>
@@ -131,7 +131,7 @@ const Task = (props) => {
                   Delete
                 </span>
               </p>
-            )}
+            )} */}
         </div>
         <h1 className="landing-h1 mt-2">
           {props.teamData.currentTeam.name}

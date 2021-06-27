@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="mainfooter mt-5" role="contentinfo">
+    <footer className="mainfooter" role="contentinfo" style={{minHeight:"100vh"}}>
       <hr />
       <div className="footer-middle">
         <div className="container">
