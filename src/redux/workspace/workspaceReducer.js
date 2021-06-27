@@ -5,6 +5,9 @@ import {
   ADD_MEMBERS_TO_WORKSPACE_FAILURE,
   ADD_MEMBERS_TO_WORKSPACE_REQUEST,
   ADD_MEMBERS_TO_WORKSPACE_SUCCESS,
+  UDPATE_WORKSPACE_DETAILS_REQUEST,
+  UDPATE_WORKSPACE_DETAILS_SUCCESS,
+  UDPATE_WORKSPACE_DETAILS_FAILURE,
 } from "../workspace/workspaceTypes";
 import {
   ADD_TEAM_FAILURE,
@@ -47,6 +50,13 @@ const workspaceReducer = (state = initialState, action) => {
         currentWorkspace: null,
         error: action.payload,
       };
+
+    case ADD_TEAM_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: "",
+      };
     case ADD_TEAM_SUCCESS:
       const currentWorkspace = state.currentWorkspace;
       currentWorkspace.teams.push(action.payload);
@@ -55,12 +65,6 @@ const workspaceReducer = (state = initialState, action) => {
         loading: false,
         currentWorkspace: currentWorkspace,
         error: false,
-      };
-    case ADD_TEAM_REQUEST:
-      return {
-        ...state,
-        loading: true,
-        error: "",
       };
     case ADD_TEAM_FAILURE:
       return {
@@ -89,6 +93,12 @@ const workspaceReducer = (state = initialState, action) => {
         addingMembersError: action.payload,
       };
 
+    case ADD_MEMBERS_TO_TEAM_REQUEST:
+      return {
+        ...state,
+        addingMembersToTeam: true,
+        addingMembersToTeamError: "",
+      };
     case ADD_MEMBERS_TO_TEAM_SUCCESS:
       let updatedTeam = action.payload;
       /**
@@ -110,17 +120,32 @@ const workspaceReducer = (state = initialState, action) => {
         addingMembersToTeam: false,
         addingMembersToTeamError: "",
       };
-    case ADD_MEMBERS_TO_TEAM_REQUEST:
-      return {
-        ...state,
-        addingMembersToTeam: true,
-        addingMembersToTeamError: "",
-      };
+
     case ADD_MEMBERS_TO_TEAM_FAILURE:
       return {
         ...state,
         addingMembersToTeam: false,
         addingMembersToTeamError: action.payload,
+      };
+
+    case UDPATE_WORKSPACE_DETAILS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: "",
+      };
+    case UDPATE_WORKSPACE_DETAILS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        currentWorkspace: action.payload,
+        error: "",
+      };
+    case UDPATE_WORKSPACE_DETAILS_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
       };
 
     default:

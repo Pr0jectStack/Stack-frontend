@@ -41,8 +41,10 @@ const TeamSettings = (props) => {
             <h3 className="heading">General settings</h3>
             <hr />
             <GeneralSettingsComponent
+              tid={tid}
               name={currentTeam.name}
               description={currentTeam.description}
+              updateTeamDetails={props.updateTeamDetails}
             />
           </Col>
           <Col md={6} lg={7} id={itemSelected === 1 ? "" : "inactive"}>

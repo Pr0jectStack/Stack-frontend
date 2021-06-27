@@ -1,6 +1,9 @@
 import WorkspaceSettings from "../components/WorkspaceSettings/WorkspaceSettings";
 import { connect } from "react-redux";
-import { getWorkspaceById } from "../redux/workspace/workspaceActions";
+import {
+  getWorkspaceById,
+  updateWorkspaceDetails,
+} from "../redux/workspace/workspaceActions";
 
 const mapStateToProps = (state) => {
   return {
@@ -10,6 +13,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   getWorkspaceById: (wid) => dispatch(getWorkspaceById(wid)),
+  updateWorkspaceDetails: (data) => dispatch(updateWorkspaceDetails(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkspaceSettings);

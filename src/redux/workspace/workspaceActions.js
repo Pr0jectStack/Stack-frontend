@@ -13,6 +13,9 @@ import {
   ADD_MEMBERS_TO_WORKSPACE_FAILURE,
   ADD_MEMBERS_TO_WORKSPACE_REQUEST,
   ADD_MEMBERS_TO_WORKSPACE_SUCCESS,
+  UDPATE_WORKSPACE_DETAILS_REQUEST,
+  UDPATE_WORKSPACE_DETAILS_SUCCESS,
+  UDPATE_WORKSPACE_DETAILS_FAILURE,
 } from "./workspaceTypes";
 
 const addWorkspaceRequest = () => {
@@ -91,6 +94,26 @@ const addMembersToWorkspaceSuccess = (newWorkspace) => {
 const addMembersToWorkspaceFailure = (errorMsg) => {
   return {
     type: ADD_MEMBERS_TO_WORKSPACE_FAILURE,
+    payload: errorMsg,
+  };
+};
+
+const updateWorkspaceDetailsRequest = () => {
+  return {
+    type: UDPATE_WORKSPACE_DETAILS_REQUEST,
+  };
+};
+
+const updateWorkspaceDetailsSuccess = (data) => {
+  return {
+    type: UDPATE_WORKSPACE_DETAILS_SUCCESS,
+    payload: data,
+  };
+};
+
+const updateWorkspaceDetailsFailure = (errorMsg) => {
+  return {
+    type: UDPATE_WORKSPACE_DETAILS_FAILURE,
     payload: errorMsg,
   };
 };
@@ -174,6 +197,31 @@ export const addMembersToWorkspace = (data) => {
       .catch((err) => {
         const errorMsg = err.message;
         dispatch(addMembersToWorkspaceFailure(errorMsg));
+      });
+  };
+};
+
+export const updateWorkspaceDetails = (data) => {
+  return (dispatch) => {
+    dispatch(updateWorkspaceDetailsRequest());
+    axios
+      .put(`${API}/db/updateWorkspaceDetails`, JSON.stringify(data), {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        if (data.error) {
+          return dispatch(updateWorkspaceDetailsFailure(data.error));
+        } else {
+          dispatch(updateWorkspaceDetailsSuccess(data.workspace));
+        }
+      })
+      .catch((err) => {
+        const errorMsg = err.message;
+        dispatch(updateWorkspaceDetailsFailure(errorMsg));
       });
   };
 };

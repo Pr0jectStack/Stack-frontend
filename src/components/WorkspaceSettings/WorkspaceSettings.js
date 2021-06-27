@@ -15,6 +15,8 @@ const WorkspaceSettings = (props) => {
 
   const { wid } = useParams();
 
+  // TODO: Add toast for errors.
+
   useEffect(() => {
     props.getWorkspaceById(wid);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -40,8 +42,10 @@ const WorkspaceSettings = (props) => {
             <h3 className="heading">General settings</h3>
             <hr />
             <GeneralSettingsComponent
+              wid={wid}
               name={currentWorkspace.name}
               description={currentWorkspace.description}
+              updateWorkspaceDetails={props.updateWorkspaceDetails}
             />
           </Col>
           <Col md={6} lg={7} id={itemSelected === 1 ? "" : "inactive"}>

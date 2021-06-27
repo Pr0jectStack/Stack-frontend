@@ -7,6 +7,22 @@
   width: 70vh;
 }
 
+#workspace-details-submit-button {
+  background-color: #238636;
+  color: white;
+  border-width: 0px;
+  border-color: #161b22;
+  font-size: 15px;
+  margin-bottom: 30px;
+}
+
+#workspace-details-submit-button:hover {
+  background-color: #238636;
+  border-width: 1px;
+  border-color: lightgrey;
+  margin-bottom: 30px;
+}
+
 #danger-zone-heading {
   margin-top: 5%;
   color: rgb(196, 30, 30);

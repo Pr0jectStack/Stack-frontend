@@ -120,10 +120,10 @@ const CreateTeam = (props) => {
                 <p className="warning">This is required</p>
               )}
               {errors.name && errors.name.type === "minLength" && (
-                <p className="warning">Must have atleast 5 characters.</p>
+                <p className="warning">Must have atleast 3 characters.</p>
               )}
               {errors.name && errors.name.type === "maxLength" && (
-                <p className="warning">Must have atmost 12 characters.</p>
+                <p className="warning">Must have atmost 50 characters.</p>
               )}
               {errors.name && errors.name.type === "pattern" && (
                 <p className="warning">
