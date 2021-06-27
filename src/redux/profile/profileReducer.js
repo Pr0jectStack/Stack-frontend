@@ -7,6 +7,12 @@ import {
   FETCH_USER_FAILURE,
 } from "./profileTypes";
 
+import {
+  ADD_WORKSPACE_FAILURE,
+  ADD_WORKSPACE_REQUEST,
+  ADD_WORKSPACE_SUCCESS,
+} from "../workspace/workspaceTypes";
+
 const initialState = {
   loading: false,
   userData: null,
@@ -37,6 +43,31 @@ const profileReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
+
+    // TODO: FIND A BETTER WAY TO DO THIS
+    // Just a hacky way to force reload.
+    // CreateWorkspace relies on profile data for the loading logic, hence the problem.
+    case ADD_WORKSPACE_SUCCESS:
+      return {
+        ...state,
+        loading: true, // WHY ? Look at Create Workspace
+        error: "",
+      };
+
+    case ADD_WORKSPACE_REQUEST:
+      return {
+        ...state,
+        loading: false, // WHY ? Look at Create Workspace
+        error: "",
+      };
+
+    case ADD_WORKSPACE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
     default:
       return state;
   }

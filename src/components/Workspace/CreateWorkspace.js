@@ -11,6 +11,7 @@ const CreateWorkspace = (props) => {
   const onSubmit = (data) => {
     data.owner = userId;
     addNewWorkspace(data);
+    
   };
 
   const checkIfWorkSpaceExists = (value) => {
