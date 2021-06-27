@@ -15,8 +15,9 @@ const MembersList = (props) => {
     setShowMembers("");
   };
 
-  owner =
-    workspaceData.currentWorkspace && workspaceData.currentWorkspace.owner;
+  owner = workspaceData.currentWorkspace?.owner;
+  teamLeader = teamData.currentTeam?.teamLeader;
+
   return (
     <Menu
       pageWrapId={"page-wrap"}
@@ -55,6 +56,7 @@ const MembersList = (props) => {
                   </p>
                 );
               })}
+            {/* FIXME: CANNOT SET STATUS AS TL */}
             {showMembers === "team" &&
               teamData.currentTeam.members.map((member) => {
                 return (
