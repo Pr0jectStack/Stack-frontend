@@ -4,7 +4,6 @@ import WorkspaceContainer from "../../containers/WorkspaceContainer";
 import GuestProfileContainer from "../../containers/GuestProfileContainer";
 import TeamContainer from "../../containers/TeamContainer";
 import TaskContainer from "../../containers/TaskContainer";
-import MembersList from "../../utils/MembersList";
 import MembersListContainer from "../../containers/MembersListContainer";
 import Loading from "../../utils/Loading/Loading";
 import { toast } from "react-toastify";
@@ -19,7 +18,7 @@ const Dashboard = (props) => {
    * @param {string} message - Text for the Toast Body
    */
   const showToast = (status, message) => {
-    if (status == "SUCCESS") toast.success(message, { toastId: "success" });
+    if (status === "SUCCESS") toast.success(message, { toastId: "success" });
     else toast.error(message, { toastId: "error" });
   };
 

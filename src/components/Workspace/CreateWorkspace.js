@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, Redirect } from "react-router-dom";
 
@@ -7,10 +7,7 @@ const CreateWorkspace = (props) => {
   const { data, addNewWorkspace } = props;
   const userId = data.userData._id;
 
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
-
-  const { register, handleSubmit, errors, watch } = useForm({});
+  const { register, handleSubmit, errors } = useForm({});
 
   const onSubmit = (data) => {
     data.owner = userId;
@@ -52,7 +49,7 @@ const CreateWorkspace = (props) => {
                 ></i>
                 {"  "}Back
               </Link>
-              
+
               {/* Description */}
               <input
                 className="auth-input"
@@ -70,21 +67,21 @@ const CreateWorkspace = (props) => {
                   },
                 })}
               />
-              {errors.name && errors.name.type === "required" && (
+              {errors.name?.type === "required" && (
                 <p className="warning">This is required</p>
               )}
-              {errors.name && errors.name.type === "minLength" && (
-                <p className="warning">Must have atleast 5 characters.</p>
+              {errors.name?.type === "minLength" && (
+                <p className="warning">Must have atleast 3 characters.</p>
               )}
-              {errors.name && errors.name.type === "maxLength" && (
-                <p className="warning">Must have atmost 12 characters.</p>
+              {errors.name?.type === "maxLength" && (
+                <p className="warning">Must have atmost 50 characters.</p>
               )}
-              {errors.name && errors.name.type === "pattern" && (
+              {errors.name?.type === "pattern" && (
                 <p className="warning">
                   name must only contains numbers and alphabets.
                 </p>
               )}
-              {errors.name && errors.name.type === "validate" && (
+              {errors.name?.type === "validate" && (
                 <p className="warning">Workspace already exists.</p>
               )}
 
@@ -109,7 +106,7 @@ const CreateWorkspace = (props) => {
                 By creating a workspace, you agree to our{" "}
                 <a herf="#" className="text-info">
                   Terms and Conditions
-                </a>{" "}
+                </a>
                 and cookie usage.
               </h6>
             </form>
