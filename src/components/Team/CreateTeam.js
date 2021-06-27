@@ -1,6 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 // import {useHistory} from "history";
 
 const CreateTeam = (props) => {
@@ -9,9 +9,9 @@ const CreateTeam = (props) => {
    * Match if user is allowed to create team
    * Then call add Team
    */
-  let history = useHistory();
+  // let history = useHistory();
 
-  console.log(props);
+  // console.log(props);
   const { profileData, workspaceData, addNewTeam } = props;
   const userId = profileData._id;
   const ownerId = workspaceData.currentWorkspace.owner;
@@ -19,11 +19,19 @@ const CreateTeam = (props) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const { register, handleSubmit, errors, watch } = useForm({});
+  const { register, handleSubmit, errors } = useForm({});
 
   const onSubmit = (data) => {
     // data.owner=userId;
+
+    // Extract Team leader information from currentWorkspace
+    const teamLeader = props.workspaceData.currentWorkspace.members.filter(
+      (m) => m.username === data.teamLeader || m.email === data.teamLeader
+    );
+    data.teamLeader = teamLeader.length > 0 ? teamLeader[0]._id : "";
+
     // console.log(data);
+
     let done = false;
     if (profileData._id === ownerId) {
       data.owner = userId;
@@ -42,7 +50,7 @@ const CreateTeam = (props) => {
 
   const location = (wid) => {
     return {
-      pathname: "/dashboard/workspace" + "/" + wid,
+      pathname: "/dashboard/workspace/" + wid,
     };
   };
 
@@ -51,6 +59,16 @@ const CreateTeam = (props) => {
   };
   const sleep = (milliseconds) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
+  };
+
+  const memberExists = (member) => {
+    return (
+      member === null ||
+      member.length === 0 ||
+      props.workspaceData.currentWorkspace.members.filter(
+        (m) => m.username === member || m.email === member
+      ).length > 0
+    );
   };
 
   if (!workspaceData.loading && success) {
@@ -114,6 +132,20 @@ const CreateTeam = (props) => {
               )}
               {errors.name && errors.name.type === "validate" && (
                 <p className="warning">Team already exists.</p>
+              )}
+
+              {/* Team Leader */}
+              <input
+                className="auth-input"
+                type="text"
+                placeholder="Team Leader"
+                name="teamLeader"
+                ref={register({
+                  validate: memberExists,
+                })}
+              />
+              {errors.teamLeader && errors.teamLeader.type === "validate" && (
+                <p className="warning">User is not a part of this workspace.</p>
               )}
 
               {/* Invite Link */}
