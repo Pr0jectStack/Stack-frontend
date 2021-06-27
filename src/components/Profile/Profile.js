@@ -11,10 +11,10 @@ import {
 } from "react-bootstrap";
 import CalendarHeatmap from "react-calendar-heatmap";
 import TeamCard from "./components/TeamCard";
-import default_image from "./default_image.jpg";
 import "./Profile.css";
 import { Redirect } from "react-router-dom";
 import Loading from "../../utils/Loading/Loading";
+import { convertBufferToImage } from "../../utils/helper_functions";
 
 const Profile = (props) => {
   const {
@@ -32,21 +32,8 @@ const Profile = (props) => {
 
   const { github, twitter, instagram, website } = socialMediaHandles || {};
 
-  // Convert Buffer to base64 string.
-  const bufferToBase64 = (data) => {
-    let binary = "";
-    let bytes = new Uint8Array(data);
-    let len = bytes.byteLength;
-    for (let i = 0; i < len; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return btoa(binary);
-  };
-
   // Convert the base64 String to image.
-  let userImage = image
-    ? `data:${image.contentType};base64,${bufferToBase64(image.data.data)}`
-    : default_image;
+  const userImage = convertBufferToImage(image);
 
   const [isEdit, setIsEdit] = useState(false);
   const [profileData, setProfileData] = useState({
@@ -189,7 +176,7 @@ const Profile = (props) => {
                       // />
                       <div
                         onClick={() => {
-                          props.updateCurrentWorkspace(workspace._id);
+                          props.getWorkspaceById(workspace._id);
                         }}
                         style={{
                           width: "40px",

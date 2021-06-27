@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import { Card, Row, Col, Badge, Modal } from "react-bootstrap";
-import { Progress } from "react-sweet-progress";
-import "react-sweet-progress/lib/style.css";
-import AddNewMembersUtilContainer from "../containers/AddNewMembersUtilContainer";
-import MembersListContainer from "../containers/MembersListContainer";
+import { Card, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
-import { deleteWorkspace } from "../redux/workspace/workspaceActions";
+import AddNewMembersUtilContainer from "../containers/AddNewMembersUtilContainer";
+
 const CardItems = ({
   demo = false,
   type,
@@ -19,20 +16,20 @@ const CardItems = ({
   userId,
   id,
   openItem,
-  updateCurrentWorkspace,
-  updateCurrentTeam,
+  getWorkspaceById,
+  getTeamById,
   setShowMembers,
-  deleteWorkspace
+  deleteWorkspace,
 }) => {
   const [modalShow, setModalShow] = useState(false);
 
   const handleShowMembers = (id) => {
     if (type === "workspace") {
-      updateCurrentWorkspace(id);
+      getWorkspaceById(id);
       setShowMembers(type);
     } else if (type === "team") {
-      // TODO: updateCurrentTeam(id);
-      updateCurrentTeam(id);
+      // TODO: getTeamById(id);
+      getTeamById(id);
       setShowMembers(type);
     }
     setShowMembers(type);
@@ -109,33 +106,49 @@ const CardItems = ({
           <Card.Body>
             <Card.Title style={{ color: "#008ecc" }}>
               {title}
-              {userId == ownerId && <i
+              {userId === ownerId && (
+                <Link to={`../../${type}/${id}/settings`}>
+                  <i
+                    className="fa fa-gear btn btn-md mx-1"
+                    style={{
+                      float: "right",
+                      height: "10px",
+                      width: "10px",
+                      color: "grey",
+                    }}
+                  ></i>
+                </Link>
+              )}
+              {/* TODO: How to manage adding members for TL ??? */}
+
+              {/* {userId === ownerId && <i
                   onClick={() => onConfirm()}
                 style={{ float: "right", backgroundColor: "#0e101c" }}
                 className="fa fa-trash btn btn-danger btn-oultine btn-sm mx-1"
                 aria-hidden="true"
               ></i>}
-              {(userId == ownerId || (type == "team" && userId == teamLeaderId)) &&<i
+              {(userId === ownerId || (type === "team" && userId === teamLeaderId)) &&<i
                 onClick={() => setModalShow(true)}
                 style={{ float: "right", backgroundColor: "#0e101c" }}
                 className="fa fa-user-plus btn text-light btn-info btn-sm"
                 aria-hidden="true"
-              ></i>}
+              ></i>} */}
             </Card.Title>
             <Card.Subtitle className="mb-3" style={{ color: "grey" }}>
               {subtitle}
             </Card.Subtitle>
             <Card.Text className="mb-5 text-white">
-              {description.length>70?description.substring(0,70)+"...":description}
+              {description.length > 70
+                ? description.substring(0, 70) + "..."
+                : description}
               <br />
             </Card.Text>
           </Card.Body>
 
           <Link
             to={location(id)}
-            className="btn tbtn-outline btn-info mx-3 my-1"
+            className="btn btn-outline btn-info mx-3 my-1"
           >
-            {" "}
             View
           </Link>
 

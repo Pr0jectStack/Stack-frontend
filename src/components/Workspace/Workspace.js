@@ -10,7 +10,7 @@ const Workspace = (props) => {
   const userId = props.data._id;
 
   useEffect(() => {
-    props.updateCurrentWorkspace(wid);
+    props.getWorkspaceById(wid);
   }, [])
   
 

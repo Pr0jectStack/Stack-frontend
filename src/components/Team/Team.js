@@ -13,7 +13,7 @@ const Team = (props) => {
   const [loading, setLoading] = useState(true);
   const [showMembers, setShowMembers] = useState("");
   useEffect(() => {
-    props.updateCurrentWorkspace(wid);
+    props.getWorkspaceById(wid);
     setLoading(false);
   }, []);
 

@@ -1,0 +1,9 @@
+#add-new-member {
+  color: rgba(255, 255, 255, 0.658);
+  background-color: rgb(36, 35, 35);
+  margin-left: 2%;
+  cursor: pointer;
+  border: 2px solid rgb(116, 113, 113);
+  border-radius: 10px;
+  padding: 8px;
+}

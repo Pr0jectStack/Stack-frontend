@@ -1,8 +1,6 @@
-import React, { useState, useRef } from "react";
-import { useForm, Controller } from "react-hook-form";
-import { Link, Redirect } from "react-router-dom";
-import ReactDatePicker from "react-datepicker";
-import { Badge, Col, Row } from "react-bootstrap";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Col, Row } from "react-bootstrap";
 
 const AddNewMembersUtil = (props) => {
   const profile = props.profileData;
@@ -15,7 +13,7 @@ const AddNewMembersUtil = (props) => {
   const [member, setMember] = useState("");
   const [members, setMembers] = useState([]);
 
-  const { register, handleSubmit, errors, watch, control } = useForm({});
+  const { handleSubmit } = useForm({});
 
   const onSubmit = (data) => {
     if (members.length > 0 && props.type === "workspace") {
@@ -141,7 +139,6 @@ const AddNewMembersUtil = (props) => {
               className="d-flex bg-white"
               style={{
                 borderRadius: "4px",
-                height: "45px",
                 marginBottom: "10px",
                 height: "50px",
               }}

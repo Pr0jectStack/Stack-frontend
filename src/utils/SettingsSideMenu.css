@@ -1,0 +1,21 @@
+#list-item {
+  background-color: inherit;
+  border-width: 1px 0px 1px 0px;
+  border-color: #21262d;
+  border-radius: 0px;
+}
+
+#list-item-selected {
+  background-color: #161b22;
+  border-width: 2px 0px 2px 3px;
+  border-color: #21262d;
+  border-left-color: #ec5990;
+}
+
+#list-item:hover {
+  background-color: #161b22;
+}
+
+#inactive {
+  display: none;
+}

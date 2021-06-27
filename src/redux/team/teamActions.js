@@ -1,17 +1,19 @@
 import axios from "axios";
 import { API } from "../../backend";
-import { editProfileDataFromLogin } from "../profile/profileActions";
 import { setTasks } from "../task/taskActions";
 import {
-  ADD_TEAM_SUCCESS,
   ADD_TEAM_REQUEST,
+  ADD_TEAM_SUCCESS,
   ADD_TEAM_FAILURE,
-  UPDATE_CURRENT_TEAM_SUCCESS,
-  UPDATE_CURRENT_TEAM_REQUEST,
-  UPDATE_CURRENT_TEAM_FAILURE,
-  ADD_MEMBERS_TO_TEAM_FAILURE,
-  ADD_MEMBERS_TO_TEAM_SUCCESS,
+  FETCH_TEAM_REQUEST,
+  FETCH_TEAM_SUCCESS,
+  FETCH_TEAM_FAILURE,
   ADD_MEMBERS_TO_TEAM_REQUEST,
+  ADD_MEMBERS_TO_TEAM_SUCCESS,
+  ADD_MEMBERS_TO_TEAM_FAILURE,
+  MAKE_TEAM_LEADER_REQUEST,
+  MAKE_TEAM_LEADER_SUCCESS,
+  MAKE_TEAM_LEADER_FAILURE,
 } from "./teamTypes";
 
 const addTeamRequest = () => {
@@ -54,22 +56,42 @@ const addMembersToTeamFailure = (errorMsg) => {
   };
 };
 
-const updateCurrentTeamRequest = () => {
+const fetchTeamRequest = () => {
   return {
-    type: UPDATE_CURRENT_TEAM_REQUEST,
+    type: FETCH_TEAM_REQUEST,
   };
 };
 
-const updateCurrentTeamSuccess = (newTeam) => {
+const fetchTeamSuccess = (newTeam) => {
   return {
-    type: UPDATE_CURRENT_TEAM_SUCCESS,
+    type: FETCH_TEAM_SUCCESS,
     payload: newTeam,
   };
 };
 
-const updateCurrentTeamFailure = (errorMsg) => {
+const fetchTeamFailure = (errorMsg) => {
   return {
-    type: UPDATE_CURRENT_TEAM_FAILURE,
+    type: FETCH_TEAM_FAILURE,
+    payload: errorMsg,
+  };
+};
+
+const makeTeamLeaderRequest = () => {
+  return {
+    type: MAKE_TEAM_LEADER_REQUEST,
+  };
+};
+
+const makeTeamLeaderSuccess = (updatedTeam) => {
+  return {
+    type: MAKE_TEAM_LEADER_SUCCESS,
+    payload: updatedTeam,
+  };
+};
+
+const makeTeamLeaderFailure = (errorMsg) => {
+  return {
+    type: MAKE_TEAM_LEADER_FAILURE,
     payload: errorMsg,
   };
 };
@@ -126,9 +148,14 @@ export const addMembersToTeam = (data) => {
   };
 };
 
-export const updateCurrentTeam = (tid) => {
+/**
+ * Fetch team by ID.
+ * @param {string} tid - Team ID
+ * @returns Redux.Action
+ */
+export const getTeamById = (tid) => {
   return (dispatch) => {
-    dispatch(updateCurrentTeamRequest());
+    dispatch(fetchTeamRequest());
     axios
       .get(`${API}/db/getTeamById?tid=${tid}`, {
         headers: {
@@ -140,7 +167,7 @@ export const updateCurrentTeam = (tid) => {
         const data = response.data;
 
         if (data.error) {
-          return dispatch(updateCurrentTeamFailure(data.error));
+          return dispatch(fetchTeamFailure(data.error));
         } else {
           dispatch(
             setTasks(
@@ -150,12 +177,42 @@ export const updateCurrentTeam = (tid) => {
               data.team.teamLeader
             )
           );
-          dispatch(updateCurrentTeamSuccess(data.team));
+          dispatch(fetchTeamSuccess(data.team));
         }
       })
       .catch((error) => {
         const errorMsg = error.message;
-        dispatch(updateCurrentTeamFailure(errorMsg));
+        dispatch(fetchTeamFailure(errorMsg));
+      });
+  };
+};
+
+/**
+ * Make API call to change a member from Member to Team Leader, if possible.
+ * @param {Object} data - {tid: String, memberId: String}
+ * @returns Redux.Action
+ */
+export const makeTeamLeader = (data) => {
+  return (dispatch) => {
+    dispatch(makeTeamLeaderRequest());
+    axios
+      .put(`${API}/db/makeTeamLeader`, JSON.stringify(data), {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        if (data.error) {
+          return dispatch(makeTeamLeaderFailure(data.error));
+        } else {
+          dispatch(makeTeamLeaderSuccess(data.team));
+        }
+      })
+      .catch((err) => {
+        const errorMsg = err.message;
+        dispatch(makeTeamLeaderFailure(errorMsg));
       });
   };
 };
