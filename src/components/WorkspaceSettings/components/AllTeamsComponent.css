@@ -1,0 +1,13 @@
+#settings-button {
+  background-color: rgba(90, 90, 90, 0.521);
+  color: lightgrey;
+  border-width: 0px;
+  border-color: #161b22;
+  font-size: 15px;
+}
+
+#settings-button:hover {
+  background-color: rgba(90, 90, 90, 0.521);
+  border-width: 1px;
+  border-color: lightgrey;
+}

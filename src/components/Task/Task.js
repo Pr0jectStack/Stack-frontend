@@ -29,7 +29,7 @@ const Task = (props) => {
       console.log("Task connected!");
       socket.emit("join", tid);
     });
-    props.updateCurrentTeam(tid);
+    props.getTeamById(tid);
     setLoading(false);
 
     socket.on("tasks", (team) => {

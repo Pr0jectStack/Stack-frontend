@@ -11,21 +11,20 @@ import CreateWorkspaceContainer from "./containers/CreateWorkspaceContainer";
 import SettingsContainer from "./containers/SettingsContainer";
 import CreateTeamContainer from "./containers/CreateTeamContainer";
 import TeamContainer from "./containers/TeamContainer";
-import Task from "../src/components/Task/Task";
 import SpeechToText from "./utils/SpeechToText";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import EmailActivation from "./components/Auth/EmailActivation";
 import ResetPassword from "./components/Auth/ResetPassword";
-import WorkspaceContainer from "./containers/WorkspaceContainer";
 import { createBrowserHistory } from "history";
 import TaskContainer from "./containers/TaskContainer";
-import Automation from "./utils/Automation/Automation";
 import Footer from "./components/Footer/Footer";
 import TermsAndConditions from "./components/Others/TermsAndConditions";
 import About from "./components/About/About";
 
 import swDev from "./main";
+import WorkspaceSettingsContainer from "./containers/WorkspaceSettingsContainer";
+import TeamSettingsContainer from "./containers/TeamSettingsContainer";
 
 const App = () => {
   return (
@@ -69,6 +68,16 @@ const App = () => {
             path="/dashboard/team/:tid"
             exact
             component={TaskContainer}
+          />
+          <PrivateRoute
+            path="/workspace/:wid/settings"
+            exact
+            component={WorkspaceSettingsContainer}
+          />
+          <PrivateRoute
+            path="/team/:tid/settings"
+            exact
+            component={TeamSettingsContainer}
           />
           <PrivateRoute
             path="/dashboard/team/"

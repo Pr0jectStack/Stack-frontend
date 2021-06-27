@@ -2,7 +2,7 @@ import Workspace from "../components/Workspace/Workspace";
 import { connect } from "react-redux";
 import {
   addNewWorkspace,
-  updateCurrentWorkspace,
+  getWorkspaceById,
 } from "../redux/workspace/workspaceActions";
 
 const mapStateToProps = (state) => ({
@@ -11,7 +11,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addNewWorkspace: (data) => dispatch(addNewWorkspace(data)),
-  updateCurrentWorkspace: (data) => dispatch(updateCurrentWorkspace(data)),
+  getWorkspaceById: (wid) => dispatch(getWorkspaceById(wid)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Workspace);

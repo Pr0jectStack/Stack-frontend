@@ -1,6 +1,6 @@
 import Team from "../components/Team/Team";
 import { connect } from "react-redux";
-import { updateCurrentWorkspace } from "../redux/workspace/workspaceActions";
+import { getWorkspaceById } from "../redux/workspace/workspaceActions";
 
 
 const mapStateToProps = (state) => ({
@@ -9,7 +9,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  updateCurrentWorkspace: (data) => dispatch(updateCurrentWorkspace(data)),
+  getWorkspaceById: (data) => dispatch(getWorkspaceById(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Team);

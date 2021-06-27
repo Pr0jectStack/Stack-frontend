@@ -16,8 +16,8 @@ const Landing = ({
   goBack,
   ownerId = "",
   teamLeader="",
-  updateCurrentWorkspace,
-  updateCurrentTeam,
+  getWorkspaceById,
+  getTeamById,
   showMembers,
   setShowMembers,
   deleteWorkspace
@@ -50,7 +50,7 @@ const Landing = ({
             members={members}
             id={_id}
             openItem={openItem}
-            updateCurrentWorkspace={updateCurrentWorkspace}
+            getWorkspaceById={getWorkspaceById}
             showMembers={showMembers}
             setShowMembers={setShowMembers}
             userId={userId}
@@ -77,7 +77,7 @@ const Landing = ({
             openItem={openItem}
             inviteLink={inviteLink}
             showMembers={showMembers}
-            updateCurrentTeam={updateCurrentTeam}
+            getTeamById={getTeamById}
             setShowMembers={setShowMembers}
             userId={userId}
 

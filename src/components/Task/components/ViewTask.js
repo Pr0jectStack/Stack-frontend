@@ -14,9 +14,9 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
+import { convertBufferToImage } from "../../../utils/helper_functions";
 
 import "./ViewTask.css";
-import default_image from "./default_image.svg";
 
 const ViewTask = ({
   task,
@@ -490,28 +490,11 @@ const ViewTask = ({
 export default ViewTask;
 
 const MemberView = ({ member }) => {
-  // Convert Buffer to base64 string.
-  const bufferToBase64 = (data) => {
-    let binary = "";
-    let bytes = new Uint8Array(data);
-    let len = bytes.byteLength;
-    for (let i = 0; i < len; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return btoa(binary);
-  };
-
-  // Convert the base64 String to image.
-  let userImage = member.image
-    ? `data:${member.image.contentType};base64,${bufferToBase64(
-        member.image.data.data
-      )}`
-    : default_image;
   return (
     <ListGroup.Item>
       <Image
         className="mr-3"
-        src={userImage}
+        src={convertBufferToImage(member.image)}
         style={{ height: "40px", width: "40px" }}
         roundedCircle
       />

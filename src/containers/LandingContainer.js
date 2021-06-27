@@ -3,17 +3,17 @@ import { connect } from "react-redux";
 import {
   addNewWorkspace,
   deleteWorkspace,
-  updateCurrentWorkspace,
+  getWorkspaceById,
 } from "../redux/workspace/workspaceActions";
-import { updateCurrentTeam } from "../redux/team/teamActions";
+import { getTeamById } from "../redux/team/teamActions";
 
 const mapStateToProps = (state) => ({
   
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  updateCurrentTeam: (data) => dispatch(updateCurrentTeam(data)),
-  updateCurrentWorkspace: (data) => dispatch(updateCurrentWorkspace(data)),
+  getTeamById: (data) => dispatch(getTeamById(data)),
+  getWorkspaceById: (data) => dispatch(getWorkspaceById(data)),
   deleteWorkspace: (data) => dispatch(deleteWorkspace(data))
 });
 

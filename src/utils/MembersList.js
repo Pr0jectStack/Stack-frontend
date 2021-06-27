@@ -3,7 +3,6 @@ import { push as Menu } from "react-burger-menu";
 import Loading from "./Loading/Loading";
 const MembersList = (props) => {
   let {
-    type,
     workspaceData,
     teamData,
     owner = "",
@@ -18,7 +17,6 @@ const MembersList = (props) => {
 
   owner =
     workspaceData.currentWorkspace && workspaceData.currentWorkspace.owner;
-  teamLeader = teamData.currentTeam && teamData.currentTeam.teamLeader;
   return (
     <Menu
       pageWrapId={"page-wrap"}
@@ -48,6 +46,8 @@ const MembersList = (props) => {
                     <small style={{ float: "right" }}>
                       {member._id === owner ? (
                         <span style={{ color: "orange" }}> owner</span>
+                      ) : member._id === teamLeader ? (
+                        <span style={{ color: "yellow" }}> TL</span>
                       ) : (
                         "member"
                       )}

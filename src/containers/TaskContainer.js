@@ -8,7 +8,7 @@ import {
   moveTask,
   setTasks,
 } from "../redux/task/taskActions";
-import { updateCurrentTeam } from "../redux/team/teamActions";
+import { getTeamById } from "../redux/team/teamActions";
 import { toggleChat } from "../redux/chat/chatActions";
 
 const mapStateToProps = (state) => ({
@@ -20,7 +20,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   setTasks: (tasks, tid, owner, teamLeader) =>
     dispatch(setTasks(tasks, tid, owner, teamLeader)),
-  updateCurrentTeam: (tid) => dispatch(updateCurrentTeam(tid)),
+  getTeamById: (tid) => dispatch(getTeamById(tid)),
   addTask: (task, tid, userId) => dispatch(addNewTask(task, tid, userId)),
   deleteTask: (taskId, tid, userId) =>
     dispatch(deleteTask(taskId, tid, userId)),

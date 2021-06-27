@@ -1,6 +1,5 @@
 import axios from "axios";
 import { API } from "../../backend";
-import { editProfileDataFromLogin } from "../profile/profileActions";
 import {
   ADD_WORKSPACE_SUCCESS,
   ADD_WORKSPACE_REQUEST,
@@ -8,12 +7,12 @@ import {
   DELETE_WORKSPACE_SUCCESS,
   DELETE_WORKSPACE_REQUEST,
   DELETE_WORKSPACE_FAILURE,
-  UPDATE_CURRENT_WORKSPACE_SUCCESS,
-  UPDATE_CURRENT_WORKSPACE_REQUEST,
-  UPDATE_CURRENT_WORKSPACE_FAILURE,
+  FETCH_WORKSPACE_SUCCESS,
+  FETCH_WORKSPACE_REQUEST,
+  FETCH_WORKSPACE_FAILURE,
   ADD_MEMBERS_TO_WORKSPACE_FAILURE,
   ADD_MEMBERS_TO_WORKSPACE_REQUEST,
-  ADD_MEMBERS_TO_WORKSPACE_SUCCESS
+  ADD_MEMBERS_TO_WORKSPACE_SUCCESS,
 } from "./workspaceTypes";
 
 const addWorkspaceRequest = () => {
@@ -56,26 +55,25 @@ const deleteWorkspaceFailure = (errorMsg) => {
   };
 };
 
-const updateCurrentWorkspaceRequest = () => {
+const fetchWorkspaceRequest = () => {
   return {
-    type: UPDATE_CURRENT_WORKSPACE_REQUEST,
+    type: FETCH_WORKSPACE_REQUEST,
   };
 };
 
-const updateCurrentWorkspaceSuccess = (newWorkspace) => {
+const fetchWorkspaceSuccess = (newWorkspace) => {
   return {
-    type: UPDATE_CURRENT_WORKSPACE_SUCCESS,
+    type: FETCH_WORKSPACE_SUCCESS,
     payload: newWorkspace,
   };
 };
 
-const updateCurrentWorkspaceFailure = (errorMsg) => {
+const fetchWorkspaceFailure = (errorMsg) => {
   return {
-    type: UPDATE_CURRENT_WORKSPACE_FAILURE,
+    type: FETCH_WORKSPACE_FAILURE,
     payload: errorMsg,
   };
 };
-
 
 const addMembersToWorkspaceRequest = () => {
   return {
@@ -85,14 +83,14 @@ const addMembersToWorkspaceRequest = () => {
 
 const addMembersToWorkspaceSuccess = (newWorkspace) => {
   return {
-    type:  ADD_MEMBERS_TO_WORKSPACE_SUCCESS,
+    type: ADD_MEMBERS_TO_WORKSPACE_SUCCESS,
     payload: newWorkspace,
   };
 };
 
 const addMembersToWorkspaceFailure = (errorMsg) => {
   return {
-    type:  ADD_MEMBERS_TO_WORKSPACE_FAILURE,
+    type: ADD_MEMBERS_TO_WORKSPACE_FAILURE,
     payload: errorMsg,
   };
 };
@@ -123,11 +121,11 @@ export const addNewWorkspace = (data) => {
   };
 };
 
-export const updateCurrentWorkspace = (data) => {
+export const getWorkspaceById = (wid) => {
   return (dispatch) => {
-    dispatch(updateCurrentWorkspaceRequest());
+    dispatch(fetchWorkspaceRequest());
     axios
-      .post(`${API}/db/getWorkSpaceById`, JSON.stringify({wid:data}), {
+      .get(`${API}/db/getWorkSpaceById?wid=${wid}`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -137,44 +135,48 @@ export const updateCurrentWorkspace = (data) => {
         const data = response.data;
 
         if (data.error) {
-          return dispatch(updateCurrentWorkspaceFailure(data.error));
+          return dispatch(fetchWorkspaceFailure(data.error));
         } else {
-          dispatch(updateCurrentWorkspaceSuccess(data.workspace));
+          dispatch(fetchWorkspaceSuccess(data.workspace));
         }
       })
       .catch((error) => {
         const errorMsg = error.message;
-        dispatch(updateCurrentWorkspaceFailure(errorMsg));
+        dispatch(fetchWorkspaceFailure(errorMsg));
       });
   };
 };
 
-export const addMembersToWorkspace = (data) =>{
-  return (dispatch) =>{
-
+/**
+ * Add members to workspace
+ * @param {onject} data - Object containing Array of userIds to be added, wid, userId
+ * @returns Redux.Action
+ */
+export const addMembersToWorkspace = (data) => {
+  return (dispatch) => {
     dispatch(addMembersToWorkspaceRequest());
 
-    axios.post(`${API}/db/addMembersToWorkspace`,JSON.stringify(data),{
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
-    .then((response)=>{
-      const data =response.data;
-      if(data.error){
-        return dispatch(addMembersToWorkspaceFailure(data.error));
-      }else{
-        dispatch(addMembersToWorkspaceSuccess(data.workspace));
-      }
-    })
-    .catch(err=>{
-      const errorMsg = err.message;
-      dispatch(addMembersToWorkspaceFailure(errorMsg));
-    })
-
-  }
-}
+    axios
+      .post(`${API}/db/addMembersToWorkspace`, JSON.stringify(data), {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        if (data.error) {
+          return dispatch(addMembersToWorkspaceFailure(data.error));
+        } else {
+          dispatch(addMembersToWorkspaceSuccess(data.workspace));
+        }
+      })
+      .catch((err) => {
+        const errorMsg = err.message;
+        dispatch(addMembersToWorkspaceFailure(errorMsg));
+      });
+  };
+};
 
 export const deleteWorkspace = (data) => {
   return (dispatch) => {
@@ -201,4 +203,3 @@ export const deleteWorkspace = (data) => {
       });
   };
 };
-

@@ -1,26 +1,10 @@
 import React from "react";
 import { Navbar, NavDropdown, Image, Col, Row, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import default_image from "./default_image.jpg";
+import { convertBufferToImage } from "../../../../utils/helper_functions";
 import "./NavBar.css";
 
 const NavBar = ({ image, username, logOutUser }) => {
-  // Convert Buffer to base64 string.
-  const bufferToBase64 = (data) => {
-    let binary = "";
-    let bytes = new Uint8Array(data);
-    let len = bytes.byteLength;
-    for (let i = 0; i < len; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return btoa(binary);
-  };
-
-  // Convert the base64 String to image.
-  let userImage = image
-    ? `data:${image.contentType};base64,${bufferToBase64(image.data.data)}`
-    : default_image;
-
   const signout = () => {
     logOutUser();
   };
@@ -51,7 +35,7 @@ const NavBar = ({ image, username, logOutUser }) => {
               <Image
                 style={{ width: "30px", height: "30px" }}
                 className="user-avatar"
-                src={userImage}
+                src={convertBufferToImage(image)}
                 roundedCircle
               />
             }
