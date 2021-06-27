@@ -143,7 +143,7 @@ const workspaceReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        currentWorkspace: action.payload,
+        // currentWorkspace: action.payload,
         error: "",
       };
     case UDPATE_WORKSPACE_DETAILS_FAILURE:

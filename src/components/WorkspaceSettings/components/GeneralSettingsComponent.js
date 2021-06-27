@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { confirmAlert } from "react-confirm-alert";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router";
 import "./GeneralSettingsComponent.css";
 
 const GeneralSettingsComponent = (props) => {
@@ -12,6 +13,8 @@ const GeneralSettingsComponent = (props) => {
       workspace_desc: description,
     },
   });
+
+  let history = useHistory();
 
   const onSubmit = ({ workspace_name, workspace_desc }) => {
     const data = {
@@ -32,6 +35,7 @@ const GeneralSettingsComponent = (props) => {
     };
     // TODO: Redirect once deleted
     props.deleteWorkspace(data);
+    history.replace("/dashboard");
   };
 
   const onClickDelete = () => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Row,
@@ -17,6 +17,11 @@ import Loading from "../../utils/Loading/Loading";
 import { convertBufferToImage } from "../../utils/helper_functions";
 
 const Profile = (props) => {
+  useEffect(() => {
+    props.getUserById(props.data.userData._id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const {
     bio,
     email,

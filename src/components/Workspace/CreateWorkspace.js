@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { Link, Redirect } from "react-router-dom";
 
 const CreateWorkspace = (props) => {
-  console.log(props);
   const { data, addNewWorkspace } = props;
   const userId = data.userData._id;
 
@@ -12,6 +11,7 @@ const CreateWorkspace = (props) => {
   const onSubmit = (data) => {
     data.owner = userId;
     addNewWorkspace(data);
+    
   };
 
   const checkIfWorkSpaceExists = (value) => {
@@ -21,10 +21,11 @@ const CreateWorkspace = (props) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
   };
 
-  if (props.data.loading) {
+  if (data.loading) {
+    // FIXME: CANNOT REDIRECT
     return <Redirect to="/dashboard" />;
-  } else if (props.data.error) {
-    return <h2>{props.data.error}</h2>;
+  } else if (data.error) {
+    return <h2>{data.error}</h2>;
   } else
     return (
       <div className="mx-auto mb-5" id="outer-container">

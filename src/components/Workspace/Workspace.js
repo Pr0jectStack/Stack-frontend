@@ -8,7 +8,10 @@ const Workspace = (props) => {
   const userId = props.data._id;
 
   useEffect(() => {
-    props.getWorkspaceById(wid);
+    if (wid) {
+      props.getWorkspaceById(wid);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
